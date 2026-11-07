@@ -147,6 +147,20 @@ export const Prediction = z.object({
     placeId: z.string().optional(),
   })),
   sampleResidentIds: z.array(z.string()),
+  /**
+   * Added by Lane D (optional): for each sampleResidentIds entry, the explainResident() decision that
+   * POST /api/residents/:id/ask also uses. The resident list shows it, so the list and the interview agree.
+   */
+  sampleDecisions: z
+    .array(
+      z.object({
+        residentId: z.string(),
+        wouldOrderFromConcept: z.boolean(),
+        choseInstead: z.string().nullable(), // restaurant name, null = no order
+        hour: z.number().int().min(0).max(23), // the hour the decision is about
+      }),
+    )
+    .optional(),
   calibration: z.object({
     heldOutCorrelation: z.number().nullable(),
     note: z.string(),

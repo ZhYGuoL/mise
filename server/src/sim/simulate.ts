@@ -306,6 +306,12 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
     objections: objectionList,
     orderFlows,
     sampleResidentIds: samples.map((x) => residents[x.flow.r]!.id),
+    sampleDecisions: samples.map(({ d }) => ({
+      residentId: d.residentId,
+      wouldOrderFromConcept: d.wouldOrderFromConcept,
+      choseInstead: d.choseInstead,
+      hour: d.hour,
+    })),
     calibration: { heldOutCorrelation: null, note: "not calibrated yet" },
     computedMs: Math.round(performance.now() - t0),
   };

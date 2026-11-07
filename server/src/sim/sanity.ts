@@ -101,10 +101,14 @@ for (const [name, c, p] of [["fixture", base, b], ["East Liberty", farConcept, f
     const same = d.wouldOrderFromConcept
       ? flow.restaurant === "concept"
       : flow.restaurant === "other" && flow.placeId === restaurants[d.choseInsteadIndex]?.placeId;
-    if (same) agree++;
+    // The list shows sampleDecisions. It must be exactly what the interview computes.
+    const listed = p.sampleDecisions?.find((x) => x.residentId === id);
+    const listMatches =
+      listed?.wouldOrderFromConcept === d.wouldOrderFromConcept && listed.choseInstead === d.choseInstead && listed.hour === d.hour;
+    if (same && listMatches) agree++;
   }
-  console.log(`${name}: ${p.sampleResidentIds.length} samples, ${yes} would order, ${agree} match the map`);
-  checks.push([`${name}: sampled residents are on the map and match the interview`, p.sampleResidentIds.length >= 3 && agree === p.sampleResidentIds.length]);
+  console.log(`${name}: ${p.sampleResidentIds.length} samples, ${yes} would order, ${agree} match the map and the interview`);
+  checks.push([`${name}: sampled residents: list, map and interview agree`, p.sampleResidentIds.length >= 3 && agree === p.sampleResidentIds.length]);
 }
 
 const t0 = performance.now();
