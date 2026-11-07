@@ -1,5 +1,5 @@
 import type { Concept, Prediction, Restaurant } from '@mise/shared'
-import { toDayMinutes } from './time'
+import { DAY_MINUTES, hourSlot, toDayMinutes } from './time'
 
 export type LonLat = [number, number]
 
@@ -100,12 +100,25 @@ export function segment(f: Flow, s0: number, s1: number, steps = 14): LonLat[] {
   return out
 }
 
-/** Concept orders so far, from the hourly p50, so the counter ends at the headline number. */
-export function ordersSoFar(prediction: Prediction, t: number, hourSlotOf: (h: number) => number) {
+/** Hourly p50 orders added up to t (minutes since 06:00). */
+function hourlySoFar(prediction: Prediction, t: number) {
   let total = 0
   for (const b of prediction.byHour) {
-    const start = hourSlotOf(b.hour) * 60
+    const start = hourSlot(b.hour) * 60
     total += b.p50 * Math.min(Math.max((t - start) / 60, 0), 1)
   }
   return total
+}
+
+/**
+ * Concept orders so far, for the time-lapse counter. The hourly p50s give the shape of the day.
+ * The sum of hourly medians is not the median of the day, so the curve is scaled to end exactly
+ * at the headline orders p50.
+ */
+export function ordersSoFar(prediction: Prediction, t: number) {
+  const target = Math.round(prediction.orders.p50)
+  const total = hourlySoFar(prediction, DAY_MINUTES)
+  if (total <= 0) return t >= DAY_MINUTES ? target : 0
+  const sofar = hourlySoFar(prediction, t)
+  return sofar >= total ? target : Math.floor((target * sofar) / total)
 }
