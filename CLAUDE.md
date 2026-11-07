@@ -43,7 +43,10 @@ You were started with one brief in `briefs/`. Do that lane only.
 - Components: **Beautiful UI** (shadcn registry, see `docs/beautiful-ui.md`) for every agent surface.
   Use the `fluid-functionalism` skill for motion, type and spacing. Use `mal-gg-design` for dense
   data tables if you need one. Do not invent a new visual language.
-- Flat colors only. No gradients, no glows, no drop-shadow decoration.
+- Flat colors by default. Gradients are allowed when deliberate and they have a job: light or depth,
+  encoding data (a density map, an uncertainty band that fades out), or the restaurant's own brand.
+  Not allowed: the default AI look (purple-blue washes, glow halos, decorative gradient text), glows,
+  and drop-shadow decoration.
 - No explainer text in the UI. Never write sentences that describe how the product works
   ("Powered by a discrete choice model..."). Title, value, status word. Nothing else.
 - Every animation must have a cause the viewer can name (a new order, an edit, a finished run).
