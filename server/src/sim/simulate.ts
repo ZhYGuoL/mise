@@ -12,7 +12,7 @@ import { hash, normal, pickIndex, poisson, rng, round } from "../city/rng";
 import { buildConceptModel, conceptOpen, itemUtilities, type ConceptModel } from "./concept";
 import { decide, type ResidentDecision } from "./explain";
 import {
-  DAY_FACTOR, RADIUS_KM, SCALE, WEATHER, deliveryMinutes, eventEffect, hourWeights, partySize, placeTerms, sumTerms,
+  CALIBRATION, DAY_FACTOR, RADIUS_KM, SCALE, WEATHER, daypartOf, deliveryMinutes, eventEffect, hourWeights, partySize, placeTerms, sumTerms, timeTerm,
 } from "./model";
 import { expUtilities, loadStatic, type StaticCity } from "./static";
 
@@ -90,7 +90,7 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
   const outsideAdj = new Float64Array(nR);
   for (let r = 0; r < nR; r++) {
     const extra = weather.extraMinutes + effects[segIdx[r]!]!.extraMinutes;
-    outsideAdj[r] = outside[r]! * Math.exp(-SCALE * residents[r]!.weights.time * extra);
+    outsideAdj[r] = outside[r]! * Math.exp(-SCALE * timeTerm(residents[r]!.weights.time, extra));
   }
   const openMinute = new Uint8Array(1440);
   for (let m = 0; m < 1440; m++) openMinute[m] = conceptOpen(concept, scenario.day, m) ? 1 : 0;
@@ -131,11 +131,12 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
         const open = s.openAt[day]![hour]!;
         const row = r * nP;
         // Today's city: every open place, including the real restaurant if the concept replaces one.
+        const am = s.affMult[hour]!; // what people want at this time of day
         let others = outsideAdj[r]!;
         let eEx = 0;
         for (const j of open) {
-          if (j === ex) eEx = exp[row + j]!;
-          else others += exp[row + j]!;
+          if (j === ex) eEx = exp[row + j]! * am[j]!;
+          else others += exp[row + j]! * am[j]!;
         }
         const today = others + eEx;
 
@@ -144,7 +145,7 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
         let base = -1;
         if (target >= 0) {
           for (const j of open) {
-            const e = exp[row + j]!;
+            const e = exp[row + j]! * am[j]!;
             if (e === 0) continue;
             base = j;
             target -= e;
@@ -177,7 +178,7 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
             pick = -1;
             if (t2 >= 0) {
               for (const j of open) {
-                const e = j === ex ? 0 : exp[row + j]!;
+                const e = j === ex ? 0 : exp[row + j]! * am[j]!;
                 if (e === 0) continue;
                 pick = j;
                 t2 -= e;
@@ -216,9 +217,10 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
         const fav = s.fav[r * 3] === pick || s.fav[r * 3 + 1] === pick || s.fav[r * 3 + 2] === pick;
         const t = placeTerms(res, places[pick]!, s.km[row + pick]!, fav);
         t.habit *= effects[g]!.habit;
-        const uj = sumTerms(t);
+        const dp = daypartOf(hour);
+        const uj = sumTerms(t) + s.aff[pick * 5 + dp]!;
         // Out of range: would they want it if it delivered to them? Judge it at the edge of the range.
-        const ucSeen = cm.inRadius[r] === 0 ? uc - cm.time[r]! + res.weights.time * deliveryMinutes(RADIUS_KM) : uc;
+        const ucSeen = cm.inRadius[r] === 0 ? uc - cm.time[r]! + timeTerm(res.weights.time, deliveryMinutes(RADIUS_KM)) : uc;
         if (ucSeen < uj - NEAR) continue;
         considered++;
 
@@ -231,7 +233,7 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
             ["too_expensive", cm.pricePart[ck]! - t.price],
             ["fee_too_high", cm.feePart[ck]!],
             ["too_far", cm.time[r]! - t.time],
-            ["wrong_cuisine", cm.taste[r]! - t.taste],
+            ["wrong_cuisine", cm.taste[r]! + cm.affinity[dp]! - t.taste - s.aff[pick * 5 + dp]!],
             ["unknown_new_place", cm.newPlace[r]! + aware - (t.rating + t.popularity + t.habit)],
             ["no_diet_option", cm.variety[r]!],
           ];
@@ -350,7 +352,7 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
       choseInstead: d.choseInstead,
       hour: d.hour,
     })),
-    calibration: { heldOutCorrelation: null, note: "not calibrated yet" },
+    calibration: { heldOutCorrelation: CALIBRATION.heldOut?.median ?? null, note: CALIBRATION.note },
     ...existingFields(ex >= 0 ? restaurants[ex]! : null, scenario, hourRun, baseExRun),
     computedMs: Math.round(performance.now() - t0),
   };

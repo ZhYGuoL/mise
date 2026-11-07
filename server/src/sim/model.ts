@@ -5,6 +5,7 @@
 import type { Day, Resident, Restaurant, Scenario, Segment } from "@mise/shared";
 import { DIET_SUPPORT, normalizeCuisine, TIER_PRICE, type Cuisine } from "../city/cuisine";
 import { unit } from "../city/rng";
+import calibrationJson from "../../../data/city/calibration.json";
 
 /* ───────── geography ───────── */
 
@@ -51,9 +52,38 @@ export function feeTerm(wPrice: number, budget: number, deliveryFee: number, ser
   return FEE_AVERSION * (priceTerm(wPrice, actual, budget) - priceTerm(wPrice, typicalCost(menuPrice), budget));
 }
 
-/** Before 11 AM people want breakfast. Anything else is a hard sell. */
+/* ───────── time of day ───────── */
+
+/** Morning 5-10, lunch 11-14, afternoon 15-16, dinner 17-20, late 21-4. */
+export const DAYPARTS = ["morning", "lunch", "afternoon", "dinner", "late"] as const;
+export function daypartOf(hour: number): number {
+  if (hour >= 5 && hour < 11) return 0;
+  if (hour >= 11 && hour < 15) return 1;
+  if (hour >= 15 && hour < 17) return 2;
+  if (hour >= 17 && hour < 21) return 3;
+  return 4;
+}
+
+/** Before 11 AM people want breakfast. Anything else is a hard sell. The prior for every cuisine. */
 export const MORNING_PENALTY = -1.2;
-export const isMorning = (hour: number) => hour >= 5 && hour < 11;
+const MORNING_FOOD = new Set<string>(["breakfast", "cafe"]);
+export const affinityPrior = (c: string): number[] => [MORNING_FOOD.has(c) ? 0 : MORNING_PENALTY, 0, 0, 0, 0];
+
+/**
+ * How much people want a cuisine at each daypart (utility), fitted to Google popular times.
+ * A cuisine with no data keeps the prior.
+ */
+export function cuisineAffinity(c: string): number[] {
+  return CALIBRATION.affinity?.[c] ?? affinityPrior(c);
+}
+
+/** A place with several cuisines: the average of their affinities. */
+export function affinityFor(cuisines: readonly string[]): number[] {
+  if (cuisines.length === 0) return affinityPrior("");
+  const out = [0, 0, 0, 0, 0];
+  for (const c of cuisines) cuisineAffinity(c).forEach((a, k) => (out[k]! += a / cuisines.length));
+  return out;
+}
 
 /* ───────── taste and reputation ───────── */
 
@@ -102,8 +132,32 @@ export function dietVarietyTerm(compatibleMains: number): number {
 /** The "cook at home or skip" option is worth this much below a full app of choices. */
 export const OUTSIDE_GAP = 2.0;
 
+/**
+ * Calibrated values from scripts/calibrate (data/city/calibration.json). Hand-set values below are the
+ * fallback and the "uncalibrated" reference.
+ */
+export type Calibration = {
+  note: string;
+  scale: number;
+  timeScale: number;
+  hourCurve: Record<Segment, number[]> | null;
+  dayFactor: Record<Day, number> | null;
+  /** cuisine -> utility per daypart */
+  affinity?: Record<string, number[]> | null;
+  heldOut: { median: number; naiveMedian: number; uncalibratedMedian: number; places: number } | null;
+};
+export const CALIBRATION = calibrationJson as Calibration;
+
+/** Hand-set scales. The calibration grid moved the fit by under 0.01, so it keeps these. */
+export const HAND_SCALE = 1.25;
+export const HAND_TIME_SCALE = 1;
+
 /** Logit scale. Larger = people pick their best option more often. */
-export const SCALE = 1.25;
+export const SCALE = CALIBRATION.scale;
+
+/** Multiplies every resident's time weight. */
+export const TIME_SCALE = CALIBRATION.timeScale;
+export const timeTerm = (wTime: number, minutes: number) => wTime * TIME_SCALE * minutes;
 
 /* ───────── competitor static utility ───────── */
 
@@ -152,7 +206,7 @@ export function placeTerms(res: Resident, place: PlaceModel, km: number, isFavor
   return {
     taste: tasteFor(res.weights.cuisine, place.cuisines),
     price: priceTerm(res.weights.price, typicalCost(place.menuPrice), res.budgetPerMeal),
-    time: res.weights.time * deliveryMinutes(km),
+    time: timeTerm(res.weights.time, deliveryMinutes(km)),
     rating: ratingTerm(res.weights.rating, place.rating),
     popularity: popularityTerm(place.reviews),
     habit: isFavorite ? res.weights.habit : 0,
@@ -163,8 +217,8 @@ export const sumTerms = (t: Terms) => t.taste + t.price + t.time + t.rating + t.
 
 /* ───────── when people order ───────── */
 
-/** Relative weight of each hour 0-23, per segment, on a weekday. */
-export const HOUR_CURVE: Record<Segment, number[]> = {
+/** Relative weight of each hour 0-23, per segment, on a weekday. Hand-set. */
+export const HAND_HOUR_CURVE: Record<Segment, number[]> = {
   //            0    1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   21   22   23
   undergrad: [0.9, 0.6, 0.3, 0.1, .02, .01, .02, .05, 0.1, .15, 0.3, 0.6, 0.9, 0.8, 0.5, 0.4, 0.5, 0.8, 1.1, 1.2, 1.1, 1.1, 1.2, 1.1],
   grad_student: [0.4, 0.2, 0.1, .03, .01, .01, .02, .05, 0.1, .15, 0.3, 0.6, 1.0, 0.8, 0.4, 0.3, 0.4, 0.8, 1.2, 1.3, 1.1, 0.8, 0.6, 0.5],
@@ -173,10 +227,13 @@ export const HOUR_CURVE: Record<Segment, number[]> = {
   other: [.12, .06, .03, .01, .01, .01, .04, 0.1, .15, 0.2, 0.3, 0.6, 0.9, 0.6, 0.3, 0.3, 0.5, 1.0, 1.3, 1.1, 0.7, 0.4, 0.3, 0.2],
 };
 
-/** Delivery volume by day of week. */
-export const DAY_FACTOR: Record<Day, number> = {
+/** Delivery volume by day of week. Hand-set. */
+export const HAND_DAY_FACTOR: Record<Day, number> = {
   Sunday: 1.15, Monday: 0.85, Tuesday: 0.85, Wednesday: 0.9, Thursday: 0.95, Friday: 1.2, Saturday: 1.15,
 };
+
+export const HOUR_CURVE: Record<Segment, number[]> = CALIBRATION.hourCurve ?? HAND_HOUR_CURVE;
+export const DAY_FACTOR: Record<Day, number> = CALIBRATION.dayFactor ?? HAND_DAY_FACTOR;
 
 /** Hour weights for one segment on one scenario day. */
 export function hourWeights(segment: Segment, scenario: Scenario): number[] {

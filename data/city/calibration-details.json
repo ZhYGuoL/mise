@@ -1,0 +1,1650 @@
+{
+ "seed": 20261107,
+ "chosen": {
+  "scale": 1.25,
+  "timeScale": 1
+ },
+ "result": {
+  "median": 0.54,
+  "naiveMedian": 0.44,
+  "uncalibratedMedian": 0.32,
+  "trainMedian": 0.59,
+  "naiveTrainMedian": 0.39,
+  "beatsNaive": 9,
+  "places": 13
+ },
+ "reviewRankCorrelation": 0.45,
+ "heldOut": [
+  {
+   "placeId": "0x8834f39e74925be5:0x794635a23300a098",
+   "name": "Omar's Halal Grill",
+   "slots": 84,
+   "fitted": 0.03,
+   "naive": 0.02,
+   "uncalibrated": 0.14,
+   "friday": [
+    {
+     "hour": 11,
+     "google": 53,
+     "sim": 1.3829
+    },
+    {
+     "hour": 12,
+     "google": 51,
+     "sim": 1.7962
+    },
+    {
+     "hour": 13,
+     "google": 56,
+     "sim": 1.9594
+    },
+    {
+     "hour": 14,
+     "google": 53,
+     "sim": 2.0579
+    },
+    {
+     "hour": 15,
+     "google": 69,
+     "sim": 2.267
+    },
+    {
+     "hour": 16,
+     "google": 82,
+     "sim": 2.5814
+    },
+    {
+     "hour": 17,
+     "google": 82,
+     "sim": 3.0997
+    },
+    {
+     "hour": 18,
+     "google": 76,
+     "sim": 3.8009
+    },
+    {
+     "hour": 19,
+     "google": 76,
+     "sim": 3.885
+    },
+    {
+     "hour": 20,
+     "google": 87,
+     "sim": 3.2897
+    },
+    {
+     "hour": 21,
+     "google": 76,
+     "sim": 2.6031
+    },
+    {
+     "hour": 22,
+     "google": 71,
+     "sim": 2.7796
+    }
+   ],
+   "uncalibratedFriday": [
+    {
+     "hour": 11,
+     "sim": 1.8407
+    },
+    {
+     "hour": 12,
+     "sim": 2.6422
+    },
+    {
+     "hour": 13,
+     "sim": 2.066
+    },
+    {
+     "hour": 14,
+     "sim": 1.1267
+    },
+    {
+     "hour": 15,
+     "sim": 0.9217
+    },
+    {
+     "hour": 16,
+     "sim": 1.2983
+    },
+    {
+     "hour": 17,
+     "sim": 2.6222
+    },
+    {
+     "hour": 18,
+     "sim": 3.9004
+    },
+    {
+     "hour": 19,
+     "sim": 4.0591
+    },
+    {
+     "hour": 20,
+     "sim": 3.309
+    },
+    {
+     "hour": 21,
+     "sim": 2.7302
+    },
+    {
+     "hour": 22,
+     "sim": 4.1082
+    }
+   ]
+  },
+  {
+   "placeId": "0x8834f229ba22fc8d:0x85055234ab02e7b",
+   "name": "Dunkin'",
+   "slots": 114,
+   "fitted": 0.34,
+   "naive": 0.44,
+   "uncalibrated": 0.33,
+   "friday": [
+    {
+     "hour": 4,
+     "google": 26,
+     "sim": 0.6515
+    },
+    {
+     "hour": 5,
+     "google": 34,
+     "sim": 0.2794
+    },
+    {
+     "hour": 6,
+     "google": 58,
+     "sim": 0.3044
+    },
+    {
+     "hour": 7,
+     "google": 65,
+     "sim": 0.3802
+    },
+    {
+     "hour": 8,
+     "google": 67,
+     "sim": 0.5247
+    },
+    {
+     "hour": 9,
+     "google": 63,
+     "sim": 0.9565
+    },
+    {
+     "hour": 10,
+     "google": 63,
+     "sim": 1.3167
+    },
+    {
+     "hour": 11,
+     "google": 73,
+     "sim": 0.9663
+    },
+    {
+     "hour": 12,
+     "google": 67,
+     "sim": 1.3116
+    },
+    {
+     "hour": 13,
+     "google": 58,
+     "sim": 1.4818
+    },
+    {
+     "hour": 14,
+     "google": 54,
+     "sim": 1.6069
+    },
+    {
+     "hour": 15,
+     "google": 65,
+     "sim": 1.8694
+    },
+    {
+     "hour": 16,
+     "google": 82,
+     "sim": 2.1176
+    },
+    {
+     "hour": 17,
+     "google": 91,
+     "sim": 2.48
+    },
+    {
+     "hour": 18,
+     "google": 84,
+     "sim": 2.959
+    },
+    {
+     "hour": 19,
+     "google": 65,
+     "sim": 2.9523
+    },
+    {
+     "hour": 20,
+     "google": 43,
+     "sim": 2.51
+    }
+   ],
+   "uncalibratedFriday": [
+    {
+     "hour": 4,
+     "sim": 0.3607
+    },
+    {
+     "hour": 5,
+     "sim": 0.1181
+    },
+    {
+     "hour": 6,
+     "sim": 0.2412
+    },
+    {
+     "hour": 7,
+     "sim": 0.4934
+    },
+    {
+     "hour": 8,
+     "sim": 0.6996
+    },
+    {
+     "hour": 9,
+     "sim": 0.9714
+    },
+    {
+     "hour": 10,
+     "sim": 1.4248
+    },
+    {
+     "hour": 11,
+     "sim": 1.3514
+    },
+    {
+     "hour": 12,
+     "sim": 1.9641
+    },
+    {
+     "hour": 13,
+     "sim": 1.6308
+    },
+    {
+     "hour": 14,
+     "sim": 0.976
+    },
+    {
+     "hour": 15,
+     "sim": 0.8284
+    },
+    {
+     "hour": 16,
+     "sim": 1.1019
+    },
+    {
+     "hour": 17,
+     "sim": 1.9624
+    },
+    {
+     "hour": 18,
+     "sim": 2.8218
+    },
+    {
+     "hour": 19,
+     "sim": 2.9879
+    },
+    {
+     "hour": 20,
+     "sim": 2.5657
+    }
+   ]
+  },
+  {
+   "placeId": "0x8834f2000885e71b:0x5c9bea6c6387a04d",
+   "name": "How Lee",
+   "slots": 71,
+   "fitted": 0.66,
+   "naive": 0.61,
+   "uncalibrated": 0.41,
+   "friday": [
+    {
+     "hour": 11,
+     "google": 17,
+     "sim": 0.4191
+    },
+    {
+     "hour": 12,
+     "google": 25,
+     "sim": 0.5123
+    },
+    {
+     "hour": 13,
+     "google": 31,
+     "sim": 0.5489
+    },
+    {
+     "hour": 14,
+     "google": 27,
+     "sim": 0.5716
+    },
+    {
+     "hour": 15,
+     "google": 29,
+     "sim": 0.7142
+    },
+    {
+     "hour": 16,
+     "google": 42,
+     "sim": 0.834
+    },
+    {
+     "hour": 17,
+     "google": 63,
+     "sim": 1.2116
+    },
+    {
+     "hour": 18,
+     "google": 80,
+     "sim": 1.4513
+    },
+    {
+     "hour": 19,
+     "google": 80,
+     "sim": 1.4447
+    },
+    {
+     "hour": 20,
+     "google": 61,
+     "sim": 1.185
+    },
+    {
+     "hour": 21,
+     "google": 38,
+     "sim": 0.7928
+    }
+   ],
+   "uncalibratedFriday": [
+    {
+     "hour": 11,
+     "sim": 0.6297
+    },
+    {
+     "hour": 12,
+     "sim": 0.8896
+    },
+    {
+     "hour": 13,
+     "sim": 0.6779
+    },
+    {
+     "hour": 14,
+     "sim": 0.3486
+    },
+    {
+     "hour": 15,
+     "sim": 0.2971
+    },
+    {
+     "hour": 16,
+     "sim": 0.4688
+    },
+    {
+     "hour": 17,
+     "sim": 1.0163
+    },
+    {
+     "hour": 18,
+     "sim": 1.452
+    },
+    {
+     "hour": 19,
+     "sim": 1.4142
+    },
+    {
+     "hour": 20,
+     "sim": 1.0665
+    },
+    {
+     "hour": 21,
+     "sim": 0.7826
+    }
+   ]
+  },
+  {
+   "placeId": "0x8834f1ff173a8c4b:0x16eae65b36a0101c",
+   "name": "Pastoli's",
+   "slots": 67,
+   "fitted": 0.28,
+   "naive": 0.02,
+   "uncalibrated": 0.29,
+   "friday": [
+    {
+     "hour": 11,
+     "google": 19,
+     "sim": 1.2025
+    },
+    {
+     "hour": 12,
+     "google": 32,
+     "sim": 1.5029
+    },
+    {
+     "hour": 13,
+     "google": 28,
+     "sim": 1.6366
+    },
+    {
+     "hour": 14,
+     "google": 27,
+     "sim": 1.7428
+    },
+    {
+     "hour": 15,
+     "google": 26,
+     "sim": 1.953
+    },
+    {
+     "hour": 16,
+     "google": 31,
+     "sim": 2.2888
+    },
+    {
+     "hour": 17,
+     "google": 48,
+     "sim": 3.0789
+    },
+    {
+     "hour": 18,
+     "google": 52,
+     "sim": 3.6328
+    },
+    {
+     "hour": 19,
+     "google": 48,
+     "sim": 3.5482
+    },
+    {
+     "hour": 20,
+     "google": 32,
+     "sim": 2.8971
+    },
+    {
+     "hour": 21,
+     "google": 32,
+     "sim": 2.2983
+    },
+    {
+     "hour": 22,
+     "google": 28,
+     "sim": 2.3779
+    }
+   ],
+   "uncalibratedFriday": [
+    {
+     "hour": 11,
+     "sim": 1.5917
+    },
+    {
+     "hour": 12,
+     "sim": 2.2362
+    },
+    {
+     "hour": 13,
+     "sim": 1.7524
+    },
+    {
+     "hour": 14,
+     "sim": 0.956
+    },
+    {
+     "hour": 15,
+     "sim": 0.822
+    },
+    {
+     "hour": 16,
+     "sim": 1.271
+    },
+    {
+     "hour": 17,
+     "sim": 2.6363
+    },
+    {
+     "hour": 18,
+     "sim": 3.6862
+    },
+    {
+     "hour": 19,
+     "sim": 3.5728
+    },
+    {
+     "hour": 20,
+     "sim": 2.7323
+    },
+    {
+     "hour": 21,
+     "sim": 2.2175
+    },
+    {
+     "hour": 22,
+     "sim": 3.3144
+    }
+   ]
+  },
+  {
+   "placeId": "0x8834f210dfe82e2f:0xd21b7c032976c0f9",
+   "name": "Girasole",
+   "slots": 60,
+   "fitted": 0.74,
+   "naive": 0.69,
+   "uncalibrated": 0.54,
+   "friday": [
+    {
+     "hour": 11,
+     "google": 18,
+     "sim": 0.6657
+    },
+    {
+     "hour": 12,
+     "google": 29,
+     "sim": 0.7658
+    },
+    {
+     "hour": 13,
+     "google": 29,
+     "sim": 0.7819
+    },
+    {
+     "hour": 14,
+     "google": 35,
+     "sim": 0.7857
+    },
+    {
+     "hour": 15,
+     "google": 39,
+     "sim": 0.9725
+    },
+    {
+     "hour": 16,
+     "google": 52,
+     "sim": 1.136
+    },
+    {
+     "hour": 17,
+     "google": 61,
+     "sim": 1.058
+    },
+    {
+     "hour": 18,
+     "google": 75,
+     "sim": 1.3633
+    },
+    {
+     "hour": 19,
+     "google": 82,
+     "sim": 1.4527
+    },
+    {
+     "hour": 20,
+     "google": 78,
+     "sim": 1.216
+    },
+    {
+     "hour": 21,
+     "google": 65,
+     "sim": 1.3014
+    }
+   ],
+   "uncalibratedFriday": [
+    {
+     "hour": 11,
+     "sim": 1.0072
+    },
+    {
+     "hour": 12,
+     "sim": 1.3319
+    },
+    {
+     "hour": 13,
+     "sim": 0.9484
+    },
+    {
+     "hour": 14,
+     "sim": 0.4419
+    },
+    {
+     "hour": 15,
+     "sim": 0.3337
+    },
+    {
+     "hour": 16,
+     "sim": 0.5427
+    },
+    {
+     "hour": 17,
+     "sim": 1.3628
+    },
+    {
+     "hour": 18,
+     "sim": 2.1118
+    },
+    {
+     "hour": 19,
+     "sim": 2.1456
+    },
+    {
+     "hour": 20,
+     "sim": 1.618
+    },
+    {
+     "hour": 21,
+     "sim": 1.0031
+    }
+   ]
+  },
+  {
+   "placeId": "0x8834f210d21b6b57:0xaa8f83a6511e4d50",
+   "name": "Bruegger's Bagels",
+   "slots": 55,
+   "fitted": 0.56,
+   "naive": 0.28,
+   "uncalibrated": 0.63,
+   "friday": [
+    {
+     "hour": 6,
+     "google": 52,
+     "sim": 0.593
+    },
+    {
+     "hour": 7,
+     "google": 72,
+     "sim": 0.7824
+    },
+    {
+     "hour": 8,
+     "google": 92,
+     "sim": 1.0245
+    },
+    {
+     "hour": 9,
+     "google": 88,
+     "sim": 1.8336
+    },
+    {
+     "hour": 10,
+     "google": 78,
+     "sim": 2.4661
+    },
+    {
+     "hour": 11,
+     "google": 66,
+     "sim": 0.8566
+    },
+    {
+     "hour": 12,
+     "google": 50,
+     "sim": 1.0958
+    },
+    {
+     "hour": 13,
+     "google": 40,
+     "sim": 1.1987
+    }
+   ],
+   "uncalibratedFriday": [
+    {
+     "hour": 6,
+     "sim": 0.4189
+    },
+    {
+     "hour": 7,
+     "sim": 0.8849
+    },
+    {
+     "hour": 8,
+     "sim": 1.0964
+    },
+    {
+     "hour": 9,
+     "sim": 1.4808
+    },
+    {
+     "hour": 10,
+     "sim": 2.1394
+    },
+    {
+     "hour": 11,
+     "sim": 1.0353
+    },
+    {
+     "hour": 12,
+     "sim": 1.4735
+    },
+    {
+     "hour": 13,
+     "sim": 1.1562
+    }
+   ]
+  },
+  {
+   "placeId": "0x8834f3950bde0995:0xf38a4158f72b9756",
+   "name": "El Jefes Taqueria",
+   "slots": 139,
+   "fitted": 0.69,
+   "naive": 0.51,
+   "uncalibrated": 0.44,
+   "friday": [
+    {
+     "hour": 0,
+     "google": 72,
+     "sim": 6.3681
+    },
+    {
+     "hour": 1,
+     "google": 55,
+     "sim": 3.9219
+    },
+    {
+     "hour": 2,
+     "google": 36,
+     "sim": 2.3644
+    },
+    {
+     "hour": 3,
+     "google": 25,
+     "sim": 1.6917
+    },
+    {
+     "hour": 8,
+     "google": 10,
+     "sim": 0.9283
+    },
+    {
+     "hour": 9,
+     "google": 18,
+     "sim": 1.6492
+    },
+    {
+     "hour": 10,
+     "google": 28,
+     "sim": 2.2533
+    },
+    {
+     "hour": 11,
+     "google": 44,
+     "sim": 4.0283
+    },
+    {
+     "hour": 12,
+     "google": 54,
+     "sim": 5.376
+    },
+    {
+     "hour": 13,
+     "google": 53,
+     "sim": 5.9655
+    },
+    {
+     "hour": 14,
+     "google": 44,
+     "sim": 6.3441
+    },
+    {
+     "hour": 15,
+     "google": 42,
+     "sim": 8.8915
+    },
+    {
+     "hour": 16,
+     "google": 53,
+     "sim": 10.0978
+    },
+    {
+     "hour": 17,
+     "google": 63,
+     "sim": 11.0004
+    },
+    {
+     "hour": 18,
+     "google": 80,
+     "sim": 13.2758
+    },
+    {
+     "hour": 19,
+     "google": 81,
+     "sim": 13.4131
+    },
+    {
+     "hour": 20,
+     "google": 79,
+     "sim": 11.38
+    },
+    {
+     "hour": 21,
+     "google": 91,
+     "sim": 6.4754
+    },
+    {
+     "hour": 22,
+     "google": 96,
+     "sim": 7.1267
+    },
+    {
+     "hour": 23,
+     "google": 100,
+     "sim": 6.4294
+    }
+   ],
+   "uncalibratedFriday": [
+    {
+     "hour": 0,
+     "sim": 22.6666
+    },
+    {
+     "hour": 1,
+     "sim": 14.3835
+    },
+    {
+     "hour": 2,
+     "sim": 7.5669
+    },
+    {
+     "hour": 3,
+     "sim": 3.1783
+    },
+    {
+     "hour": 8,
+     "sim": 1.3319
+    },
+    {
+     "hour": 9,
+     "sim": 1.7812
+    },
+    {
+     "hour": 10,
+     "sim": 2.6364
+    },
+    {
+     "hour": 11,
+     "sim": 5.3402
+    },
+    {
+     "hour": 12,
+     "sim": 7.7681
+    },
+    {
+     "hour": 13,
+     "sim": 6.2524
+    },
+    {
+     "hour": 14,
+     "sim": 3.5548
+    },
+    {
+     "hour": 15,
+     "sim": 2.945
+    },
+    {
+     "hour": 16,
+     "sim": 4.0334
+    },
+    {
+     "hour": 17,
+     "sim": 7.6813
+    },
+    {
+     "hour": 18,
+     "sim": 11.2128
+    },
+    {
+     "hour": 19,
+     "sim": 11.7656
+    },
+    {
+     "hour": 20,
+     "sim": 9.829
+    },
+    {
+     "hour": 21,
+     "sim": 8.729
+    },
+    {
+     "hour": 22,
+     "sim": 14.0101
+    },
+    {
+     "hour": 23,
+     "sim": 16.9121
+    }
+   ]
+  },
+  {
+   "placeId": "0x8834f229c08ed2db:0x10f61c9bebef4098",
+   "name": "Noodles & Company",
+   "slots": 90,
+   "fitted": 0.1,
+   "naive": 0.11,
+   "uncalibrated": 0,
+   "friday": [
+    {
+     "hour": 10,
+     "google": 38,
+     "sim": 0.476
+    },
+    {
+     "hour": 11,
+     "google": 38,
+     "sim": 0.7438
+    },
+    {
+     "hour": 12,
+     "google": 52,
+     "sim": 0.9626
+    },
+    {
+     "hour": 13,
+     "google": 57,
+     "sim": 1.0492
+    },
+    {
+     "hour": 14,
+     "google": 57,
+     "sim": 1.1045
+    },
+    {
+     "hour": 15,
+     "google": 47,
+     "sim": 1.0125
+    },
+    {
+     "hour": 16,
+     "google": 52,
+     "sim": 1.1515
+    },
+    {
+     "hour": 17,
+     "google": 71,
+     "sim": 1.5067
+    },
+    {
+     "hour": 18,
+     "google": 85,
+     "sim": 1.8364
+    },
+    {
+     "hour": 19,
+     "google": 76,
+     "sim": 1.8717
+    },
+    {
+     "hour": 20,
+     "google": 47,
+     "sim": 1.581
+    },
+    {
+     "hour": 21,
+     "google": 33,
+     "sim": 1.5221
+    },
+    {
+     "hour": 22,
+     "google": 28,
+     "sim": 1.6245
+    }
+   ],
+   "uncalibratedFriday": [
+    {
+     "hour": 10,
+     "sim": 0.4871
+    },
+    {
+     "hour": 11,
+     "sim": 0.9391
+    },
+    {
+     "hour": 12,
+     "sim": 1.3478
+    },
+    {
+     "hour": 13,
+     "sim": 1.0523
+    },
+    {
+     "hour": 14,
+     "sim": 0.5738
+    },
+    {
+     "hour": 15,
+     "sim": 0.4741
+    },
+    {
+     "hour": 16,
+     "sim": 0.6712
+    },
+    {
+     "hour": 17,
+     "sim": 1.3557
+    },
+    {
+     "hour": 18,
+     "sim": 1.9988
+    },
+    {
+     "hour": 19,
+     "sim": 2.068
+    },
+    {
+     "hour": 20,
+     "sim": 1.6766
+    },
+    {
+     "hour": 21,
+     "sim": 1.3982
+    },
+    {
+     "hour": 22,
+     "sim": 2.0989
+    }
+   ]
+  },
+  {
+   "placeId": "0x8834f22a1db10c2d:0xc75a6e11758cc6be",
+   "name": "Prince of India Restaurant",
+   "slots": 70,
+   "fitted": -0.51,
+   "naive": -0.13,
+   "uncalibrated": -0.25,
+   "friday": [
+    {
+     "hour": 11,
+     "google": 72,
+     "sim": 0.694
+    },
+    {
+     "hour": 12,
+     "google": 66,
+     "sim": 0.9185
+    },
+    {
+     "hour": 13,
+     "google": 55,
+     "sim": 1.0104
+    },
+    {
+     "hour": 14,
+     "google": 38,
+     "sim": 1.0538
+    },
+    {
+     "hour": 16,
+     "google": 22,
+     "sim": 1.3991
+    },
+    {
+     "hour": 17,
+     "google": 27,
+     "sim": 1.9227
+    },
+    {
+     "hour": 18,
+     "google": 22,
+     "sim": 2.3422
+    },
+    {
+     "hour": 19,
+     "google": 22,
+     "sim": 2.4007
+    },
+    {
+     "hour": 20,
+     "google": 22,
+     "sim": 2.0484
+    },
+    {
+     "hour": 21,
+     "google": 22,
+     "sim": 1.949
+    }
+   ],
+   "uncalibratedFriday": [
+    {
+     "hour": 11,
+     "sim": 1.0879
+    },
+    {
+     "hour": 12,
+     "sim": 1.6073
+    },
+    {
+     "hour": 13,
+     "sim": 1.273
+    },
+    {
+     "hour": 14,
+     "sim": 0.6935
+    },
+    {
+     "hour": 16,
+     "sim": 0.7778
+    },
+    {
+     "hour": 17,
+     "sim": 1.5371
+    },
+    {
+     "hour": 18,
+     "sim": 2.2785
+    },
+    {
+     "hour": 19,
+     "sim": 2.4024
+    },
+    {
+     "hour": 20,
+     "sim": 1.9918
+    },
+    {
+     "hour": 21,
+     "sim": 1.6691
+    }
+   ]
+  },
+  {
+   "placeId": "0x8834f24714cafc2d:0x6743f418dd59bde8",
+   "name": "Ginza Japanese Restaurant",
+   "slots": 63,
+   "fitted": 0.54,
+   "naive": 0.68,
+   "uncalibrated": 0.27,
+   "friday": [
+    {
+     "hour": 11,
+     "google": 17,
+     "sim": 0.859
+    },
+    {
+     "hour": 12,
+     "google": 24,
+     "sim": 1.0682
+    },
+    {
+     "hour": 13,
+     "google": 24,
+     "sim": 1.1375
+    },
+    {
+     "hour": 14,
+     "google": 25,
+     "sim": 1.1661
+    },
+    {
+     "hour": 15,
+     "google": 31,
+     "sim": 1.6098
+    },
+    {
+     "hour": 16,
+     "google": 45,
+     "sim": 1.8437
+    },
+    {
+     "hour": 17,
+     "google": 66,
+     "sim": 2.4363
+    },
+    {
+     "hour": 18,
+     "google": 86,
+     "sim": 3.0671
+    },
+    {
+     "hour": 19,
+     "google": 97,
+     "sim": 3.2193
+    },
+    {
+     "hour": 20,
+     "google": 74,
+     "sim": 2.7371
+    },
+    {
+     "hour": 21,
+     "google": 43,
+     "sim": 1.9148
+    }
+   ],
+   "uncalibratedFriday": [
+    {
+     "hour": 11,
+     "sim": 1.4205
+    },
+    {
+     "hour": 12,
+     "sim": 1.9894
+    },
+    {
+     "hour": 13,
+     "sim": 1.5003
+    },
+    {
+     "hour": 14,
+     "sim": 0.7656
+    },
+    {
+     "hour": 15,
+     "sim": 0.6034
+    },
+    {
+     "hour": 16,
+     "sim": 0.8795
+    },
+    {
+     "hour": 17,
+     "sim": 1.9331
+    },
+    {
+     "hour": 18,
+     "sim": 2.965
+    },
+    {
+     "hour": 19,
+     "sim": 3.1017
+    },
+    {
+     "hour": 20,
+     "sim": 2.4813
+    },
+    {
+     "hour": 21,
+     "sim": 1.8652
+    }
+   ]
+  },
+  {
+   "placeId": "0x8834f36ae2456117:0x2aa399c5e1cc762b",
+   "name": "Dad's Dog & Burger",
+   "slots": 55,
+   "fitted": 0.71,
+   "naive": 0.47,
+   "uncalibrated": 0.32,
+   "friday": [
+    {
+     "hour": 10,
+     "google": 47,
+     "sim": 2.446
+    },
+    {
+     "hour": 11,
+     "google": 67,
+     "sim": 2.7121
+    },
+    {
+     "hour": 12,
+     "google": 80,
+     "sim": 3.42
+    },
+    {
+     "hour": 13,
+     "google": 75,
+     "sim": 3.6997
+    },
+    {
+     "hour": 14,
+     "google": 69,
+     "sim": 3.9118
+    },
+    {
+     "hour": 15,
+     "google": 63,
+     "sim": 3.6586
+    },
+    {
+     "hour": 16,
+     "google": 56,
+     "sim": 4.2238
+    },
+    {
+     "hour": 17,
+     "google": 51,
+     "sim": 4.6955
+    }
+   ],
+   "uncalibratedFriday": [
+    {
+     "hour": 10,
+     "sim": 2.414
+    },
+    {
+     "hour": 11,
+     "sim": 3.0515
+    },
+    {
+     "hour": 12,
+     "sim": 4.2991
+    },
+    {
+     "hour": 13,
+     "sim": 3.3129
+    },
+    {
+     "hour": 14,
+     "sim": 1.7929
+    },
+    {
+     "hour": 15,
+     "sim": 1.484
+    },
+    {
+     "hour": 16,
+     "sim": 2.1825
+    },
+    {
+     "hour": 17,
+     "sim": 4.5466
+    }
+   ]
+  },
+  {
+   "placeId": "0x8834f20cac7b0859:0xb9cb735428929d9",
+   "name": "Noodlehead",
+   "slots": 70,
+   "fitted": 0.79,
+   "naive": 0.55,
+   "uncalibrated": 0.66,
+   "friday": [
+    {
+     "hour": 12,
+     "google": 28,
+     "sim": 3.3486
+    },
+    {
+     "hour": 13,
+     "google": 39,
+     "sim": 3.4828
+    },
+    {
+     "hour": 14,
+     "google": 41,
+     "sim": 3.5315
+    },
+    {
+     "hour": 15,
+     "google": 40,
+     "sim": 2.1221
+    },
+    {
+     "hour": 16,
+     "google": 45,
+     "sim": 2.464
+    },
+    {
+     "hour": 17,
+     "google": 64,
+     "sim": 5.392
+    },
+    {
+     "hour": 18,
+     "google": 88,
+     "sim": 6.8048
+    },
+    {
+     "hour": 19,
+     "google": 100,
+     "sim": 7.1247
+    },
+    {
+     "hour": 20,
+     "google": 93,
+     "sim": 5.9574
+    },
+    {
+     "hour": 21,
+     "google": 71,
+     "sim": 4.0967
+    }
+   ],
+   "uncalibratedFriday": [
+    {
+     "hour": 12,
+     "sim": 4.5062
+    },
+    {
+     "hour": 13,
+     "sim": 3.2882
+    },
+    {
+     "hour": 14,
+     "sim": 1.5847
+    },
+    {
+     "hour": 15,
+     "sim": 1.2408
+    },
+    {
+     "hour": 16,
+     "sim": 1.964
+    },
+    {
+     "hour": 17,
+     "sim": 4.7103
+    },
+    {
+     "hour": 18,
+     "sim": 7.1585
+    },
+    {
+     "hour": 19,
+     "sim": 7.2317
+    },
+    {
+     "hour": 20,
+     "sim": 5.5
+    },
+    {
+     "hour": 21,
+     "sim": 3.6037
+    }
+   ]
+  },
+  {
+   "placeId": "0x8834f284857a9fed:0x9e9e20ccde656260",
+   "name": "Panera Bread",
+   "slots": 101,
+   "fitted": 0.14,
+   "naive": 0.06,
+   "uncalibrated": 0.02,
+   "friday": [
+    {
+     "hour": 6,
+     "google": 56,
+     "sim": 0.1501
+    },
+    {
+     "hour": 7,
+     "google": 69,
+     "sim": 0.2252
+    },
+    {
+     "hour": 8,
+     "google": 72,
+     "sim": 0.3011
+    },
+    {
+     "hour": 9,
+     "google": 72,
+     "sim": 0.5322
+    },
+    {
+     "hour": 10,
+     "google": 74,
+     "sim": 0.6764
+    },
+    {
+     "hour": 11,
+     "google": 76,
+     "sim": 0.6143
+    },
+    {
+     "hour": 12,
+     "google": 69,
+     "sim": 0.7435
+    },
+    {
+     "hour": 13,
+     "google": 54,
+     "sim": 0.795
+    },
+    {
+     "hour": 14,
+     "google": 52,
+     "sim": 0.8306
+    },
+    {
+     "hour": 15,
+     "google": 43,
+     "sim": 0.915
+    },
+    {
+     "hour": 16,
+     "google": 41,
+     "sim": 1.0702
+    },
+    {
+     "hour": 17,
+     "google": 43,
+     "sim": 0.9236
+    },
+    {
+     "hour": 18,
+     "google": 36,
+     "sim": 1.1162
+    },
+    {
+     "hour": 19,
+     "google": 36,
+     "sim": 1.1177
+    },
+    {
+     "hour": 20,
+     "google": 40,
+     "sim": 0.9218
+    }
+   ],
+   "uncalibratedFriday": [
+    {
+     "hour": 6,
+     "sim": 0.1405
+    },
+    {
+     "hour": 7,
+     "sim": 0.3281
+    },
+    {
+     "hour": 8,
+     "sim": 0.4004
+    },
+    {
+     "hour": 9,
+     "sim": 0.5337
+    },
+    {
+     "hour": 10,
+     "sim": 0.7295
+    },
+    {
+     "hour": 11,
+     "sim": 0.6888
+    },
+    {
+     "hour": 12,
+     "sim": 0.9595
+    },
+    {
+     "hour": 13,
+     "sim": 0.726
+    },
+    {
+     "hour": 14,
+     "sim": 0.3769
+    },
+    {
+     "hour": 15,
+     "sim": 0.3168
+    },
+    {
+     "hour": 16,
+     "sim": 0.4973
+    },
+    {
+     "hour": 17,
+     "sim": 1.084
+    },
+    {
+     "hour": 18,
+     "sim": 1.5681
+    },
+    {
+     "hour": 19,
+     "sim": 1.5374
+    },
+    {
+     "hour": 20,
+     "sim": 1.1663
+    }
+   ]
+  }
+ ],
+ "train": [
+  "Pizza Palermo",
+  "Subway",
+  "Chipotle",
+  "Fet-Fisk",
+  "Grapow",
+  "Wai Wai Chinese Cuisine",
+  "Casbah",
+  "Pamela's Diner",
+  "Urban Tap",
+  "Turkish Kebab House",
+  "Silk Elephant",
+  "Berry Fresh Frozen Yogurt",
+  "Upstreet Diner",
+  "Pizza Bellino",
+  "Murray Ave. Grill",
+  "Bruegger's Bagels",
+  "Uncle Sam's Subs",
+  "Sichuan Gourmet",
+  "Muddy Waters Oyster Bar",
+  "The Porch",
+  "Penn Station",
+  "Papa John's",
+  "Antoon's Pizza",
+  "McDonald's",
+  "CHiKN",
+  "Stack'd",
+  "Panera Bread",
+  "Primanti Bros.",
+  "Jimmy John's",
+  "Mercurio's",
+  "Pamela's Diner",
+  "KuJiRa Sushi & Bar",
+  "Rose Tea Cafe",
+  "Butterjoint",
+  "Cafe Moulin",
+  "Pizza Prima",
+  "Pizza Perfecta",
+  "Las Palmas",
+  "Everyday Noodles",
+  "PF BBQ House - 匹夫小馆",
+  "Forbes Gyro",
+  "Bangal Kebab House & Restaurant",
+  "Oishii Bento",
+  "Atarashi",
+  "Moe's Southwest Grill",
+  "Cafe 33 Taiwanese Bistro",
+  "Pad Thai Noodle",
+  "Azorean Cafe",
+  "Chipotle",
+  "Chick-n Grille",
+  "Szechuan Express"
+ ]
+}
