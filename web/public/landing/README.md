@@ -15,3 +15,9 @@ Open it at `http://localhost:5173/landing/index.html` while `bun run dev` is run
 - Closing: a spinning bowl with rising steam and a letter-by-letter headline.
 
 Reduced-motion users get the static layout.
+
+## Content
+
+All photos are Mise's own generated dishes from `data/generated/`, resized to 700 px.
+All numbers come from the Crunch House fixtures and the city data.
+Rebuild `data.js` with `bun scripts/build-landing-data.ts`.
