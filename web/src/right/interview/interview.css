@@ -1,0 +1,9 @@
+/* Wave 2: a term bar grows from the center line when the answer arrives. */
+@keyframes interview-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}

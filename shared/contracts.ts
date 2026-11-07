@@ -205,6 +205,12 @@ export const InterviewAnswer = z.object({
   choseInstead: z.string().nullable(),
   /** the actual utility terms behind the decision. The answer must be faithful to these. */
   breakdown: z.array(z.object({ factor: z.string(), value: z.number() })),
+  /** Wave 2 (optional): the hour the resident usually orders on the scenario day, 0-23. */
+  hour: z.number().int().min(0).max(23).optional(),
+  /** Wave 2 (optional): the breakdown factor the answer leads with, the term that decided it. */
+  deciding: z.string().optional(),
+  /** Wave 2 (optional): their best other option, also when they picked the concept. Negative terms favor it. */
+  against: z.string().nullable().optional(),
 });
 
 /* ───────────── API surface ─────────────
@@ -223,15 +229,29 @@ export const InterviewAnswer = z.object({
  * Any endpoint not built yet MUST return the matching file in data/fixtures/.
  */
 
+/**
+ * Wave 2 (optional): which optimize round an event belongs to. `candidate` is the edit set
+ * inside the round, `kept` marks the set the loop kept, `final` marks the result to approve.
+ */
+export const OptimizeStep = z.object({
+  round: z.number().int().nonnegative(),
+  candidate: z.number().int().nonnegative().optional(),
+  kept: z.boolean().optional(),
+  final: z.boolean().optional(),
+  /** short name for the edit set, e.g. "Free delivery" */
+  title: z.string().optional(),
+});
+export type OptimizeStep = z.infer<typeof OptimizeStep>;
+
 export const AgentEvent = z.discriminatedUnion("type", [
-  z.object({ type: z.literal("text"), delta: z.string() }),
-  z.object({ type: z.literal("thinking"), label: z.string(), detail: z.string().optional() }),
-  z.object({ type: z.literal("edits"), edits: z.array(ConceptEdit), needsApproval: z.boolean() }),
+  z.object({ type: z.literal("text"), delta: z.string(), optimize: OptimizeStep.optional() }),
+  z.object({ type: z.literal("thinking"), label: z.string(), detail: z.string().optional(), optimize: OptimizeStep.optional() }),
+  z.object({ type: z.literal("edits"), edits: z.array(ConceptEdit), needsApproval: z.boolean(), optimize: OptimizeStep.optional() }),
   z.object({ type: z.literal("concept"), concept: Concept }),
   z.object({ type: z.literal("generating"), target: z.string() }), // "logo" | itemId
   z.object({ type: z.literal("generated"), target: z.string(), url: z.string() }),
-  z.object({ type: z.literal("simulating"), scenario: Scenario }),
-  z.object({ type: z.literal("prediction"), prediction: Prediction }),
+  z.object({ type: z.literal("simulating"), scenario: Scenario, optimize: OptimizeStep.optional() }),
+  z.object({ type: z.literal("prediction"), prediction: Prediction, optimize: OptimizeStep.optional() }),
   z.object({ type: z.literal("done") }),
   z.object({ type: z.literal("error"), message: z.string() }),
 ]);
