@@ -1,0 +1,21 @@
+/* Lane E: keep the OpenFreeMap / OpenStreetMap attribution, but quiet and dark on the dark map. */
+.mise-map .maplibregl-ctrl-attrib {
+  background: rgb(0 0 0 / 0.55);
+  color: rgb(163 163 163);
+  font-size: 10px;
+  line-height: 14px;
+  border-radius: 6px;
+}
+.mise-map .maplibregl-ctrl-attrib a {
+  color: rgb(163 163 163);
+}
+.mise-map .maplibregl-ctrl-attrib-button {
+  background-color: rgb(255 255 255 / 0.75);
+  transform: scale(0.8);
+}
+.mise-map .maplibregl-ctrl-attrib.maplibregl-compact {
+  min-height: 20px;
+}
+.mise-map .maplibregl-ctrl-bottom-right .maplibregl-ctrl {
+  margin: 0 6px 6px 0;
+}
