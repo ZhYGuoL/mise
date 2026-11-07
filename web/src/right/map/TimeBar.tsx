@@ -48,7 +48,7 @@ export function TimeBar({ prediction, color }: { prediction: Prediction | null; 
 
   const bySlot = SLOTS.map((slot) => prediction?.byHour.find((b) => hourSlot(b.hour) === slot)?.p50 ?? 0)
   const max = Math.max(1, ...bySlot)
-  const count = prediction ? Math.floor(ordersSoFar(prediction, t, hourSlot)) : 0
+  const count = prediction ? ordersSoFar(prediction, t) : 0
   const x = t / DAY_MINUTES
 
   const seekTo = (clientX: number) => {
