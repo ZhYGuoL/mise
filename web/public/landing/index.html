@@ -372,6 +372,16 @@ $('#obj').innerHTML=M.objections.slice().sort((a,b)=>b.pct-a.pct).map(o=>`<div><
 onView($('#obj'),()=>{const e={target:$('#obj')};e.target.querySelectorAll('.track i').forEach((i,k)=>setTimeout(()=>i.style.width=i.dataset.w/31*100+'%',k*140));
   e.target.querySelectorAll('.pct').forEach((s,k)=>{const v=+s.dataset.v,t0=performance.now()+k*140;const tick=now=>{const a=clamp((now-t0)/1400);s.textContent=Math.round(out(a)*v)+'%';if(a<1)requestAnimationFrame(tick)};requestAnimationFrame(tick)})});
 
+/* ---------- marquee ---------- */
+const imgs=Array.from({length:14},(_,i)=>`d${i+1}.jpg`);
+const card=s=>`<div class="mcard" data-cur="Taste"><img src="${s}" alt="" loading="lazy"></div>`;
+$('#m1').innerHTML=[...imgs.slice(0,7),...imgs.slice(7)].concat(imgs).map(card).join('');
+$('#m2').innerHTML=[...imgs.slice(7),...imgs.slice(0,7)].concat([...imgs.slice(7),...imgs.slice(0,7)]).map(card).join('');
+let mo1=0,mo2=0,skew=0;
+function marquee(){const w1=$('#m1').scrollWidth/2,w2=$('#m2').scrollWidth/2;const boost=1+Math.min(Math.abs(vel)*.15,6);
+ if(!RM){mo1=(mo1-.5*boost)%w1;mo2=(mo2+.5*boost)%w2}skew=lerp(skew,clamp(vel*.25,-9,9),.12);
+ $('#m1').style.transform=`translateX(${mo1}px) skewX(${-skew}deg)`;$('#m2').style.transform=`translateX(${mo2-w2}px) skewX(${-skew}deg)`}
+
 function resize(){DPR=Math.min(devicePixelRatio||1,2);resizers.forEach(f=>f())}
 addEventListener('resize',resize);resize();
 function frame(t){loops.forEach(f=>f(t));requestAnimationFrame(frame)}
