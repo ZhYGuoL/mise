@@ -284,6 +284,59 @@ function chatFrame(){const target=prog(chat);cp=RM?target:lerp(cp,target,.1);con
 
 loops.push(chatFrame);
 
+/* ---------- sim map ---------- */
+const sim=$('#sim'),mc=$('#map'),mx2=mc.getContext('2d');let MW=0,MH=0,dayL,nightL,P;
+const lats=M.zs.map(z=>z[0]).sort((a,b)=>a-b),lons=M.zs.map(z=>z[1]).sort((a,b)=>a-b);
+const q=(a,f)=>a[Math.floor(a.length*f)];const la0=q(lats,.03),la1=q(lats,.97),lo0=q(lons,.03),lo1=q(lons,.97);
+const cLat=(la0+la1)/2,cLon=(lo0+lo1)/2,cosL=Math.cos(cLat*Math.PI/180);
+function sizeMap(){const r=$('#mapwrap').getBoundingClientRect();MW=r.width;MH=r.height;mc.width=MW*DPR;mc.height=MH*DPR;
+ const S=Math.min(MW/((lo1-lo0)*cosL),MH/(la1-la0))*1.02;
+ P=(lat,lon)=>[((lon-cLon)*cosL*S+MW/2)*DPR,(-(lat-cLat)*S+MH/2+30)*DPR];
+ const mkL=(bg,dot,rest)=>{const c=document.createElement('canvas');c.width=mc.width;c.height=mc.height;const x=c.getContext('2d');x.fillStyle=bg;x.fillRect(0,0,c.width,c.height);
+  x.fillStyle=dot;M.zs.forEach(z=>{const[a,b]=P(z[0],z[1]);x.fillRect(a,b,1.4*DPR,1.4*DPR)});
+  x.fillStyle=rest;M.rs.forEach(r=>{const[a,b]=P(r[0],r[1]);x.beginPath();x.arc(a,b,2.3*DPR,0,7);x.fill()});return c};
+ dayL=mkL('#EFE7D9','rgba(28,26,23,.22)','rgba(28,26,23,.75)');nightL=mkL('#1E1C19','rgba(244,238,227,.2)','rgba(244,238,227,.7)');}
+const flows=M.flows.map(f=>({a:f[0],b:f[1],s:f[2]<6?f[2]+24:f[2],me:!!f[3],ta:f[4],tb:f[5]})).filter(f=>f.me||f.ta);
+const HRS=[];for(let h=11;h<=25;h++)HRS.push(h);
+const bars=$('#bars');bars.innerHTML=HRS.map(h=>{const b=M.byHour[h%24];const lab=h%3===2?(h%12===0?12:h%12)+(h%24<12?'a':'p'):'';
+ return `<div class="bar"><div class="band" style="bottom:${b[0]/19*100}%;height:${(b[2]-b[0])/19*100}%"></div><div class="fill" style="height:${b[1]/19*100}%"></div><span class="lab">${lab}</span></div>`}).join('');
+const barEls=[...bars.children];
+$('#stolen').innerHTML=M.stolen.slice(0,5).map(s=>`<span><em class="num">−${s[1]}</em> ${s[0].replace(/^\(.*?\)\s*/,'')}</span>`).join('');
+const stolenEls=[...document.querySelectorAll('#stolen span')];
+let sp=0;
+function bez(f,k){const[x0,y0]=P(f.a,f.b);const[x1,y1]=f.me?P(M.loc[0],M.loc[1]):P(f.ta,f.tb);const mx_=(x0+x1)/2-(y1-y0)*.25,my_=(y0+y1)/2+(x1-x0)*.25;
+ const u=1-k;return[u*u*x0+2*u*k*mx_+k*k*x1,u*u*y0+2*u*k*my_+k*k*y1,x0,y0,x1,y1,mx_,my_]}
+function simFrame(t){const r=sim.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight){document.querySelector('.brand').style.color='';return}
+ const target=prog(sim);sp=RM?target:lerp(sp,target,.1);const c=lerp(10.6,26,seg(sp,.04,.9));
+ const n=seg(c,17,20.5);const x=mx2;
+ x.globalAlpha=1;x.drawImage(dayL,0,0);if(n>0){x.globalAlpha=n;x.drawImage(nightL,0,0);x.globalAlpha=1}
+ const D=.55;
+ // settled trails
+ x.lineWidth=1*DPR;
+ flows.forEach(f=>{if(!f.me||c<f.s+D)return;const q2=bez(f,1);x.strokeStyle=`rgba(212,82,58,${.16+.1*n})`;x.beginPath();x.moveTo(q2[2],q2[3]);x.quadraticCurveTo(q2[6],q2[7],q2[4],q2[5]);x.stroke()});
+ // active trips
+ flows.forEach(f=>{if(c<f.s||c>f.s+D+.5)return;const k=clamp((c-f.s)/D);
+  if(k<1){const k0=Math.max(0,k-.35);x.beginPath();for(let j=0;j<=12;j++){const pp=bez(f,lerp(k0,k,j/12));j?x.lineTo(pp[0],pp[1]):x.moveTo(pp[0],pp[1])}
+   x.strokeStyle=f.me?'#D4523A':(n>.5?'rgba(244,238,227,.55)':'rgba(28,26,23,.45)');x.lineWidth=(f.me?2.2:1.4)*DPR;x.stroke();
+   const h=bez(f,k);x.fillStyle=f.me?'#D4523A':(n>.5?'#F4EEE3':'#1C1A17');x.beginPath();x.arc(h[0],h[1],(f.me?3.2:2.2)*DPR,0,7);x.fill()}
+  else if(f.me){const a=(c-f.s-D)/.5;const[cx_,cy_]=P(M.loc[0],M.loc[1]);x.strokeStyle=`rgba(212,82,58,${1-a})`;x.lineWidth=2*DPR;x.beginPath();x.arc(cx_,cy_,(8+a*34)*DPR,0,7);x.stroke()}});
+ // you
+ let cum=0;HRS.forEach(h=>cum+=M.byHour[h%24][1]*clamp(c-h));
+ const[cx_,cy_]=P(M.loc[0],M.loc[1]);const R=(7+Math.sqrt(cum)*1.1)*DPR;
+ x.fillStyle='rgba(212,82,58,.18)';x.beginPath();x.arc(cx_,cy_,R*1.9,0,7);x.fill();
+ x.fillStyle='#D4523A';x.beginPath();x.arc(cx_,cy_,R*.62,0,7);x.fill();x.strokeStyle=n>.5?'#1E1C19':'#fff';x.lineWidth=2*DPR;x.stroke();
+ x.font=`600 ${14*DPR}px Geist, sans-serif`;x.fillStyle=n>.5?'#F4EEE3':'#1C1A17';x.fillText(M.name,cx_+R+8*DPR,cy_+5*DPR);
+ // ui
+ const hh=Math.floor(c)%24,mm=Math.floor((c%1)*60);$('#clock').textContent=`${(hh%12)||12}:${String(mm).padStart(2,'0')} ${hh<12?'AM':'PM'}`;
+ document.querySelector(".brand").style.color=(n>.5&&r.top<=0&&r.bottom>60)?"#F4EEE3":"";const ink=n>.5?'#F4EEE3':'#1C1A17';$('#maphead').style.color=ink;$('#legend').style.color=ink;
+ $('#orders').textContent=Math.round(cum);$('#rev').textContent=money(cum/M.orders.p50*M.revenue.p50);$('#share').textContent=(cum/M.orders.p50*M.share).toFixed(1)+'%';
+ const done=c>=26;$('#range').style.opacity=done?1:0;
+ barEls.forEach((b,i)=>{const h=HRS[i],v=clamp(c-h);b.querySelector('.fill').style.transform=`scaleY(${v})`;b.querySelector('.band').style.opacity=v>0?.2:0;b.classList.toggle('now',v>0&&v<1)});
+ stolenEls.forEach((s,i)=>s.classList.toggle('on',sp>.9+i*.015));
+}
+
+resizers.push(sizeMap);loops.push(simFrame);
+
 function resize(){DPR=Math.min(devicePixelRatio||1,2);resizers.forEach(f=>f())}
 addEventListener('resize',resize);resize();
 function frame(t){loops.forEach(f=>f(t));requestAnimationFrame(frame)}
