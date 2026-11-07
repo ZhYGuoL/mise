@@ -27,6 +27,7 @@ nav{position:fixed;inset:0 0 auto 0;display:flex;justify-content:space-between;a
 .stick{position:sticky;top:0;height:100vh;overflow:hidden}
 section{position:relative}
 
+#crumbs{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:5}
 /* HERO */
 #hero{height:330vh}
 .hero-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:4;pointer-events:none}
@@ -65,6 +66,7 @@ section{position:relative}
 </head>
 <body>
 <div id="cur"><span>Taste</span></div>
+<canvas id="crumbs"></canvas>
 <nav><div class="brand"><i></i>Mise</div><a class="cta" href="/?seed=1" data-cur="Open">Open the kitchen <span class="arr">→</span></a></nav>
 
 <section id="hero">
@@ -101,6 +103,36 @@ const cur=$('#cur');let cx=mx,cy=my;
 document.addEventListener('pointerover',e=>{const t=e.target.closest('[data-cur]');cur.classList.toggle('big',!!t);if(t)cur.querySelector('span').textContent=t.dataset.cur});
 
 loops.push(()=>{cx=lerp(cx,mx,.22);cy=lerp(cy,my,.22);cur.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`});
+
+/* ---------- crumbs: sesame, chili, scallion ---------- */
+const cv=$('#crumbs'),cx2=cv.getContext('2d');let parts=[];
+function sizeCrumbs(){cv.width=innerWidth*DPR;cv.height=innerHeight*DPR}
+const KINDS=['sesame','sesame','sesame','black','chili','chili','scallion','scallion'];
+function mk(x,y,burst){const k=KINDS[Math.random()*KINDS.length|0],z=.55+Math.random()*.75;const pts=[];for(let i=0;i<5;i++){const a=i/5*Math.PI*2,r=.6+Math.random()*.6;pts.push([Math.cos(a)*r,Math.sin(a)*r])}
+ const a=Math.random()*Math.PI*2,sp=burst?3+Math.random()*7:0;
+ return{x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-(burst?3:0),r:Math.random()*6,vr:(Math.random()-.5)*.04,z,k,pts,ph:Math.random()*9,life:burst?220+Math.random()*120:Infinity}}
+function seed(){parts=[];const n=Math.round(Math.min(170,innerWidth*innerHeight/9000));for(let i=0;i<n;i++)parts.push(mk(Math.random()*innerWidth,Math.random()*innerHeight))}
+function drawPart(p){const c=cx2,s=p.z*1.25;c.save();c.translate(p.x*DPR,p.y*DPR);c.rotate(p.r);c.scale(DPR*s,DPR*s);c.globalAlpha=Math.min(1,p.life/60)*.95;
+ if(p.k==='sesame'){c.beginPath();c.ellipse(0,0,3.3,1.7,0,0,7);c.fillStyle='#F2E1BA';c.fill();c.lineWidth=.6;c.strokeStyle='#C49A57';c.stroke()}
+ else if(p.k==='black'){c.beginPath();c.ellipse(0,0,3.1,1.6,0,0,7);c.fillStyle='#2B2622';c.fill()}
+ else if(p.k==='chili'){c.beginPath();p.pts.forEach(([a,b],i)=>i?c.lineTo(a*4,b*3):c.moveTo(a*4,b*3));c.closePath();c.fillStyle='#C8402A';c.fill()}
+ else{c.beginPath();c.arc(0,0,4.6,0,7);c.lineWidth=1.7;c.strokeStyle='#6F9A3B';c.stroke();c.beginPath();c.arc(0,0,2.4,0,7);c.lineWidth=.9;c.strokeStyle='#B7D07A';c.stroke()}
+ c.restore()}
+let lastY=scrollY,vel=0,crumbAlpha=1;
+addEventListener('pointerdown',e=>{if(RM)return;if(e.target.closest('a'))return;for(let i=0;i<46;i++)parts.push(mk(e.clientX,e.clientY,true))});
+function crumbs(t){const dy=scrollY-lastY;lastY=scrollY;vel=lerp(vel,dy,.2);
+ cx2.clearRect(0,0,cv.width,cv.height);if(RM)return;
+ cv.style.opacity=crumbAlpha;if(crumbAlpha<.02)return;
+ for(let i=parts.length-1;i>=0;i--){const p=parts[i];
+  p.vy+=(.32*p.z-p.vy)*.02;p.vx*=.96;p.vy-=dy*.012*p.z;
+  const dx=p.x-mx,dyy=p.y-my,d=Math.hypot(dx,dyy);if(d<150&&d>0){const f=(1-d/150)*1.4;p.vx+=dx/d*f;p.vy+=dyy/d*f}
+  p.x+=p.vx+Math.sin(t*.0008+p.ph)*.25*p.z;p.y+=p.vy;p.r+=p.vr+p.vx*.01;
+  if(p.life!==Infinity){p.life--;p.vy+=.12;if(p.life<=0){parts.splice(i,1);continue}}
+  else{if(p.y>innerHeight+20){p.y=-20;p.x=Math.random()*innerWidth}if(p.y<-30)p.y=innerHeight+20;if(p.x<-20)p.x=innerWidth+20;if(p.x>innerWidth+20)p.x=-20}
+  drawPart(p)}}
+
+resizers.push(()=>{sizeCrumbs();seed()});
+loops.push(t=>{crumbAlpha=lerp(crumbAlpha,typeof crumbTarget==='function'?crumbTarget():1,.08);crumbs(t)});
 
 /* ---------- hero dishes ---------- */
 const hero=$('#hero'),dEl=$('#dishes');
