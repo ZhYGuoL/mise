@@ -20,9 +20,9 @@ It beats the city-average curve on 9 of 13. Not fitted: simulated weekly volume 
 
 - Direction: cheaper means more undergrad orders, pricier means fewer, farther from campus means fewer, free delivery means more, closing early means fewer, Monday is below Friday, a launch promo means more, a vegan main means fewer diet objections.
 - Text does not move numbers: editing the tagline gives identical orders.
-- No double counting: importing a real restaurant unchanged reproduces its own orders (Noodlehead 47 vs 48 today, CHiKN 68 vs 66, Pizza Palermo 52 vs 51, Sushi Fuku 10 vs 10) and takes about zero customers from itself.
+- No double counting: importing a real restaurant unchanged reproduces its own orders (Noodlehead 45 vs 46 today, CHiKN 69 vs 66, Pizza Palermo 55 vs 53, Sushi Fuku 10 vs 9) and takes about zero customers from itself.
 - One story everywhere: for sampled residents, the resident list, the map and the interview all agree on what they ordered.
-- Speed: 100 runs finish under 3 s.
+- Speed: 100 runs finish under 3 s (2.0 s here).
 
 ## 3. Enough runs that the headline doesn't wobble
 
@@ -50,6 +50,7 @@ The search tries several edit sets and keeps the best score. Picking the best of
 
 - The optimizer kept one edit: a 20% first-order discount for opening week.
 - Its fresh check reported 48 to 81 orders, and said it **did not reach** 90.
+- In the app, the same goal ran 2 rounds. The search scored its pick at 91; the fresh check said 79, and the card says "Closest 79" instead of "Reached".
 - On 10 more fresh seeds: the edited concept beat the original on **10 of 10**, median **49.5 to 83**, worst case 73. It reached 90 on 1 of 10.
 
 Before this fix, the same goal showed "Reached 91" from the search's own score.
