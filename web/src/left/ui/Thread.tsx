@@ -77,7 +77,9 @@ function Steps({ b }: { b: Extract<Block, { kind: 'steps' }> }) {
             const current = working && i === b.steps.length - 1
             return (
               <div key={i} className="flex min-h-7 min-w-0 items-center gap-2" style={ENTER}>
-                {current ? <Spinner /> : <span className="text-ink-3"><Svg size={13}>{Icon.check}</Svg></span>}
+                <span className="flex size-[13px] shrink-0 items-center justify-center text-ink-3">
+                  {current ? <Spinner /> : <Svg size={13}>{Icon.check}</Svg>}
+                </span>
                 <span className="shrink-0 text-[12.5px] font-medium text-ink">{s.label}</span>
                 {s.detail && <span className="min-w-0 truncate text-[12px] text-ink-3">{s.detail}</span>}
               </div>

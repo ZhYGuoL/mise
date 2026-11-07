@@ -92,6 +92,7 @@ class Turn {
     await this.send({ type: "thinking", label: "Reading the request", detail: lastUser.slice(0, 140) });
 
     const state = { created: false, edited: false, rejects: 0 };
+    let namesShown = 0;
     for (let step = 0; step < MAX_STEPS; step++) {
       const finished = state.created || state.edited;
       const tools = this.concept ? [editConceptTool, generateImagesTool, simulateTool] : [createConceptTool];
@@ -110,6 +111,15 @@ class Turn {
         onToolStart: async (name) => {
           const label = TOOL_LABEL[name];
           if (label) await this.send({ type: "thinking", label });
+        },
+        // While the concept streams in, show the name and each dish as soon as it is written.
+        onToolArgs: async (name, partial) => {
+          if (name !== "create_concept") return;
+          const names = [...partial.matchAll(/"name"\s*:\s*"((?:[^"\\]|\\.)*)"/g)].map((m) => m[1]);
+          for (; namesShown < names.length; namesShown++) {
+            const n = names[namesShown].replace(/\\"/g, '"');
+            await this.send({ type: "thinking", label: n, detail: namesShown === 0 ? "name" : "dish" });
+          }
         },
       });
       if (res.toolCalls.length === 0) break;

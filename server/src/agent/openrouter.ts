@@ -29,6 +29,8 @@ export async function complete(opts: {
   onText?: (delta: string) => void | Promise<void>;
   /** the first chunk of a tool call, so the UI can show what the model is doing */
   onToolStart?: (name: string) => void | Promise<void>;
+  /** the tool arguments streamed so far, so the UI can show progress inside a long call */
+  onToolArgs?: (name: string, partial: string) => void | Promise<void>;
 }): Promise<{ content: string; toolCalls: ToolCall[] }> {
   const cfg = modelConfig();
   if (!cfg) throw new Error("OPENROUTER_API_KEY or MODEL_CHAT is not set");
@@ -100,7 +102,10 @@ export async function complete(opts: {
           slot.name += tc.function.name;
           if (first) await opts.onToolStart?.(slot.name);
         }
-        if (tc.function?.arguments) slot.args += tc.function.arguments;
+        if (tc.function?.arguments) {
+          slot.args += tc.function.arguments;
+          await opts.onToolArgs?.(slot.name, slot.args);
+        }
       }
     }
   }
