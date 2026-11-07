@@ -1,0 +1,159 @@
+{
+ "placeId": "0x8834f3950bde0995:0xf38a4158f72b9756",
+ "createdAt": "2026-11-07T19:16:34.010Z",
+ "costUsd": 0.0006479,
+ "hoursSource": "google",
+ "pages": [],
+ "concept": {
+  "id": "el-jefes-taqueria-7c5461",
+  "version": 1,
+  "name": "El Jefes Taqueria",
+  "tagline": "El Jefe's Taqueria, Central Oakland, Pittsburgh",
+  "cuisine": [
+   "mexican"
+  ],
+  "location": {
+   "lat": 40.4418728,
+   "lon": -79.9568444,
+   "address": "3807 Forbes Avenue, Pittsburgh, PA 15213",
+   "neighborhood": "Central Oakland"
+  },
+  "hours": {
+   "Sunday": {
+    "open": "06:00",
+    "close": "06:00"
+   },
+   "Monday": {
+    "open": "06:00",
+    "close": "06:00"
+   },
+   "Tuesday": {
+    "open": "06:00",
+    "close": "06:00"
+   },
+   "Wednesday": {
+    "open": "06:00",
+    "close": "06:00"
+   },
+   "Thursday": {
+    "open": "06:00",
+    "close": "06:00"
+   },
+   "Friday": {
+    "open": "06:00",
+    "close": "06:00"
+   },
+   "Saturday": {
+    "open": "06:00",
+    "close": "06:00"
+   }
+  },
+  "priceTier": 1,
+  "deliveryFee": 2.99,
+  "serviceFeePct": 14,
+  "menu": [
+   {
+    "id": "m1",
+    "name": "Chicken Burrito",
+    "description": "Flour tortilla filled with grilled chicken, rice, beans, and your choice of toppings.",
+    "price": 9.49,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A foil-wrapped chicken burrito cut in half on a paper takeout tray, rice and beans visible at the edge, flat overhead lighting, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m2",
+    "name": "Steak Burrito",
+    "description": "Flour tortilla packed with seasoned steak, rice, beans, and toppings of your choice.",
+    "price": 10.49,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A foil-wrapped steak burrito on a paper takeout tray with a small cup of salsa, flat overhead lighting, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m3",
+    "name": "Chicken Tacos (3)",
+    "description": "Three soft corn tortillas with grilled chicken, onion, cilantro, and salsa.",
+    "price": 8.99,
+    "category": "main",
+    "tags": [
+     "gluten_free"
+    ],
+    "imagePrompt": "Three soft corn tacos with chicken, diced onion and cilantro, in a paper boat tray, flat overhead lighting, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m4",
+    "name": "Veggie Bowl",
+    "description": "Rice and black beans topped with grilled vegetables, fresh salsa, and guacamole.",
+    "price": 9.29,
+    "category": "main",
+    "tags": [
+     "vegetarian",
+     "gluten_free"
+    ],
+    "imagePrompt": "A takeout bowl of rice, black beans, grilled peppers and onions topped with guacamole and salsa, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m5",
+    "name": "Quesadilla",
+    "description": "Grilled flour tortilla filled with melted cheese and your choice of protein.",
+    "price": 7.99,
+    "category": "main",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "A cut cheese quesadilla on a paper takeout tray with sour cream and salsa cups beside it, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m6",
+    "name": "Chips and Queso",
+    "description": "Crispy tortilla chips served with warm house queso.",
+    "price": 4.99,
+    "category": "side",
+    "tags": [
+     "vegetarian",
+     "gluten_free"
+    ],
+    "imagePrompt": "A paper cup of melted cheese queso beside a pile of crispy tortilla chips on a takeout tray, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m7",
+    "name": "Horchata",
+    "description": "Chilled cinnamon rice drink served over ice.",
+    "price": 3.29,
+    "category": "drink",
+    "tags": [
+     "vegetarian",
+     "gluten_free"
+    ],
+    "imagePrompt": "A clear plastic cup of creamy horchata over ice with a cinnamon dusting, takeout lid, no text, no people.",
+    "imageUrl": null
+   }
+  ],
+  "brand": {
+   "logoUrl": null,
+   "logoPrompt": "A flat two-color mark pairing a simple taco silhouette with a bold sans-serif monogram 'EJ', in red and dark brown on cream.",
+   "colors": {
+    "primary": "#D62828",
+    "background": "#FFF8F0",
+    "ink": "#1F1A17"
+   },
+   "voice": "Friendly and direct, speaking to customers as hungry regulars who want fresh food built exactly their way, at any hour."
+  },
+  "promos": [],
+  "existing": {
+   "placeId": "0x8834f3950bde0995:0xf38a4158f72b9756",
+   "name": "El Jefes Taqueria",
+   "rating": 4.7,
+   "reviews": 1831,
+   "menuSource": "estimated",
+   "websiteUrl": "https://www.eljefestaqueria.com/"
+  }
+ }
+}

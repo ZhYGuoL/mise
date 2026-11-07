@@ -1,0 +1,1784 @@
+[
+ {
+  "osmId": "node/566296364",
+  "website": null,
+  "openingHours": null,
+  "street": "5440 Centre Avenue",
+  "postcode": "15232",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/566296515",
+  "website": "https://restaurants.subway.com/united-states/pa/pittsburgh/5438-1/2-centre-ave",
+  "openingHours": "Mo-Th 08:00-22:00; Fr,Sa 08:00-23:00; Su 09:00-21:00",
+  "street": "5438 1/2 Centre Avenue",
+  "postcode": "15232",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/902287334",
+  "website": "https://pamelasdiner.com/",
+  "openingHours": "Th-Su 08:00-14:00; Tu-We off",
+  "street": "3703 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": [
+   "P&G's Pamela's Diner"
+  ]
+ },
+ {
+  "osmId": "node/1371543233",
+  "website": "https://www.casbah.kitchen/",
+  "openingHours": "Su 11:00-14:00,16:30-21:00; Mo-Sa 16:30-22:00",
+  "street": "229 South Highland Avenue",
+  "postcode": "15206",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1371543264",
+  "website": null,
+  "openingHours": null,
+  "street": "South Highland Avenue",
+  "postcode": "15206",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1371543273",
+  "website": null,
+  "openingHours": null,
+  "street": "216 South Highland Avenue",
+  "postcode": "15206",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1371572641",
+  "website": "https://locations.dunkindonuts.com/en/pa/pittsburgh/3907-forbes-ave/348700",
+  "openingHours": "05:00-21:00",
+  "street": "3907 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": [
+   "Dunkin' Donuts"
+  ]
+ },
+ {
+  "osmId": "node/1371572643",
+  "website": null,
+  "openingHours": "Mo-Su 11:00-23:00",
+  "street": "Forbes Avenue",
+  "postcode": "15221",
+  "neighborhood": "Squirrel Hill North",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1371572644",
+  "website": null,
+  "openingHours": "Mo-Th 11:30-21:45; Fr,Sa 11:30-22:15; Su 12:12-21:46",
+  "street": "1704 Shady Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1371572647",
+  "website": null,
+  "openingHours": "Mo-Su 11:00-22:00",
+  "street": "Murray Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1371572648",
+  "website": null,
+  "openingHours": "Su-Th 12:00-22:30; Fr,Sa 12:00-23:00",
+  "street": "Murray Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1371572649",
+  "website": null,
+  "openingHours": null,
+  "street": "Murray Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1371572650",
+  "website": null,
+  "openingHours": null,
+  "street": "1711 Murray Ave.",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1371572651",
+  "website": null,
+  "openingHours": "Mo-Su 16:00-21:30",
+  "street": "Murray Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1371572658",
+  "website": "https://www.pizzabellinomenu.com/",
+  "openingHours": "Su-Th 10:00-13:00; Fr,Sa 10:00-14:00",
+  "street": "5839 Forbes Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill North",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1371572664",
+  "website": null,
+  "openingHours": "Mo-Su 06:00-14:00",
+  "street": "1719 Murray Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": [
+   "Bruegger's"
+  ]
+ },
+ {
+  "osmId": "node/1371572677",
+  "website": null,
+  "openingHours": "Mo-Th 14:30-21:30; Fr,Sa 11:30-22:30; Su 11:30-21:30",
+  "street": "Bartlett Street",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1371572682",
+  "website": "http://www.unclesamssubs.com/",
+  "openingHours": "Mo-Sa 11:00-20:30, Su 11:00-18:00",
+  "street": "5808 Forbes Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1371572685",
+  "website": null,
+  "openingHours": "Mo-Th 11:00-15:00,16:30-21:00; Fr,Sa 11:00-22:00; Su 12:00-21:00",
+  "street": "Murray Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1371572686",
+  "website": "https://www.wok-hei.com/",
+  "openingHours": "Mo-Fr 11:00-22:00, Sa-Su 12:00-22:00",
+  "street": "3901 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1376928128",
+  "website": "http://www.733copeland.com/",
+  "openingHours": null,
+  "street": "733 Copeland St",
+  "postcode": "15232",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1376954131",
+  "website": "https://www.eatshady.com/",
+  "openingHours": "Mo-Su 11:00-21:30",
+  "street": "5500 Walnut St",
+  "postcode": "15232",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1376954140",
+  "website": null,
+  "openingHours": null,
+  "street": "806 South Aiken Ave",
+  "postcode": "15232-2210",
+  "neighborhood": "Shadyside",
+  "aliases": [
+   "Bruegger's"
+  ]
+ },
+ {
+  "osmId": "node/1376954143",
+  "website": null,
+  "openingHours": null,
+  "street": "815 South Aiken Ave",
+  "postcode": "15232",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1400061031",
+  "website": "https://www.abayrestaurant.com/",
+  "openingHours": null,
+  "street": "130 South Highland Avenue",
+  "postcode": "15206",
+  "neighborhood": "East Liberty",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1666996370",
+  "website": "https://www.dineattheporch.com/schenley",
+  "openingHours": "Mo-Th 11:00-22:00; Fr 11:00-23:00; Sa 10:00-23:00; Su 10:00-21:00; Dec 24-25 off; Dec 31 10:00-23:00; Jan 01 off",
+  "street": "Schenley Drive",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1796197117",
+  "website": "http://www.minutellosrestaurant.com/",
+  "openingHours": "Mo-Th 11:00-23:00; Fr 11:00-24:00; Sa 15:00-23:00; Su 15:00-21:00",
+  "street": "Shady Avenue",
+  "postcode": "15217",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1828139339",
+  "website": "https://orders.penn-station.com/locations/shadyside-181",
+  "openingHours": "Mo-Sa 10:30-21:00; Su 11:00-21:00",
+  "street": "4815 Centre Avenue",
+  "postcode": "15213",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1837683866",
+  "website": "https://locations.papajohns.com/united-states/pa/15213/pittsburgh/4815-centre-ave",
+  "openingHours": "09:30-02:00",
+  "street": "4815 Centre Avenue",
+  "postcode": "15213",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "node/1962152335",
+  "website": "http://www.pghpopcorn.com/",
+  "openingHours": "Mo-Sa 11:00-19:00",
+  "street": "3710 Fifth Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/2631664841",
+  "website": null,
+  "openingHours": "Tu,We 17:00-23:00; Th-Sa 17:00-02:30",
+  "street": "400 Semple Street",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/2631671683",
+  "website": "https://antoons-pizza.weeblyte.com",
+  "openingHours": "11:00 - 02:30",
+  "street": "247 Atwood Street",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/2710170970",
+  "website": "https://mypiada.com/locations/oakland",
+  "openingHours": "Mo-Fr 10:45-22:00, Sa-Su 10:45-21:00",
+  "street": "3600 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/2710170982",
+  "website": "https://www.mcdonalds.com/us/en-us/location/1862.html",
+  "openingHours": "Mo-We 06:00-23:00; Th-Sa 06:00-01:00; Su 06:00-23:00",
+  "street": "3708 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/2710170984",
+  "website": "https://www.hotchikn.com/oakland",
+  "openingHours": "Mo-Su 11:00-22:00",
+  "street": "3712 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/2710170985",
+  "website": "https://www.stackdburgers.com/oakland",
+  "openingHours": "Tu-Su 11:00-00:00; Mo 12:00-00:00",
+  "street": "3716 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": [
+   "Stack'd Burgers"
+  ]
+ },
+ {
+  "osmId": "node/2710170989",
+  "website": "https://locations.panerabread.com/pa/pittsburgh/3800-forbes-avenue.html",
+  "openingHours": "Mo-Fr 07:00-21:00; Sa-Su 08:00-17:00",
+  "street": "3800 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": [
+   "Panera"
+  ]
+ },
+ {
+  "osmId": "node/2710170992",
+  "website": "https://locations.primantibros.com/pa/pittsburgh/38002/",
+  "openingHours": "Mo 11:00-22:00; Tu-Su 11:00-00:00",
+  "street": "3803 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": [
+   "Primanti Bros"
+  ]
+ },
+ {
+  "osmId": "node/2710170993",
+  "website": "https://www.eljefestaqueria.com/",
+  "openingHours": "Mo-Su 08:00-16:00",
+  "street": "3807 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/2710170995",
+  "website": "https://locations.noodles.com/pa/pittsburgh/3805-forbes-ave",
+  "openingHours": "Mo-Su 10:30-22:00",
+  "street": "3805 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/2841180587",
+  "website": null,
+  "openingHours": null,
+  "street": "126 South Highland Avenue",
+  "postcode": "15206",
+  "neighborhood": "East Liberty",
+  "aliases": []
+ },
+ {
+  "osmId": "node/2841180872",
+  "website": null,
+  "openingHours": null,
+  "street": "213 South Highland Avenue",
+  "postcode": "15206",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/3071090447",
+  "website": "https://locations.jimmyjohns.com/pa/pittsburgh/sandwiches-1644.html",
+  "openingHours": "Mo-Fr 11:00-20:00; Sa-Su 11:00-19:00",
+  "street": "6425 Penn Avenue",
+  "postcode": "15206",
+  "neighborhood": "Larimer",
+  "aliases": [
+   "Jimmy John's Gourmet Sandwiches"
+  ]
+ },
+ {
+  "osmId": "node/3074012642",
+  "website": null,
+  "openingHours": null,
+  "street": "Walnut Street",
+  "postcode": "15206",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/3074019974",
+  "website": null,
+  "openingHours": null,
+  "street": "Filbert Street",
+  "postcode": "15232",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/3074019976",
+  "website": null,
+  "openingHours": "Mo-Su 08:00-14:00",
+  "street": "Walnut Street",
+  "postcode": "15206",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/3074019977",
+  "website": null,
+  "openingHours": null,
+  "street": "Urn Way",
+  "postcode": "15232",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/3312335224",
+  "website": "https://kujirasushi.com/",
+  "openingHours": null,
+  "street": "736 Bellefonte Street",
+  "postcode": "15232",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/3315380373",
+  "website": null,
+  "openingHours": null,
+  "street": "5533 Walnut Street",
+  "postcode": "15232",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/3315425386",
+  "website": "http://www.roseteacafe.com/",
+  "openingHours": "Mo-Sa 11:00-21:00; Su 00:00-21:00",
+  "street": "414 South Craig Street",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/3362506384",
+  "website": null,
+  "openingHours": null,
+  "street": "190 North Craig Street",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/3362509137",
+  "website": "https://butterjoint.com",
+  "openingHours": "Mo-Sa 11:00-23:00",
+  "street": "214 North Craig Street",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/3583950000",
+  "website": null,
+  "openingHours": "Mo-Su 09:00-17:00",
+  "street": "732 Filbert Street",
+  "postcode": "15232",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/4446813154",
+  "website": null,
+  "openingHours": null,
+  "street": "Alder Street",
+  "postcode": "15232",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/4515637690",
+  "website": "http://orderlaspalmaspittsburgh2.mobile-webview2.com/",
+  "openingHours": "Mo-Th 09:00-21:00; Fr-Sa 09:00-22:00; Su 09:00-21:00",
+  "street": "326 Atwood Street",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/4957731275",
+  "website": "http://www.medgrillpgh.com/",
+  "openingHours": "Mo-Sa 15:30-20:00",
+  "street": "5835 Forbes Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill North",
+  "aliases": []
+ },
+ {
+  "osmId": "node/4957731308",
+  "website": "https://everydaynoodles.net/",
+  "openingHours": "Mo-Th 11:30-14:30,16:00-21:30; Fr,Sa 11:30-14:30,16:00-22:00; Su 11:30-21:00",
+  "street": "Forbes Avenue",
+  "postcode": "15221",
+  "neighborhood": "Squirrel Hill North",
+  "aliases": []
+ },
+ {
+  "osmId": "node/5227872331",
+  "website": null,
+  "openingHours": null,
+  "street": "Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/5240343115",
+  "website": "https://www.pfbbqhouse.com/",
+  "openingHours": "Mo-Th 11:30-21:30, Fr-Su 11:30-22:00",
+  "street": "328 Atwood Street",
+  "postcode": "15213-4026",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/5240345045",
+  "website": "http://www.bangalpa.com/",
+  "openingHours": "Mo-Th 11:00-22:00; Fr-Sa 10:00-23:00; Su 12:00-22:00",
+  "street": "320 Atwood Street",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/5240345649",
+  "website": null,
+  "openingHours": "Mo-Sa 11:00-21:00",
+  "street": "3608 Fifth Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/5240351006",
+  "website": "https://chicknbubbly.com/",
+  "openingHours": "Mo-Sa 11:00-21:00; Su off",
+  "street": "117 Oakland Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/5240351007",
+  "website": "https://oishiibento.com/",
+  "openingHours": "Mo-Sa 11:00-21:00; Su off",
+  "street": "119 Oakland Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/5240353338",
+  "website": "https://www.sushiatarashi.com/",
+  "openingHours": "Mo-Fr 10:45-21:00, Sa-Su 11:30-21:00",
+  "street": "120 Oakland Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/5240356674",
+  "website": "https://locations.moes.com/pa/pittsburgh/3616-fifth-ave",
+  "openingHours": "Mo-Fr 11:00-21:00; Sa-Su 11:00-20:00",
+  "street": "3616 Atwood Street",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": [
+   "Moe's"
+  ]
+ },
+ {
+  "osmId": "node/5240356675",
+  "website": "http://www.princepittsburgh.com/",
+  "openingHours": "Mo-Su 11:00-21:45",
+  "street": "3614 Fifth Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/5240356677",
+  "website": "https://locations.chipotle.com/pa/pittsburgh/3510-forbes-ave",
+  "openingHours": "Mo-Su 10:45-23:00",
+  "street": "3510 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": [
+   "Chipotle Mexican Grill"
+  ]
+ },
+ {
+  "osmId": "node/5384512913",
+  "website": "https://www.fetfisk.net/",
+  "openingHours": "Th-Mo 17:00-23:00",
+  "street": "4786 Liberty Avenue",
+  "postcode": "15224",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "node/5384512916",
+  "website": "https://waiwaichinese.com/",
+  "openingHours": "Mo-Th 11:00-22:00; Fr, Sa 11:00-23:00; Su 12:00-22:00",
+  "street": "4717 Liberty Avenue",
+  "postcode": "15224",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "node/5553591722",
+  "website": "http://ginzapa.com/",
+  "openingHours": "Tu-Th 11:00-22:00; Fr 11:00-23:00; Sa 12:00-23:00; Su 12:00-21:00",
+  "street": "4734 Liberty Avenue",
+  "postcode": "15224",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "node/5553608413",
+  "website": null,
+  "openingHours": "Tu, Th, Sa-Su 08:00-12:00",
+  "street": "4759 Liberty Avenue",
+  "postcode": "15224",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "node/5553608414",
+  "website": null,
+  "openingHours": null,
+  "street": "4729 Liberty Avenue",
+  "postcode": "15224",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "node/6041923918",
+  "website": null,
+  "openingHours": null,
+  "street": "Shady Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/6044338565",
+  "website": "https://restaurants.subway.com/united-states/pa/pittsburgh/4778-liberty-ave",
+  "openingHours": "Mo-Fr 08:00-22:00; Sa, Su 09:00-21:00",
+  "street": "4778 Liberty Avenue",
+  "postcode": "15224",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "node/6044338909",
+  "website": "https://padthaipitt.com/",
+  "openingHours": "Mo-Su 11:00-22:00",
+  "street": "4770 Liberty Avenue",
+  "postcode": "15224",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "node/6044389852",
+  "website": null,
+  "openingHours": "Mo-Su 10:00-18:00",
+  "street": "4830 Liberty Avenue",
+  "postcode": "15224",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "node/6050046173",
+  "website": "https://azoreancafe.com/",
+  "openingHours": "Tu-Fr 09:00-21:00; Mo, Sa, Su 07:30-16:00",
+  "street": "4715 Liberty Avenue",
+  "postcode": "15224",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "node/6417261386",
+  "website": "https://noodleheadpgh.com/",
+  "openingHours": "12:00-22:00",
+  "street": "242 South Highland Avenue",
+  "postcode": "15206",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/6857906148",
+  "website": "https://locations.chipotle.com/pa/east-liberty/5986-centre-ave",
+  "openingHours": "Mo-Su 10:45-23:00",
+  "street": "5986 Centre Avenue",
+  "postcode": "15206",
+  "neighborhood": "East Liberty",
+  "aliases": [
+   "Chipotle Mexican Grill"
+  ]
+ },
+ {
+  "osmId": "node/7114859203",
+  "website": "https://locations.panerabread.com/pa/pittsburgh/136-bakery-square-blvd.html",
+  "openingHours": "Mo-Su 07:00-20:00",
+  "street": "136 Bakery Square Boulevard",
+  "postcode": "15206",
+  "neighborhood": "Larimer",
+  "aliases": [
+   "Panera"
+  ]
+ },
+ {
+  "osmId": "node/7172930393",
+  "website": null,
+  "openingHours": "Mo-Sa 11:00-22:00",
+  "street": "121 Oakland Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/7172930394",
+  "website": "https://szechuanexpresspgh.com/",
+  "openingHours": "Mo-Fr 11:00-14:30, 17:00-21:30, Sa 16:00-21:30",
+  "street": "125 Oakland Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/8140325968",
+  "website": null,
+  "openingHours": null,
+  "street": "338 South Bouquet Street",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/8146635481",
+  "website": "https://locations.einsteinbros.com/us/pa/pittsburgh/230-s-bouquet-st-9049475",
+  "openingHours": "Mo-Th 07:30-06:00; Fr 07:30-03:00",
+  "street": "230 South Bouquet Street",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": [
+   "Einstein Brothers Bagels"
+  ]
+ },
+ {
+  "osmId": "node/8146703396",
+  "website": null,
+  "openingHours": "Mo-Th 07:30-18:00; Fr 07:30-14:00",
+  "street": "Benedum Quad",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": [
+   "Einstein Brothers Bagels"
+  ]
+ },
+ {
+  "osmId": "node/8350007180",
+  "website": "https://locations.dunkindonuts.com/en/pa/pittsburgh/5889-forbes-ave/348524",
+  "openingHours": "Mo-Su 05:00-20:00",
+  "street": "5889 Forbes Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill North",
+  "aliases": [
+   "Dunkin' Donuts"
+  ]
+ },
+ {
+  "osmId": "node/8390759469",
+  "website": "https://www.rittersdinerpittsburgh.com/",
+  "openingHours": null,
+  "street": "5221 Baum Boulevard",
+  "postcode": "15224",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "node/8432958251",
+  "website": "https://locations.dunkindonuts.com/en/pa/pittsburgh/4560-centre-ave/359832",
+  "openingHours": "Mo-Su 05:00-21:00",
+  "street": "4560 Centre Avenue",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": [
+   "Dunkin' Donuts"
+  ]
+ },
+ {
+  "osmId": "node/8459655245",
+  "website": null,
+  "openingHours": null,
+  "street": "105 South Highland Avenue",
+  "postcode": "15206",
+  "neighborhood": "East Liberty",
+  "aliases": []
+ },
+ {
+  "osmId": "node/8459655247",
+  "website": null,
+  "openingHours": null,
+  "street": "6018 Penn Avenue",
+  "postcode": "15206",
+  "neighborhood": "East Liberty",
+  "aliases": []
+ },
+ {
+  "osmId": "node/8459655248",
+  "website": "https://restaurants.subway.com/united-states/pa/pittsburgh/6022-penn-avenue",
+  "openingHours": "Mo-Sa 08:00-21:00; Su 08:00-20:00",
+  "street": "6019 Penn Avenue",
+  "postcode": "15206",
+  "neighborhood": "East Liberty",
+  "aliases": []
+ },
+ {
+  "osmId": "node/8459663469",
+  "website": null,
+  "openingHours": null,
+  "street": "135 South Highland Avenue",
+  "postcode": "15206",
+  "neighborhood": "East Liberty",
+  "aliases": []
+ },
+ {
+  "osmId": "node/8469458054",
+  "website": null,
+  "openingHours": null,
+  "street": "6001 Penn Avenue",
+  "postcode": "15206",
+  "neighborhood": "East Liberty",
+  "aliases": []
+ },
+ {
+  "osmId": "node/8470396821",
+  "website": null,
+  "openingHours": null,
+  "street": "128 South Highland Avenue",
+  "postcode": "15206",
+  "neighborhood": "East Liberty",
+  "aliases": []
+ },
+ {
+  "osmId": "node/8470396823",
+  "website": "https://kahunapgh.com/",
+  "openingHours": null,
+  "street": "132 South Highland Avenue",
+  "postcode": "15206",
+  "neighborhood": "East Liberty",
+  "aliases": []
+ },
+ {
+  "osmId": "node/9453329833",
+  "website": null,
+  "openingHours": "Tu-Th 11:00-21:30; Fr,Sa 11:00-22:00; Su 12:00-21:30",
+  "street": "East Liberty Boulevard",
+  "postcode": "15206",
+  "neighborhood": "East Liberty",
+  "aliases": []
+ },
+ {
+  "osmId": "node/9468657440",
+  "website": "https://pizza.dominos.com/pennsylvania/pittsburgh/4631-centre-ave",
+  "openingHours": "Su-We 10:30-14:00, Th-Sa 10:30-03:00",
+  "street": "4631 Centre Avenue",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/9556295913",
+  "website": null,
+  "openingHours": null,
+  "street": "Baum Boulevard",
+  "postcode": "15232",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/9556303251",
+  "website": "https://www.vocellipizza.com/stores/vocelli-pizza-of-oakland-pitt-cmu/",
+  "openingHours": null,
+  "street": "4740 Baum Boulevard",
+  "postcode": "15213",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "node/9659344769",
+  "website": null,
+  "openingHours": null,
+  "street": "Murray Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/9659344773",
+  "website": null,
+  "openingHours": "Mo-Th 11:30-15:00,16:00-21:30; Fr,Sa 11:30-15:00,16:00-22:00; Su 12:00-15:00,16:00-21:00",
+  "street": "Murray Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/9659344776",
+  "website": null,
+  "openingHours": "Tu-Su 11:00-21:30",
+  "street": "Murray Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/9659344783",
+  "website": "http://www.tastynoodles.net/",
+  "openingHours": "Mo-Tu 11:00-21:00, Th-Su 11:00-21:00",
+  "street": "5824 Forbes Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/9659344788",
+  "website": "https://ramenbarpittsburgh.com/",
+  "openingHours": "Su-Th 11:30-21:00; Fr,Sa 11:30-22:00",
+  "street": "Forbes Avenue",
+  "postcode": "15221",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/9659344789",
+  "website": "https://www.kyotomatcha.us/",
+  "openingHours": "12:00-22:30",
+  "street": "5864 Forbes Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/9659344794",
+  "website": null,
+  "openingHours": "Mo-Sa 11:00-21:00; Su 11:00-20:00",
+  "street": "5876 Forbes Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/9659344796",
+  "website": null,
+  "openingHours": "Mo-Th 11:00-16:00, Mo-Fr 16:00-22:00, Sa 10:00-16:00,16:00-23:00, Fr 10:00-16:00,16:00-23:00, Su 10:00-21:00",
+  "street": "1704 Shady Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/9659344799",
+  "website": "http://98khalalfried.com/",
+  "openingHours": "Tu-Fr 11:30-22:00; Sa,Su 11:30-22:30; Mo off",
+  "street": "5867 Forbes Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill North",
+  "aliases": []
+ },
+ {
+  "osmId": "node/9659344802",
+  "website": "https://chowskitchenpgh.com/",
+  "openingHours": "Mo-Th 11:30-21:30; Fr,Sa 11:30-22:00; Su 11:30-21:00",
+  "street": "5829 Forbes Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill North",
+  "aliases": []
+ },
+ {
+  "osmId": "node/9659344805",
+  "website": "http://thaiandnoodleoutlet.com/",
+  "openingHours": "Tu-Th 11:00-15:00,16:00-21:00; Fr 11:00-15:00,16:00-22:00; Sa 11:00-22:00; Su 12:00-21:00",
+  "street": "5813 Forbes Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill North",
+  "aliases": []
+ },
+ {
+  "osmId": "node/9661406520",
+  "website": null,
+  "openingHours": "Th-Tu 11:00-21:30; We off",
+  "street": "5876 Forbes Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/10045324510",
+  "website": null,
+  "openingHours": null,
+  "street": "6114 Centre Avenue",
+  "postcode": "15206",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/10045372605",
+  "website": "https://locations.condadotacos.com/pa/6210-penn-ave",
+  "openingHours": "Su-Th 11:00-23:00; Fr-Sa 11:00-00:00",
+  "street": "6210 Centre Avenue",
+  "postcode": "15206",
+  "neighborhood": "East Liberty",
+  "aliases": []
+ },
+ {
+  "osmId": "node/10046090638",
+  "website": null,
+  "openingHours": "Su-Th 11:00-00:00; Fr-Sa 11:00-02:00",
+  "street": "216 North Craig Street",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/10048541717",
+  "website": "https://www.alibabapgh.com",
+  "openingHours": "Mo off; Tu-Fr 11:30-14:00 open \"Lunch\", 17:00-21:00 open \"Dinner\"; Su 16:00-20:00 open \"Dinner\"",
+  "street": "404 South Craig Street",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/10056678093",
+  "website": "https://www.altaviapizzeria.com/",
+  "openingHours": "Fr,Sa 11:30-22:00; Su 11:30-20:00; Mo-Th 11:30-21:00",
+  "street": "6425 Penn Avenue",
+  "postcode": "15206",
+  "neighborhood": "Larimer",
+  "aliases": []
+ },
+ {
+  "osmId": "node/10232214277",
+  "website": "https://alexscornerpizzashop.com/",
+  "openingHours": "Mo-Sa 10:00-21:00; Su 10:00-17:00",
+  "street": "4902 Cypress Street",
+  "postcode": "15224",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "node/10647886667",
+  "website": "https://www.yoshinopittsburgh.com/",
+  "openingHours": "Mo-Th 11:00-21:30; Fr-Sa 11:00-22:30; Su 12:00-21:00",
+  "street": "5440 Walnut Street",
+  "postcode": "15232",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/10649638340",
+  "website": "https://restaurants.subway.com/united-states/pa/pittsburgh/3707-forbes-ave",
+  "openingHours": "Mo-Fr 09:00-24:00; Sa-Su 10:00-24:00",
+  "street": "3707 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/10671409006",
+  "website": "https://stclairsocialpgh.com/",
+  "openingHours": null,
+  "street": "302 South Saint Clair Street",
+  "postcode": "15206",
+  "neighborhood": "East Liberty",
+  "aliases": []
+ },
+ {
+  "osmId": "node/10791170800",
+  "website": null,
+  "openingHours": null,
+  "street": "6004 Centre Avenue",
+  "postcode": "15206",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/10863754533",
+  "website": "http://order.meltdpgh.com/",
+  "openingHours": "Su-Mo 11:00-00:00; Tu-Sa 11:00-22:00; We-Fr 11:00-00:00",
+  "street": "3903 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/11057760354",
+  "website": "https://restaurants.fiveguys.com/5207-liberty-ave",
+  "openingHours": "11:00-22:00",
+  "street": "5207 Liberty Avenue",
+  "postcode": "15224",
+  "neighborhood": "Bloomfield",
+  "aliases": [
+   "Five Guys Burgers and Fries"
+  ]
+ },
+ {
+  "osmId": "node/11057760376",
+  "website": "https://www.jerseymikes.com/8049/pittsburgh-pa",
+  "openingHours": "10:00-21:00",
+  "street": "5225 Liberty Avenue",
+  "postcode": "15224-2306",
+  "neighborhood": "Bloomfield",
+  "aliases": [
+   "Jersey Mike's"
+  ]
+ },
+ {
+  "osmId": "node/11057760377",
+  "website": null,
+  "openingHours": "Mo-Fr 10:30-21:00; Sa,Su 11:00-21:00",
+  "street": "5231 Liberty Avenue",
+  "postcode": "15224",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "node/11057760378",
+  "website": "https://locations.dunkindonuts.com/en/pa/pittsburgh/5241-liberty-ave/358499",
+  "openingHours": "05:00-20:00",
+  "street": "5241 Liberty Avenue",
+  "postcode": "15224",
+  "neighborhood": "Bloomfield",
+  "aliases": [
+   "Dunkin' Donuts"
+  ]
+ },
+ {
+  "osmId": "node/11253800690",
+  "website": "https://locations.raisingcanes.com/pa/pittsburgh/3610-fifth-avenue",
+  "openingHours": "Mo-Th 10:00-24:00; Fr-Su 00:00-01:00,10:00-24:00",
+  "street": "3610 Fifth Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": [
+   "Raising Cane's Chicken Fingers"
+  ]
+ },
+ {
+  "osmId": "node/12572003681",
+  "website": "https://sciullispizza.com/",
+  "openingHours": "Mo-Th 10:00-19:00, Sa 10:00-21:00",
+  "street": "3404 Fifth Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/12621420221",
+  "website": "https://www.khalilsrestaurant.com/",
+  "openingHours": null,
+  "street": "4757 Baum Boulevard",
+  "postcode": "15213",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "node/12621757848",
+  "website": "https://omarshalalgrilltogo.com/",
+  "openingHours": null,
+  "street": "4208 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/12663039601",
+  "website": "https://www.spiritsandtales.com/",
+  "openingHours": "Mo-Su 07:00-14:00, 17:00-22:00",
+  "street": "Bigelow Boulevard",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/13030734001",
+  "website": "https://grapowpgh.com/",
+  "openingHours": null,
+  "street": "411 South Craig Street",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/13168138063",
+  "website": "http://pizzabellagio.com/",
+  "openingHours": null,
+  "street": "4635 Centre Avenue",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/13206332055",
+  "website": "https://hunanbar.com/",
+  "openingHours": "Mo 11:00-21:30, Tu-Sa 11:00-22:00, Su 11:30-21:30",
+  "street": "239 Atwood Street",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/13376378401",
+  "website": null,
+  "openingHours": "Su-We 13:00-02:00, Th-Sa 13:00-03:00",
+  "street": "422 Semple Street",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/13376378501",
+  "website": "https://pittshalalbrothers.com/",
+  "openingHours": null,
+  "street": "424 Semple Street",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/13455345774",
+  "website": null,
+  "openingHours": null,
+  "street": "Shady Avenue",
+  "postcode": "15217",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/13455345775",
+  "website": null,
+  "openingHours": null,
+  "street": "Shady Avenue",
+  "postcode": "15217",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/13455345777",
+  "website": null,
+  "openingHours": null,
+  "street": "Shady Avenue",
+  "postcode": "15217",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/13646506795",
+  "website": null,
+  "openingHours": null,
+  "street": "Saint James Place",
+  "postcode": "15260",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/13646525560",
+  "website": null,
+  "openingHours": null,
+  "street": "Cable Place",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/13646539712",
+  "website": null,
+  "openingHours": "We-Sa 17:00-03:00, Su 17:00-24:00",
+  "street": "Saint James Place",
+  "postcode": "15260",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/13712530801",
+  "website": null,
+  "openingHours": null,
+  "street": "808 Ivy Street",
+  "postcode": "15232",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/13745988811",
+  "website": "https://www.eatuniquecafe.com",
+  "openingHours": "Mo-Sa 09:00-19:00",
+  "street": "305 South Craig Street",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/13799719020",
+  "website": "https://www.kiinpgh.com/",
+  "openingHours": "Mo-Su 11:00-22:00",
+  "street": "5846 Forbes Avenue",
+  "postcode": "15217",
+  "neighborhood": "Squirrel Hill South",
+  "aliases": []
+ },
+ {
+  "osmId": "node/13837893701",
+  "website": "https://www.zennoodlehousepittsburgh.com/",
+  "openingHours": "Mo 11:00-21:30, We-Sa 11:00-21:30, Su 12:00-21:30",
+  "street": "3531 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/13955745101",
+  "website": "https://www.thecolombianspot-pgh.com/",
+  "openingHours": "Mo-Su 10:00-22:00",
+  "street": "3533 Forbes Avenue",
+  "postcode": "15203",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/13955799101",
+  "website": "http://www.milkshakefactory.com/",
+  "openingHours": "Mo-We 12:00-23:00, Th-Sa 12:00-23:30, Su 12:00-23:00",
+  "street": "3612 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/14017320501",
+  "website": null,
+  "openingHours": null,
+  "street": "6204 Spirit Street",
+  "postcode": "15206",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "node/14145296049",
+  "website": "http://www.hkdimsumpgh.com/",
+  "openingHours": "Mo 11:00-10:00, We-Th 11:00-10:00, Fr-Sa 11:00-11:00, Su 11:00-21:00",
+  "street": "4520 Centre Avenue",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/14145986322",
+  "website": "http://www.smashedwaffles.com/",
+  "openingHours": "Mo-Fr 06:30-14:00; Sa-Su 07:00-14:30",
+  "street": "3501 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/14145986324",
+  "website": "https://locations.tropicalsmoothiecafe.com/pa/pittsburgh/3614-forbes-ave",
+  "openingHours": "Mo-Fr 07:00-21:00; Sa-Su 08:00-21:00",
+  "street": "3614 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/14145986325",
+  "website": "http://rootsnaturalkitchen.com/",
+  "openingHours": "Mo-Th 10:30-21:30, Fr 10:30-19:00, Sa-Su 11:00-21:30",
+  "street": "3610 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/14145986328",
+  "website": "https://locations.hellobistro.com/pa-pittsburgh-2501",
+  "openingHours": "Mo-Su 10:30-21:00",
+  "street": "3605 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/14145986329",
+  "website": "http://www.goldenpalacepittsburgh.com/",
+  "openingHours": "Mo-Su 11:00-21:00",
+  "street": "3607 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/14145986332",
+  "website": "http://cava.com/",
+  "openingHours": "Mo-Su 10:30-22:00",
+  "street": "3619 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/14145986333",
+  "website": "https://www.layneschickenfingers.com/locations",
+  "openingHours": "Mo-We 10:30-24:00; Th-Su 10:30-27:00",
+  "street": "3621 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/14146057078",
+  "website": "https://locations.jimmyjohns.com/pa/pittsburgh/sandwiches-215.html",
+  "openingHours": "Mo-Su 00:00-24:00",
+  "street": "115 Oakland Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": [
+   "Jimmy John's Gourmet Sandwiches"
+  ]
+ },
+ {
+  "osmId": "node/14146067629",
+  "website": "https://rollitorbowlit.com/",
+  "openingHours": "Mo-Su 11:00-21:00",
+  "street": "415 South Craig Street",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/14146092648",
+  "website": "https://jolinasonline.com/",
+  "openingHours": "Mo-Sa 11:00-17:30",
+  "street": "3524 Fifth Avenue",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "node/14285840096",
+  "website": null,
+  "openingHours": null,
+  "street": "Semple Street",
+  "postcode": "15213",
+  "neighborhood": "Central Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "way/34337771",
+  "website": "https://locations.wendys.com/united-states/pa/pittsburgh/5422-baum-blvd",
+  "openingHours": "07:00-04:00",
+  "street": "5422 Baum Boulevard",
+  "postcode": "15232",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "way/34343097",
+  "website": "https://locations.panerabread.com/pa/pittsburgh/5430-centre-avenue.html",
+  "openingHours": "Mo-Sa 07:00-21:00; Su 07:00-20:00",
+  "street": "5430 Centre Avenue",
+  "postcode": "15232",
+  "neighborhood": "Shadyside",
+  "aliases": [
+   "Panera"
+  ]
+ },
+ {
+  "osmId": "way/109563467",
+  "website": "https://www.mcdonalds.com/us/en-us/location/10260.html",
+  "openingHours": "Mo-Su 06:00-21:00",
+  "street": "6361 Penn Avenue",
+  "postcode": "15206",
+  "neighborhood": "East Liberty",
+  "aliases": []
+ },
+ {
+  "osmId": "way/109728531",
+  "website": "https://locations.pizzahut.com/pa/pittsburgh/4710-baum-blvd",
+  "openingHours": null,
+  "street": "4710 Baum Boulevard",
+  "postcode": "15213",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "way/126258080",
+  "website": null,
+  "openingHours": null,
+  "street": "6018 Penn Circle South",
+  "postcode": "15206",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "way/126261461",
+  "website": "http://www.yensgourmetpittsburgh.com/",
+  "openingHours": null,
+  "street": "6123 Penn Avenue",
+  "postcode": "15206",
+  "neighborhood": "East Liberty",
+  "aliases": []
+ },
+ {
+  "osmId": "way/166903180",
+  "website": null,
+  "openingHours": null,
+  "street": "5200 Baum Boulevard",
+  "postcode": "15224",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "way/167875833",
+  "website": null,
+  "openingHours": null,
+  "street": "5430 Centre Avenue",
+  "postcode": "15232",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "way/171464187",
+  "website": "https://littlecorner.top/",
+  "openingHours": "Mo-Su 11:00-02:00",
+  "street": "301 North Craig Street",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "way/171465007",
+  "website": "http://kntfish.com/",
+  "openingHours": "Mo-Su 12:15-23:30; Fr 14:00-23:30",
+  "street": "4521 Centre Avenue",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "way/171843174",
+  "website": "https://locations.chipotle.com/pa/pittsburgh/4611-forbes-ave",
+  "openingHours": "Mo-Su 10:45-23:00",
+  "street": "4611 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": [
+   "Chipotle Mexican Grill"
+  ]
+ },
+ {
+  "osmId": "way/172222619",
+  "website": "https://pos.chowbus.com/online-ordering/store/Yotea-Yoka-Kitchen/44631",
+  "openingHours": "Mo-Su 11:00-24:30",
+  "street": "4615 Centre Avenue",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "way/172222623",
+  "website": null,
+  "openingHours": null,
+  "street": "4611 Centre Avenue",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "way/172222625",
+  "website": null,
+  "openingHours": null,
+  "street": "4609 Centre Avenue",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "way/172222626",
+  "website": "https://chaaiandchaatwala.square.site/",
+  "openingHours": "Mo-Tu 12:00-11:00, Th-Sa 12:00-11:00, Su 12:00-10:30",
+  "street": "4613 Centre Avenue",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "way/172658860",
+  "website": "https://www.pepperspacepittsburgh.com/",
+  "openingHours": "Mo-Su 11:00-21:30",
+  "street": "4609 Forbes Avenue",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "way/172662341",
+  "website": "http://pghdining.com/?option=com_content&id=11",
+  "openingHours": "Mo-Th 11:30-22:00; Fr-Sa 11:30-23:00; Su 12:00-21:00",
+  "street": "413 South Craig Street",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "way/173057615",
+  "website": null,
+  "openingHours": "Tu-Fr 09:00-14:30; Sa,Su 10:00-14:30",
+  "street": "207 South Craig Street",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "way/174190199",
+  "website": "https://locations.chipotle.com/pa/pittsburgh/4800-baum-blvd",
+  "openingHours": "11:00-22:00",
+  "street": "4800 Baum Boulevard",
+  "postcode": "15213",
+  "neighborhood": "Bloomfield",
+  "aliases": [
+   "Chipotle Mexican Grill"
+  ]
+ },
+ {
+  "osmId": "way/176867971",
+  "website": "https://www.tamarindflavorofindia.com/",
+  "openingHours": "Tu-Fr 11:30-14:30,17:00-21:30; Sa 12:00-15:00,17:00-22:00; Su 12:00-15:00,17:00-21:30",
+  "street": "257 North Craig Street",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "way/272917029",
+  "website": "https://restaurants.subway.com/united-states/pa/pittsburgh/418-s-craig-st",
+  "openingHours": "Mo-Fr 07:00-23:00; Sa 08:00-23:00; Su 08:00-22:00",
+  "street": "418 South Craig Street",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "way/343058407",
+  "website": null,
+  "openingHours": null,
+  "street": "Bellefonte Street",
+  "postcode": "15232",
+  "neighborhood": "Shadyside",
+  "aliases": []
+ },
+ {
+  "osmId": "way/539610803",
+  "website": "https://chowbusmkt.wixsite.com/website-618",
+  "openingHours": null,
+  "street": "256 North Craig Street",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "way/543158084",
+  "website": "https://allindiacuisine.com/",
+  "openingHours": null,
+  "street": "315 North Craig Street",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "way/545522090",
+  "website": "https://locations.kfc.com/pa/pittsburgh/4915-baum-blvd",
+  "openingHours": "Mo-Sa 10:00-23:00; Su 10:00-22:30",
+  "street": "4915 Baum Boulevard",
+  "postcode": "15213",
+  "neighborhood": "Bloomfield",
+  "aliases": [
+   "Kentucky Fried Chicken"
+  ]
+ },
+ {
+  "osmId": "way/545522499",
+  "website": "https://locations.einsteinbros.com/us/pa/pittsburgh/4910-baum-blvd",
+  "openingHours": "06:00-14:00",
+  "street": "4910 Baum Boulevard",
+  "postcode": "15213",
+  "neighborhood": "Bloomfield",
+  "aliases": [
+   "Einstein Brothers Bagels"
+  ]
+ },
+ {
+  "osmId": "way/545523785",
+  "website": "https://angelospizzeria.us/",
+  "openingHours": "Mo-Sa 11:00-23:00",
+  "street": "4768 Liberty Avenue",
+  "postcode": "15224",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "way/612697570",
+  "website": "https://order.toasttab.com/online/k-station-schenley-plaza-kiosk4",
+  "openingHours": "Mo-Fr 08:30-19:30; Sa, Su 10:00-19:30",
+  "street": "221 Schenley Drive",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": []
+ },
+ {
+  "osmId": "way/768281607",
+  "website": "https://restaurants.fiveguys.com/117-s-bouquet-st",
+  "openingHours": "11:00-21:30",
+  "street": "117 South Bouquet Street",
+  "postcode": "15213",
+  "neighborhood": "North Oakland",
+  "aliases": [
+   "Five Guys Burgers and Fries"
+  ]
+ },
+ {
+  "osmId": "way/911040388",
+  "website": "https://www.arbys.com/locations/us/pa/pittsburgh/5189-baum-blvd/store-8079/",
+  "openingHours": "06:00-23:00 open \"Dining in\" || 10:00-23:00 open \"Drive-through\"",
+  "street": "5189 Baum Boulevard",
+  "postcode": "15224",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ },
+ {
+  "osmId": "way/1190055245",
+  "website": "https://www.gsonliberty.com/",
+  "openingHours": "Tu-Th 16:00-21:00; Fr-Sa 16:00-22:00",
+  "street": "5104 Liberty Avenue",
+  "postcode": "15232",
+  "neighborhood": "Bloomfield",
+  "aliases": []
+ }
+]

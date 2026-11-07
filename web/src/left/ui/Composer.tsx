@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { listCommands, matchCommand } from '../commands'
+import { listCommands, matchCommand, suggestionsFor } from '../commands'
 import { useSession } from '../session'
 
 /** Beautiful UI chat composer, driven by the session draft so the replay can type into it. */
@@ -7,21 +7,56 @@ export function Composer({
   placeholder,
   onSend,
   autoFocus,
+  menuBelow,
 }: {
   placeholder: string
   onSend: (text: string) => void
   autoFocus?: boolean
+  /** open the command and suggestion list below the field, for the centered empty state */
+  menuBelow?: boolean
 }) {
   const draft = useSession((s) => s.draft)
   const busy = useSession((s) => s.busy)
   const replaying = useSession((s) => s.replaying)
   const ref = useRef<HTMLTextAreaElement>(null)
   const [active, setActive] = useState(0)
+  /** the draft the owner pressed Escape on. The list stays closed until the draft changes. */
+  const [dismissed, setDismissed] = useState<string | null>(null)
 
   const commands = draft.startsWith('/') && !draft.includes(' ')
     ? listCommands().filter((c) => c.name.startsWith(draft.slice(1)))
     : []
   const canSend = draft.trim().length > 0 && !busy && !replaying
+
+  // Lane H: a command's own rows while its args are typed, e.g. restaurants under "/import noo".
+  const rows =
+    dismissed === draft
+      ? []
+      : commands.length
+        ? commands.map((c) => ({
+            key: c.name,
+            label: `/${c.name}`,
+            detail: c.hint,
+            mono: true,
+            pick: () => {
+              useSession.setState({ draft: `/${c.name} ` })
+              ref.current?.focus()
+            },
+          }))
+        : suggestionsFor(draft).map((sg) => ({
+            key: sg.key,
+            label: sg.label,
+            detail: sg.detail,
+            mono: false,
+            pick: () => {
+              if (busy || replaying) return
+              useSession.setState({ draft: '' })
+              void sg.run()
+            },
+          }))
+  const current = Math.min(active, rows.length - 1)
+
+  useEffect(() => setActive(0), [draft])
 
   useLayoutEffect(() => {
     const el = ref.current
@@ -45,21 +80,24 @@ export function Composer({
 
   return (
     <div className="relative">
-      {commands.length > 0 && (
-        <div className="absolute inset-x-0 bottom-full mb-1.5 flex flex-col rounded-card bg-surface p-1 shadow-hairline">
-          {commands.map((c, i) => (
+      {rows.length > 0 && (
+        <div
+          role="listbox"
+          className={`absolute inset-x-0 z-20 flex flex-col rounded-card bg-surface p-1 shadow-hairline ${menuBelow ? 'top-full mt-1.5' : 'bottom-full mb-1.5'}`}
+        >
+          {rows.map((r, i) => (
             <button
-              key={c.name}
+              key={r.key}
               type="button"
+              role="option"
+              aria-selected={i === current}
               onMouseEnter={() => setActive(i)}
-              onClick={() => {
-                useSession.setState({ draft: `/${c.name} ` })
-                ref.current?.focus()
-              }}
-              className={`flex items-center gap-2 rounded-control px-2 py-1.5 text-left text-[13px] ${i === active ? 'bg-hover' : ''}`}
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={r.pick}
+              className={`flex min-w-0 items-center gap-2 rounded-control px-2 py-1.5 text-left text-[13px] ${i === current ? 'bg-hover' : ''}`}
             >
-              <span className="font-mono text-ink">/{c.name}</span>
-              <span className="text-ink-3">{c.hint}</span>
+              <span className={`shrink-0 text-ink ${r.mono ? 'font-mono' : ''}`}>{r.label}</span>
+              {r.detail && <span className="min-w-0 truncate text-ink-3">{r.detail}</span>}
             </button>
           ))}
         </div>
@@ -76,10 +114,20 @@ export function Composer({
           readOnly={replaying}
           onChange={(e) => useSession.setState({ draft: e.target.value })}
           onKeyDown={(e) => {
+            if (rows.length && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+              e.preventDefault()
+              setActive((current + (e.key === 'ArrowDown' ? 1 : rows.length - 1)) % rows.length)
+              return
+            }
+            if (rows.length && e.key === 'Escape') {
+              e.preventDefault()
+              setDismissed(draft)
+              return
+            }
             if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
               e.preventDefault()
-              if (commands[active]) {
-                useSession.setState({ draft: `/${commands[active].name} ` })
+              if (rows[current]) {
+                rows[current].pick()
                 return
               }
               send()

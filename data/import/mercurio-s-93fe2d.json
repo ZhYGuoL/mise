@@ -1,0 +1,167 @@
+{
+ "placeId": "0x8834f211a8bd839f:0x3f7f1d0ae057d773",
+ "createdAt": "2026-11-07T19:16:49.842Z",
+ "costUsd": 0.0006222,
+ "hoursSource": "google",
+ "pages": [],
+ "concept": {
+  "id": "mercurio-s-93fe2d",
+  "version": 1,
+  "name": "Mercurio's",
+  "tagline": "Italian pizza and pasta on Filbert Street, Shadyside",
+  "cuisine": [
+   "italian",
+   "pizza"
+  ],
+  "location": {
+   "lat": 40.4515375,
+   "lon": -79.9329228,
+   "address": "Filbert Street, Pittsburgh, PA 15232",
+   "neighborhood": "Shadyside"
+  },
+  "hours": {
+   "Sunday": {
+    "open": "12:00",
+    "close": "20:00"
+   },
+   "Monday": {
+    "open": "12:00",
+    "close": "20:00"
+   },
+   "Tuesday": {
+    "open": "12:00",
+    "close": "20:00"
+   },
+   "Wednesday": {
+    "open": "12:00",
+    "close": "20:00"
+   },
+   "Thursday": {
+    "open": "12:00",
+    "close": "20:00"
+   },
+   "Friday": {
+    "open": "12:00",
+    "close": "21:00"
+   },
+   "Saturday": {
+    "open": "12:00",
+    "close": "21:00"
+   }
+  },
+  "priceTier": 2,
+  "deliveryFee": 2.99,
+  "serviceFeePct": 14,
+  "menu": [
+   {
+    "id": "m1",
+    "name": "Margherita Pizza",
+    "description": "Tomato sauce, fresh mozzarella, basil, and olive oil on a thin crust.",
+    "price": 16.5,
+    "category": "main",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "A margherita pizza in a white takeout box with grease-free fresh basil leaves and melted mozzarella, natural light, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m2",
+    "name": "Pepperoni Pizza",
+    "description": "Tomato sauce, mozzarella, and crispy pepperoni on a hand-stretched crust.",
+    "price": 18,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A pepperoni pizza slice pulled from a takeout box, curled pepperoni cups visible, warm tones, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m3",
+    "name": "Spaghetti and Meatballs",
+    "description": "Spaghetti with marinara and house-style beef and pork meatballs.",
+    "price": 19,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "Spaghetti with marinara and meatballs in a clear takeout container with a fork, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m4",
+    "name": "Chicken Parmesan",
+    "description": "Breaded chicken cutlet topped with marinara and mozzarella, served with spaghetti.",
+    "price": 21,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "Chicken parmesan with melted cheese and spaghetti in a takeout container, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m5",
+    "name": "Fettuccine Alfredo",
+    "description": "Fettuccine tossed in a creamy parmesan butter sauce.",
+    "price": 17.5,
+    "category": "main",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "Fettuccine alfredo in a takeout container with parmesan dusting, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m6",
+    "name": "Caesar Salad",
+    "description": "Romaine, parmesan, croutons, and Caesar dressing.",
+    "price": 9,
+    "category": "side",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "Caesar salad in a plastic takeout clamshell with croutons and shaved parmesan, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m7",
+    "name": "Garlic Knots",
+    "description": "Baked dough knots brushed with garlic butter and parmesan.",
+    "price": 6,
+    "category": "side",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "A paper-lined basket of golden garlic knots glistening with butter, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m8",
+    "name": "Tiramisu",
+    "description": "Layered espresso-soaked ladyfingers with mascarpone cream and cocoa.",
+    "price": 7.5,
+    "category": "dessert",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "A slice of tiramisu in a clear takeout container dusted with cocoa, no text, no people.",
+    "imageUrl": null
+   }
+  ],
+  "brand": {
+   "logoUrl": null,
+   "logoPrompt": "A flat two-color mark pairing a simple pizza slice with a wooden spoon forming the letter M, in deep red and cream.",
+   "colors": {
+    "primary": "#B22222",
+    "background": "#FFF8F0",
+    "ink": "#2B2B2B"
+   },
+   "voice": "Friendly and straightforward, like a neighborhood Italian spot that knows its regulars by name."
+  },
+  "promos": [],
+  "existing": {
+   "placeId": "0x8834f211a8bd839f:0x3f7f1d0ae057d773",
+   "name": "Mercurio's",
+   "rating": 4.6,
+   "reviews": 1408,
+   "menuSource": "estimated",
+   "websiteUrl": null
+  }
+ }
+}

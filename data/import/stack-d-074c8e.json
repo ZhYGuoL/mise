@@ -1,0 +1,166 @@
+{
+ "placeId": "0x8834f229c2648db9:0xd9c0693a0be9ab5d",
+ "createdAt": "2026-11-07T19:16:28.826Z",
+ "costUsd": 0.0006761,
+ "hoursSource": "google",
+ "pages": [],
+ "concept": {
+  "id": "stack-d-074c8e",
+  "version": 1,
+  "name": "Stack'd",
+  "tagline": "Stacked burgers in Central Oakland, Pittsburgh",
+  "cuisine": [
+   "burger",
+   "american"
+  ],
+  "location": {
+   "lat": 40.4413253,
+   "lon": -79.9568899,
+   "address": "3716 Forbes Avenue, Pittsburgh, PA 15213",
+   "neighborhood": "Central Oakland"
+  },
+  "hours": {
+   "Sunday": {
+    "open": "11:00",
+    "close": "00:00"
+   },
+   "Monday": {
+    "open": "11:00",
+    "close": "00:00"
+   },
+   "Tuesday": {
+    "open": "11:00",
+    "close": "00:00"
+   },
+   "Wednesday": {
+    "open": "11:00",
+    "close": "00:00"
+   },
+   "Thursday": {
+    "open": "11:00",
+    "close": "00:00"
+   },
+   "Friday": {
+    "open": "11:00",
+    "close": "00:00"
+   },
+   "Saturday": {
+    "open": "12:00",
+    "close": "00:00"
+   }
+  },
+  "priceTier": 1,
+  "deliveryFee": 2.99,
+  "serviceFeePct": 14,
+  "menu": [
+   {
+    "id": "m1",
+    "name": "Classic Cheeseburger",
+    "description": "Beef patty, American cheese, lettuce, tomato, onion, and pickles on a toasted bun.",
+    "price": 9.49,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A stacked cheeseburger with melted American cheese in a white paper takeout wrapper on a kraft paper tray, soft natural light, shallow depth of field.",
+    "imageUrl": null
+   },
+   {
+    "id": "m2",
+    "name": "Bacon Cheeseburger",
+    "description": "Beef patty with crispy bacon and American cheese on a toasted bun.",
+    "price": 11.49,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A bacon cheeseburger with crisp bacon strips peeking out, in a paper takeout box, on a wooden table, warm lighting.",
+    "imageUrl": null
+   },
+   {
+    "id": "m3",
+    "name": "Double Stack Burger",
+    "description": "Two beef patties stacked with cheese, lettuce, tomato, and house sauce.",
+    "price": 12.99,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A tall double-patty burger with two melted cheese slices in a paper sleeve, takeout bag beside it, overhead view.",
+    "imageUrl": null
+   },
+   {
+    "id": "m4",
+    "name": "Chicken Sandwich",
+    "description": "Crispy fried chicken breast with lettuce, tomato, and mayo on a brioche bun.",
+    "price": 10.49,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A crispy fried chicken sandwich in a paper takeout wrapper with a side of fries in a cardboard tray.",
+    "imageUrl": null
+   },
+   {
+    "id": "m5",
+    "name": "Veggie Burger",
+    "description": "Plant-based patty with lettuce, tomato, onion, and pickles on a toasted bun.",
+    "price": 10.49,
+    "category": "main",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "A plant-based veggie burger with fresh lettuce and tomato in a paper wrapper, bright natural light.",
+    "imageUrl": null
+   },
+   {
+    "id": "m6",
+    "name": "Chicken Fingers Combo",
+    "description": "Crispy chicken fingers with fries and your choice of dipping sauce.",
+    "price": 10.99,
+    "category": "combo",
+    "tags": [],
+    "imagePrompt": "Golden chicken fingers and fries in a cardboard takeout tray with dipping sauce cups, overhead view.",
+    "imageUrl": null
+   },
+   {
+    "id": "m7",
+    "name": "Crinkle Fries",
+    "description": "Crispy seasoned fries served hot.",
+    "price": 3.99,
+    "category": "side",
+    "tags": [
+     "vegetarian",
+     "vegan",
+     "gluten_free"
+    ],
+    "imagePrompt": "A paper cup of crinkle-cut fries with salt flakes, on a takeout tray.",
+    "imageUrl": null
+   },
+   {
+    "id": "m8",
+    "name": "Fountain Drink",
+    "description": "Fountain soda, free refills.",
+    "price": 2.49,
+    "category": "drink",
+    "tags": [
+     "vegan",
+     "gluten_free"
+    ],
+    "imagePrompt": "A large paper cup with lid and straw, condensation on the outside, on a takeout counter.",
+    "imageUrl": null
+   }
+  ],
+  "brand": {
+   "logoUrl": null,
+   "logoPrompt": "A flat two-color mark: the word Stack'd with a small burger stack icon above the apostrophe, bold rounded sans-serif.",
+   "colors": {
+    "primary": "#D62828",
+    "background": "#FFF8F0",
+    "ink": "#1B1B1B"
+   },
+   "voice": "Casual and friendly, speaking to students and neighbors like a regular spot down the block."
+  },
+  "promos": [],
+  "existing": {
+   "placeId": "0x8834f229c2648db9:0xd9c0693a0be9ab5d",
+   "name": "Stack'd",
+   "rating": 4.3,
+   "reviews": 1779,
+   "menuSource": "estimated",
+   "websiteUrl": "https://www.stackdburgers.com/oakland"
+  }
+ }
+}

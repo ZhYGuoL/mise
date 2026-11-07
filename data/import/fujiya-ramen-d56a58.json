@@ -1,0 +1,162 @@
+{
+ "placeId": "0x8834f210c4f9aaab:0x98ce43a75a59ca7b",
+ "createdAt": "2026-11-07T19:15:26.710Z",
+ "costUsd": 0.0006847,
+ "hoursSource": "default",
+ "pages": [],
+ "concept": {
+  "id": "fujiya-ramen-d56a58",
+  "version": 1,
+  "name": "Fujiya Ramen",
+  "tagline": "Japanese ramen and more in Shadyside, Pittsburgh",
+  "cuisine": [
+   "japanese"
+  ],
+  "location": {
+   "lat": 40.4504757,
+   "lon": -79.9352358,
+   "address": "815 South Aiken Ave, Pittsburgh, PA 15232",
+   "neighborhood": "Shadyside"
+  },
+  "hours": {
+   "Sunday": {
+    "open": "11:00",
+    "close": "22:00"
+   },
+   "Monday": {
+    "open": "11:00",
+    "close": "22:00"
+   },
+   "Tuesday": {
+    "open": "11:00",
+    "close": "22:00"
+   },
+   "Wednesday": {
+    "open": "11:00",
+    "close": "22:00"
+   },
+   "Thursday": {
+    "open": "11:00",
+    "close": "22:00"
+   },
+   "Friday": {
+    "open": "11:00",
+    "close": "23:00"
+   },
+   "Saturday": {
+    "open": "11:00",
+    "close": "23:00"
+   }
+  },
+  "priceTier": 2,
+  "deliveryFee": 2.99,
+  "serviceFeePct": 14,
+  "menu": [
+   {
+    "id": "m1",
+    "name": "Tonkotsu Ramen",
+    "description": "Rich pork bone broth with chashu pork, soft-boiled egg, scallions, and noodles.",
+    "price": 15.5,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A takeout container of tonkotsu ramen with creamy pork broth, sliced chashu pork, a halved soft-boiled egg, and green scallions, sealed with a clear lid and paper bag on a plain surface.",
+    "imageUrl": null
+   },
+   {
+    "id": "m2",
+    "name": "Shoyu Ramen",
+    "description": "Soy-based chicken and pork broth with chashu, bamboo shoots, nori, and noodles.",
+    "price": 14.5,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A takeout container of shoyu ramen with clear brown soy broth, sliced chashu, bamboo shoots, and a sheet of nori, with a paper bag and chopsticks beside it.",
+    "imageUrl": null
+   },
+   {
+    "id": "m3",
+    "name": "Miso Ramen",
+    "description": "Miso-seasoned broth with corn, bean sprouts, ground pork, and noodles.",
+    "price": 15,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A takeout container of miso ramen with golden broth, corn kernels, bean sprouts, and ground pork on wavy noodles, in a sealed takeout box.",
+    "imageUrl": null
+   },
+   {
+    "id": "m4",
+    "name": "Spicy Miso Ramen",
+    "description": "Miso ramen with chili oil, ground pork, and a spicy kick.",
+    "price": 15.5,
+    "category": "main",
+    "tags": [
+     "spicy"
+    ],
+    "imagePrompt": "A takeout container of spicy miso ramen with red chili oil swirled into orange broth, ground pork and scallions on top, sealed for takeout.",
+    "imageUrl": null
+   },
+   {
+    "id": "m5",
+    "name": "Chicken Katsu Don",
+    "description": "Breaded fried chicken cutlet over rice with egg and sweet soy sauce.",
+    "price": 14,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A takeout container of chicken katsu don with a crispy breaded chicken cutlet over rice, egg, and sauce, with a plastic fork and lid.",
+    "imageUrl": null
+   },
+   {
+    "id": "m6",
+    "name": "Gyoza",
+    "description": "Pan-fried pork dumplings served with dipping sauce.",
+    "price": 7.5,
+    "category": "side",
+    "tags": [],
+    "imagePrompt": "A takeout box of pan-fried pork gyoza with golden bottoms, next to a small cup of dipping sauce, in a sealed takeout container.",
+    "imageUrl": null
+   },
+   {
+    "id": "m7",
+    "name": "Vegetable Ramen",
+    "description": "Vegetable broth ramen with tofu, mushrooms, corn, and bok choy.",
+    "price": 14,
+    "category": "main",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "A takeout container of vegetable ramen with clear broth, tofu cubes, mushrooms, corn, and bok choy over noodles, sealed for takeout.",
+    "imageUrl": null
+   },
+   {
+    "id": "m8",
+    "name": "Matcha Ice Cream",
+    "description": "Green tea ice cream scoop.",
+    "price": 5,
+    "category": "dessert",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "A small takeout cup of pale green matcha ice cream with a wooden spoon, on a plain background.",
+    "imageUrl": null
+   }
+  ],
+  "brand": {
+   "logoUrl": null,
+   "logoPrompt": "A simple flat two-color mark combining a steaming ramen bowl with chopsticks forming the letter F, in deep red on cream.",
+   "colors": {
+    "primary": "#B3261E",
+    "background": "#FFF8F0",
+    "ink": "#2B1B17"
+   },
+   "voice": "Friendly, direct, and welcoming, like a neighborhood ramen counter where the staff are happy to explain the bowl."
+  },
+  "promos": [],
+  "existing": {
+   "placeId": "0x8834f210c4f9aaab:0x98ce43a75a59ca7b",
+   "name": "Fujiya Ramen",
+   "rating": 4.5,
+   "reviews": 1078,
+   "menuSource": "estimated",
+   "websiteUrl": null
+  }
+ }
+}

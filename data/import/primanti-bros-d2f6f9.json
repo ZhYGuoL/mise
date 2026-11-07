@@ -1,0 +1,153 @@
+{
+ "placeId": "0x8834f229c05ca4c3:0x2f7f14f7c3abbe8",
+ "createdAt": "2026-11-07T19:16:11.832Z",
+ "costUsd": 0.0006194,
+ "hoursSource": "google",
+ "pages": [],
+ "concept": {
+  "id": "primanti-bros-d2f6f9",
+  "version": 1,
+  "name": "Primanti Bros.",
+  "tagline": "Sandwiches and fries in Central Oakland, Pittsburgh",
+  "cuisine": [
+   "sandwich",
+   "american"
+  ],
+  "location": {
+   "lat": 40.4417679,
+   "lon": -79.9569149,
+   "address": "3803 Forbes Avenue, Pittsburgh, PA 15213",
+   "neighborhood": "Central Oakland"
+  },
+  "hours": {
+   "Sunday": {
+    "open": "11:00",
+    "close": "00:00"
+   },
+   "Monday": {
+    "open": "11:00",
+    "close": "00:00"
+   },
+   "Tuesday": {
+    "open": "11:00",
+    "close": "00:00"
+   },
+   "Wednesday": {
+    "open": "11:00",
+    "close": "00:00"
+   },
+   "Thursday": {
+    "open": "11:00",
+    "close": "00:00"
+   },
+   "Friday": {
+    "open": "11:00",
+    "close": "00:00"
+   },
+   "Saturday": {
+    "open": "12:00",
+    "close": "00:00"
+   }
+  },
+  "priceTier": 1,
+  "deliveryFee": 2.99,
+  "serviceFeePct": 14,
+  "menu": [
+   {
+    "id": "m1",
+    "name": "Pastrami Sandwich",
+    "description": "Sliced pastrami on grilled Italian bread with coleslaw, tomato, and melted cheese, with fries packed right inside.",
+    "price": 12.5,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A stacked pastrami sandwich with coleslaw, tomato, and fries spilling from the bread, in a white paper takeout wrapper on a wooden tray, warm lighting, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m2",
+    "name": "Classic Cheesesteak Sandwich",
+    "description": "Thinly sliced grilled steak with melted cheese, onions, and tomato on a soft roll, with coleslaw and fries inside.",
+    "price": 11.75,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A cheesesteak sandwich with melted cheese, grilled onions, and fries visible in the bread, wrapped in white paper on a takeout tray, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m3",
+    "name": "Chicken Cutlet Sandwich",
+    "description": "Breaded and fried chicken cutlet on Italian bread with coleslaw, tomato, and fries.",
+    "price": 11.25,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A crispy fried chicken cutlet sandwich with coleslaw and fries inside, in a paper wrapper on a takeout tray, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m4",
+    "name": "Italian Sausage Sandwich",
+    "description": "Grilled Italian sausage with peppers and onions on a roll, topped with fries and coleslaw.",
+    "price": 10.95,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A grilled sausage sandwich with peppers, onions, and fries in a paper takeout wrapper, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m5",
+    "name": "Veggie Sandwich",
+    "description": "Grilled vegetables, cheese, tomato, and coleslaw on Italian bread with fries inside.",
+    "price": 10.5,
+    "category": "main",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "A vegetable sandwich with grilled peppers, tomato, cheese, and fries inside a paper wrapper, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m6",
+    "name": "Fries Side",
+    "description": "Crispy french fries, served by themselves.",
+    "price": 3.75,
+    "category": "side",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "A paper cup of golden french fries on a takeout tray, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m7",
+    "name": "Soft Drink",
+    "description": "Fountain soda in a cup with ice.",
+    "price": 2.5,
+    "category": "drink",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "A plastic cup of soda with ice and a straw on a takeout tray, no text, no people.",
+    "imageUrl": null
+   }
+  ],
+  "brand": {
+   "logoUrl": null,
+   "logoPrompt": "A flat two-color mark: a simple stacked sandwich with fries tucked inside, in mustard yellow on cream, with the name set in a bold sans-serif beneath.",
+   "colors": {
+    "primary": "#D9A21B",
+    "background": "#FFF8EC",
+    "ink": "#2B1D0E"
+   },
+   "voice": "Friendly and straightforward, like a neighborhood sandwich counter that is glad to see you and gets your order right."
+  },
+  "promos": [],
+  "existing": {
+   "placeId": "0x8834f229c05ca4c3:0x2f7f14f7c3abbe8",
+   "name": "Primanti Bros.",
+   "rating": 4.3,
+   "reviews": 2005,
+   "menuSource": "estimated",
+   "websiteUrl": "https://locations.primantibros.com/pa/pittsburgh/38002/"
+  }
+ }
+}

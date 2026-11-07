@@ -1,0 +1,163 @@
+{
+ "placeId": "0x8834f20cac7b0859:0xb9cb735428929d9",
+ "createdAt": "2026-11-07T19:06:34.326Z",
+ "costUsd": 0.0014670999999999998,
+ "hoursSource": "google",
+ "pages": [
+  "https://noodleheadpgh.com/"
+ ],
+ "concept": {
+  "id": "noodlehead-1cfd6e",
+  "version": 1,
+  "name": "Noodlehead",
+  "tagline": "Thai street food noodles in Shadyside, Pittsburgh",
+  "cuisine": [
+   "asian",
+   "thai"
+  ],
+  "location": {
+   "lat": 40.4578006,
+   "lon": -79.9252669,
+   "address": "242 South Highland Avenue, Pittsburgh, PA 15206",
+   "neighborhood": "Shadyside"
+  },
+  "hours": {
+   "Sunday": {
+    "open": "12:00",
+    "close": "22:00"
+   },
+   "Monday": {
+    "open": "12:00",
+    "close": "22:00"
+   },
+   "Tuesday": {
+    "open": "12:00",
+    "close": "22:00"
+   },
+   "Wednesday": {
+    "open": "12:00",
+    "close": "22:00"
+   },
+   "Thursday": {
+    "open": "12:00",
+    "close": "22:00"
+   },
+   "Friday": {
+    "open": "12:00",
+    "close": "22:00"
+   },
+   "Saturday": {
+    "open": "12:00",
+    "close": "22:00"
+   }
+  },
+  "priceTier": 2,
+  "deliveryFee": 2.99,
+  "serviceFeePct": 14,
+  "menu": [
+   {
+    "id": "m1",
+    "name": "Street Noodle 1",
+    "description": "Rice noodles with Thai fried chicken, Chinese broccoli, bean sprouts, cilantro, and a sweet and tangy lime juice sauce.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A takeout container of rice noodles topped with crispy Thai fried chicken, Chinese broccoli, bean sprouts, and cilantro, in a clear plastic bowl with a lid and paper bag",
+    "imageUrl": null
+   },
+   {
+    "id": "m2",
+    "name": "Street Noodle 2",
+    "description": "Thin egg noodles with tempura shrimp, Chinese broccoli, bean sprouts, cilantro, and soy and lime sauce.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A takeout container of thin egg noodles with golden tempura shrimp, Chinese broccoli, bean sprouts, and cilantro, in a clear plastic bowl with a lid and paper bag",
+    "imageUrl": null
+   },
+   {
+    "id": "m3",
+    "name": "Pad Thai",
+    "description": "Rice noodles with your choice of chicken, shrimp, tofu, or vegetables, egg, bean sprouts, peanuts, scallions, and tamarind sauce.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A takeout container of pad thai rice noodles with egg, bean sprouts, crushed peanuts, and scallions, in a foil tray with a lid and paper bag",
+    "imageUrl": null
+   },
+   {
+    "id": "m4",
+    "name": "Green Curry",
+    "description": "A rich and creamy green curry with sweet peppers, eggplant, broccoli, and green beans, served with white rice.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A takeout container of creamy green curry with eggplant, peppers, broccoli, and green beans beside a mound of white rice, in a sealed plastic container with a paper bag",
+    "imageUrl": null
+   },
+   {
+    "id": "m5",
+    "name": "Kapow Basil",
+    "description": "Thai basil stir-fry with garlic, peppers, chilies, and a fried egg, served with white rice.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [
+     "spicy"
+    ],
+    "imagePrompt": "A takeout container of Thai basil stir-fry with peppers, chilies, and a fried egg over white rice, in a foil tray with a lid and paper bag",
+    "imageUrl": null
+   },
+   {
+    "id": "m6",
+    "name": "Khao Mun Fried Chicken",
+    "description": "Fried chicken in a light, flavorful chicken broth with sweet and sour sauce, served with white rice.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A takeout container of fried chicken in light broth beside white rice, with a small cup of sweet and sour sauce, in a sealed container with a paper bag",
+    "imageUrl": null
+   },
+   {
+    "id": "m7",
+    "name": "Duck Noodle Soup",
+    "description": "Rice noodles with tender duck in a herbal broth, Chinese broccoli, bean sprouts, and a hint of spice.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [
+     "spicy"
+    ],
+    "imagePrompt": "A takeout soup container of rice noodles with tender duck slices, Chinese broccoli, and bean sprouts in herbal broth, with a sealed lid and paper bag",
+    "imageUrl": null
+   },
+   {
+    "id": "m8",
+    "name": "Thai Iced Tea",
+    "description": "",
+    "price": 5,
+    "category": "drink",
+    "tags": [],
+    "imagePrompt": "A tall plastic cup of orange Thai iced tea with a straw and lid, in a takeout drink carrier",
+    "imageUrl": null
+   }
+  ],
+  "brand": {
+   "logoUrl": null,
+   "logoPrompt": "A flat two-color mark of a steaming noodle bowl with chopsticks forming a simple head silhouette, in red and dark brown on cream.",
+   "colors": {
+    "primary": "#D9482B",
+    "background": "#FFF6EC",
+    "ink": "#2B1B14"
+   },
+   "voice": "Friendly and casual, like a neighborhood street market stall that's happy to help you pick your bowl."
+  },
+  "promos": [],
+  "existing": {
+   "placeId": "0x8834f20cac7b0859:0xb9cb735428929d9",
+   "name": "Noodlehead",
+   "rating": 4.6,
+   "reviews": 3670,
+   "menuSource": "website",
+   "websiteUrl": "https://noodleheadpgh.com/"
+  }
+ }
+}

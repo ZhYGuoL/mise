@@ -6,6 +6,7 @@ import { GENERATED_DIR, isMock } from "./fixtures";
 import { agent } from "./routes/agent";
 import { city } from "./routes/city";
 import { generate } from "./routes/generate";
+import { importRoute } from "./routes/import";
 import { optimize } from "./routes/optimize";
 import { residents } from "./routes/residents";
 import { simulate } from "./routes/simulate";
@@ -21,6 +22,7 @@ app.route("/api/generate", generate);
 app.route("/api/city", city);
 app.route("/api/simulate", simulate);
 app.route("/api/residents", residents);
+app.route("/api/import", importRoute);
 
 /** Generated images: data/generated/<conceptId>/<file> at /generated/<conceptId>/<file>. */
 app.get("/generated/*", async (c) => {

@@ -1,0 +1,7 @@
+# Lane H: start from an existing restaurant
+
+- Works: `/import <name or Maps link>` and the "Existing restaurant" row on the empty state, with autocomplete over the 192 places (street and neighborhood tell chain branches apart). `POST /api/import` handles typos, chains and Maps links, and never invents a place. Verified in the browser for Noodlehead, Fujiya Ramen, Pamela's (two branches) and a Maps link.
+- Real data: name, address, neighborhood, cuisine, tier, rating, and hours from Google popular times, then the OSM tag, then cuisine defaults. The menu is "website" only when code finds each name and price on the page (Noodlehead, Everyday Noodles, The Porch). Else MODEL_FAST estimates it. Cost is about $0.001 per import, and 12 places are cached in `data/import/`.
+- Faked: brand colors, voice and logo are drafted, and fees are the city's typical $2.99 and 14%. The Google busy line on the hour chart waits for lane D's `observedByHour`. I tested it with Noodlehead's real Friday curve injected. Until D merges, the sim double-counts the place (for example, Fujiya Ramen takes orders from Fujiya Ramen).
+- Contracts: new `ImportRequest`, `ImportResponse`, `ImportPlace`, `ImportError`. Small hooks: `server/src/index.ts`, `commands.ts` (`suggest`), `Composer.tsx` (rows, arrow keys), `LeftPane.tsx`, `Canvas.tsx`, `HourChart.tsx`.
+- Known issue (lane A): the user bubble in `Thread.tsx` does not wrap long words, so a long pasted message overflows. An import clears the thread and versions, because it starts a new restaurant.

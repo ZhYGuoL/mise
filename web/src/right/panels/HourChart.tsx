@@ -41,6 +41,7 @@ function Readout({ prediction }: { prediction: Prediction }) {
   const slot = usePlayhead((s) => Math.min(23, Math.floor(s.t / 60)))
   const hour = (slot + DAY_START_HOUR) % 24
   const b = prediction.byHour.find((x) => x.hour === hour)
+  const busy = prediction.observedByHour?.find((x) => x.hour === hour)
   return (
     <span className="flex items-baseline gap-2 text-[11.5px] text-ink-3 tabular-nums">
       <span className="font-medium text-ink">{`${String(hour).padStart(2, '0')}:00`}</span>
@@ -54,6 +55,7 @@ function Readout({ prediction }: { prediction: Prediction }) {
       ) : (
         <span>No orders</span>
       )}
+      {busy && <span>Google busy {Math.round(busy.busyPct)}%</span>}
     </span>
   )
 }
@@ -116,6 +118,26 @@ export function HourChart({
       .join('')}Z`
   const p50 = line(pts((s) => s.p50))
 
+  // Lane H: Google's busy curve for a real place. It is relative foot traffic, not orders,
+  // so it is scaled to put its peak on the simulated p50 peak. Hours Google has no value for are gaps.
+  const observed = prediction.observedByHour ?? []
+  const observedMax = Math.max(0, ...observed.map((o) => o.busyPct))
+  const p50Max = Math.max(0, ...slots.map((s) => s.p50))
+  const google =
+    observed.length && observedMax > 0 && p50Max > 0
+      ? slots
+          .map((s) => {
+            const o = observed.find((x) => hourSlot(x.hour) === s.slot)
+            return o ? { slot: s.slot, v: (o.busyPct / observedMax) * p50Max } : null
+          })
+          .reduce((d, o, i, all) => {
+            if (!o) return d
+            const cmd = all[i - 1] ? 'L' : 'M'
+            return `${d}${cmd}${x(o.slot).toFixed(1)},${y(o.v).toFixed(1)}`
+          }, '')
+      : ''
+  const r = prediction.observedCorrelation
+
   const open = openWindow(concept, prediction.scenario.day)
   const closed: [number, number][] = open
     ? ([[0, open[0]], [open[1], DAY_MINUTES]] as [number, number][]).filter(([a, b]) => b - a > 0)
@@ -134,6 +156,17 @@ export function HourChart({
       <div className="flex items-baseline justify-between px-0.5">
         <span className="text-[13px] font-semibold text-ink">Orders by hour</span>
         <span className="flex items-center gap-3 text-[11.5px] text-ink-3">
+          {google && (
+            <span className="flex items-center gap-1.5">
+              <span className="h-px w-3 bg-ink-2" />
+              Google busy
+              {r != null && (
+                <span className="tabular-nums text-ink-2" title="Correlation of simulated orders and Google busy, open hours">
+                  r {r.toFixed(2)}
+                </span>
+              )}
+            </span>
+          )}
           <span className="flex items-center gap-1.5">
             <span className="h-0.5 w-3 rounded-full" style={{ background: color }} />
             p50
@@ -195,6 +228,9 @@ export function HourChart({
               {BAND_LAYERS.map(({ f, opacity }) => (
                 <path key={f} d={band(f)} fill={color} opacity={opacity} />
               ))}
+              {google && (
+                <path d={google} fill="none" stroke="var(--ink-2)" strokeWidth={1.25} strokeLinejoin="round" strokeLinecap="round" />
+              )}
               <path d={p50} fill="none" stroke={color} strokeOpacity={0.35} strokeWidth={1.75} strokeLinejoin="round" />
               <Playhead width={width} clipId={clipId} height={HEIGHT} />
               <path

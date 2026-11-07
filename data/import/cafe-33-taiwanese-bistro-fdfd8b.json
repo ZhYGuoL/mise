@@ -1,0 +1,164 @@
+{
+ "placeId": "0x8834f20008064247:0x3b4568c3d0f2e8bc",
+ "createdAt": "2026-11-07T19:16:39.876Z",
+ "costUsd": 0.000677,
+ "hoursSource": "google",
+ "pages": [],
+ "concept": {
+  "id": "cafe-33-taiwanese-bistro-fdfd8b",
+  "version": 1,
+  "name": "Cafe 33 Taiwanese Bistro",
+  "tagline": "Taiwanese bistro in Squirrel Hill South, Pittsburgh",
+  "cuisine": [
+   "taiwanese"
+  ],
+  "location": {
+   "lat": 40.4376357,
+   "lon": -79.9190638,
+   "address": "Shady Avenue, Pittsburgh, PA 15217",
+   "neighborhood": "Squirrel Hill South"
+  },
+  "hours": {
+   "Sunday": {
+    "open": "11:00",
+    "close": "21:00"
+   },
+   "Monday": {
+    "open": "11:00",
+    "close": "21:00"
+   },
+   "Tuesday": {
+    "open": "11:00",
+    "close": "21:00"
+   },
+   "Wednesday": {
+    "open": "11:00",
+    "close": "21:00"
+   },
+   "Thursday": {
+    "open": "11:00",
+    "close": "21:00"
+   },
+   "Friday": {
+    "open": "11:00",
+    "close": "22:00"
+   },
+   "Saturday": {
+    "open": "12:00",
+    "close": "22:00"
+   }
+  },
+  "priceTier": 2,
+  "deliveryFee": 2.99,
+  "serviceFeePct": 14,
+  "menu": [
+   {
+    "id": "m1",
+    "name": "Beef Noodle Soup",
+    "description": "Braised beef shank and tendon in a rich soy-based broth with wheat noodles and bok choy.",
+    "price": 14.5,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "Takeout container of Taiwanese beef noodle soup with sliced braised beef, noodles and green bok choy in dark broth, sealed with a clear lid and paper bag, overhead shot, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m2",
+    "name": "Three Cup Chicken",
+    "description": "Bone-in chicken stewed with soy sauce, rice wine and sesame oil, finished with basil.",
+    "price": 13.95,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "Takeout box of Taiwanese three cup chicken with glossy brown sauce, fresh basil leaves and sliced chili on white rice, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m3",
+    "name": "Braised Pork Rice",
+    "description": "Ground pork braised in soy and five spice, served over steamed rice with a soft-boiled egg.",
+    "price": 9.5,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "Takeout container of braised pork over white rice with a halved soy-marinated egg and pickled vegetable on the side, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m4",
+    "name": "Popcorn Chicken",
+    "description": "Bite-sized fried chicken tossed with basil and chili, a Taiwanese night market favorite.",
+    "price": 9.95,
+    "category": "side",
+    "tags": [
+     "spicy"
+    ],
+    "imagePrompt": "Paper bag and small takeout box of crispy fried chicken bites with green basil leaves and red chili flakes, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m5",
+    "name": "Scallion Pancake",
+    "description": "Flaky, layered flatbread studded with scallions, pan-fried until golden.",
+    "price": 6.5,
+    "category": "side",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "Wedge-cut scallion pancake in a takeout box, golden layers visible, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m6",
+    "name": "Vegetable Fried Rice",
+    "description": "Wok-fried rice with egg, seasonal vegetables and soy sauce.",
+    "price": 11.5,
+    "category": "main",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "Takeout container of fried rice with egg ribbons, peas and carrots, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m7",
+    "name": "Bubble Milk Tea",
+    "description": "Black tea with milk and chewy tapioca pearls, served cold.",
+    "price": 5.25,
+    "category": "drink",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "Plastic cup of bubble milk tea with black tapioca pearls and a wide straw, sealed lid, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m8",
+    "name": "Beef Noodle Combo",
+    "description": "Beef noodle soup served with popcorn chicken and a side of pickled greens.",
+    "price": 16.95,
+    "category": "combo",
+    "tags": [],
+    "imagePrompt": "Takeout meal with a container of beef noodle soup beside a small box of popcorn chicken and pickled greens, no text, no people.",
+    "imageUrl": null
+   }
+  ],
+  "brand": {
+   "logoUrl": null,
+   "logoPrompt": "A flat two-color mark pairing a simple steaming bowl silhouette with the number 33 in a clean sans-serif, in deep red and cream.",
+   "colors": {
+    "primary": "#B5382E",
+    "background": "#FBF4E8",
+    "ink": "#2B1B17"
+   },
+   "voice": "Friendly and unfussy, speaking to neighbors as if they were regulars stopping in for a comforting bowl."
+  },
+  "promos": [],
+  "existing": {
+   "placeId": "0x8834f20008064247:0x3b4568c3d0f2e8bc",
+   "name": "Cafe 33 Taiwanese Bistro",
+   "rating": 4.4,
+   "reviews": 1477,
+   "menuSource": "estimated",
+   "websiteUrl": null
+  }
+ }
+}
