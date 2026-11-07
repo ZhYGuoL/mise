@@ -11,7 +11,7 @@ import { RADIUS_KM, SCALE, distanceKm, dietOk, placeModel, placeTerms, sumTerms 
 
 export type Area = {
   id: string;
-  /** Plain name used in labels, e.g. "too far from Shadyside". */
+  /** Plain name used in labels, e.g. "too far for Shadyside residents". */
   name: string;
   lat: number;
   lon: number;

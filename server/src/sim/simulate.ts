@@ -316,8 +316,10 @@ function objectionLabel(code: Code, acc: ObjectionAcc, concept: Concept, names: 
     }
     case "fee_too_high":
       return `${money(concept.deliveryFee)} delivery + ${concept.serviceFeePct}% service fee`;
-    case "too_far":
-      return `too far from ${AREA_NAME[top(acc.area) ?? ""] ?? "home"}`;
+    case "too_far": {
+      const area = AREA_NAME[top(acc.area) ?? ""];
+      return area ? `too far for ${area} residents` : "too far for residents";
+    }
     case "no_diet_option": {
       const tag = DIET_WORD[top(acc.tag) ?? "vegetarian"]!;
       const n = acc.mains.indexOf(Math.max(...acc.mains));
