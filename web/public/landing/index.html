@@ -406,6 +406,10 @@ function marquee(){const w1=$('#m1').scrollWidth/2,w2=$('#m2').scrollWidth/2;con
  if(!RM){mo1=(mo1-.5*boost)%w1;mo2=(mo2+.5*boost)%w2}skew=lerp(skew,clamp(vel*.25,-9,9),.12);
  $('#m1').style.transform=`translateX(${mo1}px) skewX(${-skew}deg)`;$('#m2').style.transform=`translateX(${mo2-w2}px) skewX(${-skew}deg)`}
 
+/* ---------- end ---------- */
+const eh=$('#endh');eh.querySelectorAll('.w').forEach(w=>{w.innerHTML=[...w.textContent].map(ch=>`<span class="ch">${ch===' '?'&nbsp;':ch}</span>`).join('')});
+eh.querySelectorAll('.ch').forEach((s,i)=>s.style.transitionDelay=i*45+'ms');onView(eh,()=>eh.classList.add('in'));
+
 function resize(){DPR=Math.min(devicePixelRatio||1,2);resizers.forEach(f=>f())}
 addEventListener('resize',resize);resize();
 function frame(t){loops.forEach(f=>f(t));requestAnimationFrame(frame)}
