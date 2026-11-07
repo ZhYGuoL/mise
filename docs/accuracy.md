@@ -1,4 +1,4 @@
-# How we checked that Mise's numbers hold up
+# How we checked that Forkcast's numbers hold up
 
 Run Nov 7 2026, about 4:10 PM, on `main`. Every number here comes from a script in this repo, and every check can be rerun.
 
@@ -8,9 +8,9 @@ Details in [`calibration.md`](calibration.md). We fit the simulator to Google po
 
 | Model | Median r on 13 held-out places |
 |---|---|
-| Mise, calibrated | **0.54** |
+| Forkcast, calibrated | **0.54** |
 | Same city-average curve for every place | 0.44 |
-| Mise before calibration | 0.32 |
+| Forkcast before calibration | 0.32 |
 
 It beats the city-average curve on 9 of 13. Not fitted: simulated weekly volume ranks places like their Google review counts do (Spearman 0.45, 64 places).
 

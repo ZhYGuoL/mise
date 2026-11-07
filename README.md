@@ -1,6 +1,6 @@
-# Mise
+# Forkcast
 
-Cursor for restaurants. Describe a restaurant idea in chat, and Mise drafts the concept (name, menu, prices, logo, dish photos), then predicts how it would do in a simulated Pittsburgh before you spend a dollar.
+Cursor for restaurants. Describe a restaurant idea in chat, and Forkcast drafts the concept (name, menu, prices, logo, dish photos), then predicts how it would do in a simulated city (Pittsburgh is the first one built) before you spend a dollar.
 
 Built at NOVA 2026 (ScottyLabs, CMU), Sat Nov 7 2026. Slides: [`docs/Mise-NOVA-2026.pdf`](docs/Mise-NOVA-2026.pdf). How we checked the numbers: [`docs/accuracy.md`](docs/accuracy.md).
 

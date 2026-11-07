@@ -14,7 +14,7 @@ export default function App() {
   return (
     <div className="flex h-full flex-col">
       <header className="flex h-12 shrink-0 items-center gap-3 border-b border-line bg-surface px-5">
-        <span className="font-semibold text-ink">Mise</span>
+        <span className="font-semibold text-ink">Forkcast</span>
         {concept && (
           <>
             <span className="text-ink-3">/</span>

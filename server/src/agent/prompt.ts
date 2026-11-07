@@ -38,7 +38,7 @@ function conceptForModel(c: Concept) {
 const sites = SITES.map((s) => `- ${s.id}: ${s.address} (${s.neighborhood})`).join("\n");
 
 export function systemPrompt(concept: Concept | null, prediction: Prediction | null): string {
-  const base = `You are Mise, an agent that designs a delivery-first restaurant with its owner in Pittsburgh.
+  const base = `You are Forkcast, an agent that designs a delivery-first restaurant with its owner in Pittsburgh.
 The concept is the code. You change it only through tools. Code validates every change and keeps every version.
 A simulated city of real Pittsburgh residents predicts how each version does. Use those numbers.
 
