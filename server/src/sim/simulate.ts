@@ -291,6 +291,8 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
     revenue: band(revenueRun),
     avgTicket: round(totalOrders ? totalRevenue / totalOrders : 0, 2),
     marketSharePct: round(totalMarket ? (100 * totalOrders) / totalMarket : 0, 1),
+    avgTicketBand: band(ordersRun.map((o, i) => (o ? revenueRun[i]! / o : 0)), 2),
+    marketSharePctBand: band(marketRun.map((m, i) => (m ? (100 * ordersRun[i]!) / m : 0)), 1),
     byHour: hourRun.map((v, hour) => ({ hour, ...band(v, 1) })),
     bySegment: SEGMENTS.map((segment, i) => ({
       segment,
