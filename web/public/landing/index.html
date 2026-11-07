@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script src="data.js"></script>
+<style>
+:root{--cream:#F4EEE3;--paper:#FBF8F2;--ink:#1C1A17;--rust:#D4523A;--muted:#8A8175;--line:#E2D8C7;--green:#6F9A3B}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--cream)}
+body{font-family:Geist,system-ui,sans-serif;color:var(--ink);background:var(--cream);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.serif{font-family:'Instrument Serif',serif;font-weight:400;letter-spacing:-.01em}
+.it{font-style:italic}
+.num{font-variant-numeric:tabular-nums}
+.mono{font-family:'Geist Mono',monospace}
+nav{position:fixed;inset:0 0 auto 0;display:flex;justify-content:space-between;align-items:center;padding:20px 36px;z-index:60}
+.brand{transition:color .4s;font-weight:600;font-size:21px;letter-spacing:-.03em;display:flex;align-items:center;gap:8px}
+.brand i{width:10px;height:10px;border-radius:50%;background:var(--rust);display:inline-block}
+.cta{display:inline-flex;gap:10px;align-items:center;background:var(--ink);color:var(--cream);text-decoration:none;padding:12px 20px;border-radius:999px;font-size:15px;font-weight:500;transition:transform .35s cubic-bezier(.2,.8,.2,1),background .35s}
+.cta:hover{transform:translateY(-2px) scale(1.04);background:var(--rust)}
+.cta .arr{transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.cta:hover .arr{transform:translateX(4px)}
+.stick{position:sticky;top:0;height:100vh;overflow:hidden}
+section{position:relative}
+
+</style>
+</head>
+<body>
+<nav><div class="brand"><i></i>Mise</div><a class="cta" href="/?seed=1" data-cur="Open">Open the kitchen <span class="arr">→</span></a></nav>
+
+<footer><span>Mise · Built at NOVA 2026, ScottyLabs</span><span>Pittsburgh</span></footer>
+
+<script>
+const M=window.MISE, RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), lerp=(a,b,t)=>a+(b-a)*t;
+const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2, out=t=>1-Math.pow(1-t,3);
+const back=t=>{const c1=1.9,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)};
+const seg=(p,a,b)=>clamp((p-a)/(b-a));
+const $=s=>document.querySelector(s);
+const prog=el=>{const r=el.getBoundingClientRect();return clamp(-r.top/(r.height-innerHeight))};
+const money=v=>'$'+Math.round(v).toLocaleString();
+let mx=innerWidth/2,my=innerHeight/2,nmx=0,nmy=0;
+addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY;nmx=mx/innerWidth-.5;nmy=my/innerHeight-.5});
+
+const loops=[],resizers=[];let DPR=Math.min(devicePixelRatio||1,2);
+const onView=(el,fn)=>{const o=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){o.disconnect();fn()}},{threshold:.35});o.observe(el)};
+
+function resize(){DPR=Math.min(devicePixelRatio||1,2);resizers.forEach(f=>f())}
+addEventListener('resize',resize);resize();
+function frame(t){loops.forEach(f=>f(t));requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
