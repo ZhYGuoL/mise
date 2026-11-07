@@ -250,6 +250,12 @@ export type ChatMessage = z.infer<typeof ChatMessage>;
 export const AgentChatRequest = z.object({
   messages: z.array(ChatMessage),
   concept: Concept.nullable(),
+  /** Lane A: the scenario the right pane shows, so the agent simulates the same day. */
+  scenario: Scenario.optional(),
+  /** Lane A: the latest prediction for `concept`, so the agent can cite objections. */
+  prediction: Prediction.nullable().optional(),
+  /** Lane A: edits the owner accepted or made by hand. Code applies them, no model call. */
+  apply: z.array(ConceptEdit).optional(),
 });
 export type AgentChatRequest = z.infer<typeof AgentChatRequest>;
 
