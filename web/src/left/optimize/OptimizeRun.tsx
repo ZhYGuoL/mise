@@ -335,9 +335,31 @@ function Final({ run }: { run: Run }) {
   )
 }
 
+/**
+ * Rounds land in the optimize store, not in the thread, so the thread does not scroll for them.
+ * While the run works, keep its newest row in view, unless the owner scrolled up to read.
+ */
+function useFollow(run: Run | undefined) {
+  const ref = useRef<HTMLDivElement>(null)
+  const pinned = useRef(true)
+  useEffect(() => {
+    const el = ref.current?.closest('.overflow-y-auto')
+    if (!el) return
+    const onScroll = () => (pinned.current = el.scrollHeight - el.scrollTop - el.clientHeight < 64)
+    el.addEventListener('scroll', onScroll, { passive: true })
+    return () => el.removeEventListener('scroll', onScroll)
+  }, [])
+  useLayoutEffect(() => {
+    const el = ref.current?.closest('.overflow-y-auto')
+    if (el && run && pinned.current) el.scrollTop = el.scrollHeight
+  }, [run])
+  return ref
+}
+
 export function OptimizeRun({ runId }: { runId: string }) {
   const run = useOptimize((s) => s.runs[runId])
   const secs = useElapsed(run?.startedAt ?? 0, run ? run.endedAt : 0)
+  const followRef = useFollow(run?.endedAt === null ? run : undefined)
   if (!run) return null
   const { goal } = run
   const working = run.endedAt === null
@@ -366,7 +388,7 @@ export function OptimizeRun({ runId }: { runId: string }) {
   }
 
   return (
-    <div className="flex flex-col gap-2.5" style={ENTER}>
+    <div ref={followRef} className="flex flex-col gap-2.5" style={ENTER}>
       <div className="flex h-7 min-w-0 items-center gap-2">
         <span className="flex size-4 shrink-0 items-center justify-center text-ink-3">
           <Svg size={14}>{Icon.target}</Svg>
