@@ -7,13 +7,12 @@ import { LngLatBounds, Map as MapLibre, setWorkerUrl } from 'maplibre-gl'
 // Vite pre-bundles maplibre-gl, which breaks its default worker URL. Let Vite bundle the worker.
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { MAP, type RGB } from '../lib/color'
+import { css, MAP, type RGB } from '../lib/color'
 import type { Flow } from '../lib/flows'
 import { usePlayhead } from '../lib/playhead'
-import { buildLayers, type Scene } from './layers'
+import { buildLayers, type Focus, type Scene } from './layers'
 import { MapLabels } from './MapLabels'
-
-const STYLE = 'https://tiles.openfreemap.org/styles/dark'
+import { PAPER } from './paper'
 
 setWorkerUrl(workerUrl)
 
@@ -26,18 +25,14 @@ type Props = {
   stolen: Prediction['stolenFrom']
   selected: Resident | null
   selectedFlow: Flow | null
+  /** A lost-order restaurant to mark on the map. */
+  highlight: string | null
+  /** Draw the lost-order labels at their restaurants. False when they are listed under the map. */
+  showLost: boolean
   onSelectResident: (id: string | null) => void
+  /** Called with whether the lost-order labels fit at their restaurants without overlap. */
+  onLabelsFit: (fit: boolean) => void
   children?: React.ReactNode
-}
-
-/** Quiet the basemap so the city's data reads first. */
-function tuneBasemap(map: MapLibre) {
-  for (const layer of map.getStyle().layers ?? []) {
-    if (layer.id.startsWith('road_oneway')) map.setLayoutProperty(layer.id, 'visibility', 'none')
-    if (layer.type === 'symbol' && layer.id.startsWith('highway_name')) {
-      map.setPaintProperty(layer.id, 'text-opacity', 0.45)
-    }
-  }
 }
 
 export function CityMap({
@@ -49,13 +44,17 @@ export function CityMap({
   stolen,
   selected,
   selectedFlow,
+  highlight,
+  showLost,
   onSelectResident,
+  onLabelsFit,
   children,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [map, setMap] = useState<MapLibre | null>(null)
   const overlayRef = useRef<MapboxOverlay | null>(null)
   const sceneRef = useRef<Scene | null>(null)
+  const focusRef = useRef<Focus>({ selected: null, selectedFlow: null, highlight: null })
   const dirtyRef = useRef(true)
   const selectRef = useRef(onSelectResident)
   const initialCenter = useRef<[number, number]>([concept.location.lon, concept.location.lat])
@@ -68,16 +67,19 @@ export function CityMap({
       residents,
       flows,
       stolen,
-      selected,
-      selectedFlow,
     }),
-    [concept.location.lon, concept.location.lat, color, restaurants, residents, flows, stolen, selected, selectedFlow],
+    [concept.location.lon, concept.location.lat, color, restaurants, residents, flows, stolen],
   )
 
   useEffect(() => {
     sceneRef.current = scene
     dirtyRef.current = true
   }, [scene])
+
+  useEffect(() => {
+    focusRef.current = { selected, selectedFlow, highlight }
+    dirtyRef.current = true
+  }, [selected, selectedFlow, highlight])
 
   useEffect(() => {
     selectRef.current = onSelectResident
@@ -89,7 +91,7 @@ export function CityMap({
     if (!container) return
     const m = new MapLibre({
       container,
-      style: STYLE,
+      style: PAPER,
       center: initialCenter.current,
       zoom: 13.8,
       attributionControl: { compact: true },
@@ -100,7 +102,6 @@ export function CityMap({
     })
     m.touchZoomRotate.disableRotation()
     m.on('load', () => {
-      tuneBasemap(m)
       // Start the compact attribution collapsed. It stays one click away.
       container.querySelector('.maplibregl-ctrl-attrib')?.classList.remove('maplibregl-compact-show')
     })
@@ -132,7 +133,7 @@ export function CityMap({
       const t = usePlayhead.getState().t
       const s = sceneRef.current
       if (s && (t !== lastT || dirtyRef.current)) {
-        overlay.setProps({ layers: buildLayers(s, t) })
+        overlay.setProps({ layers: buildLayers(s, focusRef.current, t) })
         lastT = t
         dirtyRef.current = false
       }
@@ -159,7 +160,7 @@ export function CityMap({
     const lats = restaurants.map((r) => r.lat)
     const bounds = new LngLatBounds([q(lons, 0.05), q(lats, 0.05)], [q(lons, 0.95), q(lats, 0.95)])
     bounds.extend([concept.location.lon, concept.location.lat])
-    map.fitBounds(bounds, { padding: { top: 72, bottom: 28, left: 28, right: 28 }, duration: 0 })
+    map.fitBounds(bounds, { padding: 32, duration: 0 })
     framed.current = true
   }, [map, restaurants, concept.location.lon, concept.location.lat])
 
@@ -171,10 +172,12 @@ export function CityMap({
   }, [map, concept.location.lon, concept.location.lat])
 
   return (
-    <div className="mise-map relative h-full w-full overflow-hidden" style={{ background: MAP.background }}>
+    <div className="mise-map relative h-full w-full overflow-hidden" style={{ background: css(MAP.land) }}>
       {/* MapLibre sets position: relative on its container, so size it with h-full, not inset-0. */}
       <div ref={containerRef} className="h-full w-full" />
-      {map && <MapLabels map={map} scene={scene} conceptName={concept.name} />}
+      {map && (
+        <MapLabels map={map} scene={scene} conceptName={concept.name} showLost={showLost} onFit={onLabelsFit} />
+      )}
       {children}
     </div>
   )
