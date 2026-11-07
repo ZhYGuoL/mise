@@ -76,7 +76,7 @@ export function DishCard({
         selected ? 'border-ink' : 'border-line'
       }`}
     >
-      <div className="relative aspect-[4/3] overflow-hidden">
+      <div className="@container relative aspect-[4/3] overflow-hidden">
         <FallbackFace item={item} concept={concept} />
         {hasPhoto && (
           <motion.img
@@ -94,7 +94,8 @@ export function DishCard({
         )}
 
         {generating && (
-          <div className="absolute top-2 left-2 z-10 flex h-7 items-center rounded-full bg-surface px-2.5">
+          // On a narrow card the queue already shows the time, so the chip drops its timer.
+          <div className="absolute top-2 left-2 z-10 flex h-7 items-center rounded-full bg-surface px-2.5 @max-[13rem]:[&_.font-mono]:hidden">
             <LoadingState label="Generating" />
           </div>
         )}
@@ -130,7 +131,7 @@ export function DishCard({
       <div className="flex flex-col gap-1 p-3">
         <div className="flex items-baseline justify-between gap-2">
           {/* The fallback face already shows the name, so it only repeats here under a photo. */}
-          <h3 className={`truncate font-medium ${showsPhoto ? 'text-ink' : 'text-ink-2'}`}>
+          <h3 className={`line-clamp-2 min-w-0 font-medium ${showsPhoto ? 'text-ink' : 'text-ink-2'}`}>
             {onSelect ? (
               <button type="button" onClick={onSelect} className="text-left after:absolute after:inset-0">
                 {showsPhoto ? item.name : categoryLabel[item.category]}
