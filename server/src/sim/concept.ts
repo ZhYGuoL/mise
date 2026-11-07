@@ -6,7 +6,7 @@ import type { Concept, Day, MenuItem, Resident, Scenario } from "@mise/shared";
 import { normalizeCuisines } from "../city/cuisine";
 import { hash, normal, rng } from "../city/rng";
 import {
-  DISCOVERY_BONUS, MORNING_PENALTY, NEW_PLACE_PENALTY, RADIUS_KM, SCALE, deliveryMinutes, dietVarietyTerm, distanceKm,
+  DISCOVERY_BONUS, MORNING_PENALTY, NEW_PLACE_PENALTY, PROMO_BONUS, RADIUS_KM, SCALE, deliveryMinutes, dietVarietyTerm, distanceKm,
   eventEffect, feeTerm, isMorning, priceTerm, tasteFor, typicalCost,
 } from "./model";
 
@@ -126,7 +126,7 @@ export function itemUtilities(res: Resident, m: ConceptModel, state: PriceState,
     const u =
       priceTerm(res.weights.price, typicalCost(price), res.budgetPerMeal) +
       feeTerm(res.weights.price, res.budgetPerMeal, state.deliveryFee, c.serviceFeePct, price) +
-      (state.promoted[i] ? 0.15 : 0) +
+      (state.promoted[i] ? PROMO_BONUS : 0) +
       itemTaste(res, item, state);
     utilities.push(u);
     if (best < 0 || u > utilities[best]!) best = utilities.length - 1;

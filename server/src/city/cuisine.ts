@@ -53,30 +53,39 @@ const ALIASES: Record<string, Cuisine> = {
   soup: "american", fries: "american",
 };
 
-/** Normalize one raw token. Unknown tokens return null. */
-export function normalizeCuisine(raw: string): Cuisine | null {
-  const t = raw.trim().toLowerCase().replace(/[\s-]+/g, "_");
-  if (VOCAB.has(t)) return t as Cuisine;
-  if (ALIASES[t]) return ALIASES[t];
-  // "korean_fried_chicken" -> try each part, longest match first
+const exact = (t: string): Cuisine | null => (VOCAB.has(t) ? (t as Cuisine) : (ALIASES[t] ?? null));
+const clean = (raw: string) => raw.trim().toLowerCase().replace(/[\s-]+/g, "_");
+
+/** Every cuisine inside one raw token, left to right: "korean_fried_chicken" -> korean, fried_chicken. */
+export function cuisinesIn(raw: string): Cuisine[] {
+  const t = clean(raw);
+  const whole = exact(t);
+  if (whole) return [whole];
   const parts = t.split("_");
-  for (let n = parts.length - 1; n >= 1; n--) {
-    for (let i = 0; i + n <= parts.length; i++) {
-      const sub = parts.slice(i, i + n).join("_");
-      if (VOCAB.has(sub)) return sub as Cuisine;
-      if (ALIASES[sub]) return ALIASES[sub];
+  const out: Cuisine[] = [];
+  for (let i = 0; i < parts.length; ) {
+    let matched = 0;
+    for (let n = parts.length - i; n >= 1 && !matched; n--) {
+      const c = exact(parts.slice(i, i + n).join("_"));
+      if (c) {
+        if (!out.includes(c)) out.push(c);
+        matched = n;
+      }
     }
+    i += matched || 1;
   }
-  return null;
+  return out;
+}
+
+/** Normalize one raw token to its main cuisine. Unknown tokens return null. */
+export function normalizeCuisine(raw: string): Cuisine | null {
+  return cuisinesIn(raw)[0] ?? null;
 }
 
 /** Normalize a list, dedupe, keep order. */
 export function normalizeCuisines(raw: string[]): Cuisine[] {
   const out: Cuisine[] = [];
-  for (const r of raw) {
-    const c = normalizeCuisine(r);
-    if (c && !out.includes(c)) out.push(c);
-  }
+  for (const r of raw) for (const c of cuisinesIn(r)) if (!out.includes(c)) out.push(c);
   return out;
 }
 

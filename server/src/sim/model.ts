@@ -87,7 +87,9 @@ export function popularityTerm(reviews: number | null): number {
 /** Nobody has heard of the concept yet. Curious people (novelty > 0) mind less. */
 export const NEW_PLACE_PENALTY = -0.35;
 /** A launch deal ("20% off your first order") gets people to try a new place. */
-export const DISCOVERY_BONUS = 0.35;
+export const DISCOVERY_BONUS = 0.2;
+/** Any deal on an item makes it stand out in the app a little. */
+export const PROMO_BONUS = 0.08;
 
 /** Diet: only one or two mains you can eat feels thin. */
 export function dietVarietyTerm(compatibleMains: number): number {

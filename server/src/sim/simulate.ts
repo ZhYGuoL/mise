@@ -9,11 +9,12 @@ import { CUISINE_LABEL, type Cuisine } from "../city/cuisine";
 import { DAYS } from "../city/load";
 import { AREA_NAME } from "../city/residents";
 import { hash, normal, pickIndex, poisson, rng, round } from "../city/rng";
-import { buildConceptModel, conceptOpen, itemUtilities } from "./concept";
+import { buildConceptModel, conceptOpen, itemUtilities, type ConceptModel } from "./concept";
+import { decide, type ResidentDecision } from "./explain";
 import {
-  DAY_FACTOR, SCALE, WEATHER, eventEffect, hourWeights, partySize, placeTerms, sumTerms,
+  DAY_FACTOR, RADIUS_KM, SCALE, WEATHER, deliveryMinutes, eventEffect, hourWeights, partySize, placeTerms, sumTerms,
 } from "./model";
-import { expUtilities, loadStatic } from "./static";
+import { expUtilities, loadStatic, type StaticCity } from "./static";
 
 export const SEGMENTS: Segment[] = ["undergrad", "grad_student", "young_professional", "family", "other"];
 
@@ -102,7 +103,6 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
   const flowsRun: { r: number; t: number; p: number }[][] = [];
   const objections = new Map<Code, ObjectionAcc>();
   let considered = 0;
-  const outcome = new Map<number, string>(); // run 0, residents < SAMPLE_POOL: "concept" | code | "other"
 
   for (let run = 0; run < runs; run++) {
     const rand = rng(hash(seed, "run", run));
@@ -170,7 +170,6 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
           considered++;
           if (base >= 0) stolen[base]++;
           flows.push({ r, t: hour * 60 + minute, p: -1 });
-          if (run === 0 && r < SAMPLE_POOL) outcome.set(r, "concept");
           continue;
         }
         if (base < 0) continue;
@@ -182,7 +181,9 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
         const t = placeTerms(res, places[base]!, s.km[row + base]!, fav);
         t.habit *= effects[g]!.habit;
         const uj = sumTerms(t);
-        if (uc < uj - NEAR) continue;
+        // Out of range: would they want it if it delivered to them? Judge it at the edge of the range.
+        const ucSeen = cm.inRadius[r] === 0 ? uc - cm.time[r]! + res.weights.time * deliveryMinutes(RADIUS_KM) : uc;
+        if (ucSeen < uj - NEAR) continue;
         considered++;
 
         let code: Code | null = null;
@@ -222,7 +223,6 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
           acc.cost.push(price + cm.states[st]!.deliveryFee + (price * concept.serviceFeePct) / 100);
           acc.budget.push(res.budgetPerMeal);
         }
-        if (run === 0 && r < SAMPLE_POOL && !outcome.has(r)) outcome.set(r, code);
       }
     }
 
@@ -300,7 +300,7 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
     stolenFrom,
     objections: objectionList,
     orderFlows,
-    sampleResidentIds: pickSamples(outcome, residents.map((r) => r.segment), objectionList.map((o) => o.code)).map((r) => residents[r]!.id),
+    sampleResidentIds: pickSamples(s, cm, concept, scenario, objectionList.map((o) => o.code)),
     calibration: { heldOutCorrelation: null, note: "not calibrated yet" },
     computedMs: Math.round(performance.now() - t0),
   };
@@ -330,19 +330,26 @@ function objectionLabel(code: Code, acc: ObjectionAcc, concept: Concept, names: 
   }
 }
 
-/** Six residents worth interviewing: people who ordered, and people who said no for the top reasons. */
-function pickSamples(outcome: Map<number, string>, segments: Segment[], topCodes: string[]): number[] {
-  const picked: number[] = [];
-  const add = (pred: (r: number, o: string) => boolean) => {
-    for (const [r, o] of [...outcome.entries()].sort((a, b) => a[0] - b[0])) {
-      if (!picked.includes(r) && pred(r, o)) return void picked.push(r);
-    }
+/**
+ * Six residents worth interviewing, from the same deterministic decision the interview uses:
+ * the two strongest yeses, the closest no for each top objection, and one hard no.
+ */
+function pickSamples(s: StaticCity, cm: ConceptModel, concept: Concept, scenario: Scenario, topCodes: Code[]): string[] {
+  const pool = Array.from({ length: Math.min(SAMPLE_POOL, s.nR) }, (_, r) => decide(s, cm, r, r, concept, scenario));
+  const picked: ResidentDecision[] = [];
+  const add = (pred: (d: ResidentDecision) => boolean, by: (d: ResidentDecision) => number) => {
+    const d = pool.filter((x) => !picked.includes(x) && pred(x)).sort((a, b) => by(a) - by(b))[0];
+    if (d) picked.push(d);
   };
-  add((r, o) => o === "concept" && segments[r] === "undergrad");
-  add((r, o) => o === "concept" && segments[r] !== "undergrad");
-  for (const code of topCodes.slice(0, 3)) add((_, o) => o === code);
-  add((_, o) => o !== "concept");
-  while (picked.length < 6 && picked.length < outcome.size) add(() => true);
-  return picked;
+  const seg = (d: ResidentDecision) => s.residents[Number(d.residentId.slice(1))]!.segment;
+  add((d) => d.wouldOrderFromConcept && seg(d) === "undergrad", (d) => -d.margin);
+  add((d) => d.wouldOrderFromConcept && seg(d) !== "undergrad", (d) => -d.margin);
+  for (const code of topCodes.slice(0, 3)) add((d) => !d.wouldOrderFromConcept && d.reason === code, (d) => -d.margin);
+  add((d) => d.blocked !== null, (d) => -d.margin);
+  while (picked.length < 6) {
+    const before = picked.length;
+    add((d) => !d.wouldOrderFromConcept, (d) => -d.margin);
+    if (picked.length === before) break;
+  }
+  return picked.map((d) => d.residentId);
 }
-

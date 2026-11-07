@@ -74,5 +74,23 @@ const monday = await simulate(base, { ...friday, day: "Monday" });
 line("Monday", monday);
 checks.push(["Monday < Friday", monday.orders.p50 < b.orders.p50]);
 
+// Same city every time: an edit that changes nothing the model reads must not move a single number.
+const renamed = await simulate(edit((c) => ((c.tagline = "Different words."), (c.version += 1))), friday);
+checks.push(["tagline edit -> identical orders", JSON.stringify(renamed.orders) === JSON.stringify(b.orders) && renamed.revenue.p50 === b.revenue.p50]);
+
+const wings = await simulate(edit((c) => (c.menu[0]!.price += 1)), friday);
+line("wings +$1", wings);
+checks.push(["one item +$1 -> orders same or lower", wings.orders.p50 <= b.orders.p50]);
+
+const launch = await simulate(edit((c) => c.promos.push({ id: "p2", description: "20% off your first order" , discountPct: 20 })), friday);
+line("launch promo 20%", launch);
+checks.push(["launch promo -> more orders", launch.orders.p50 > b.orders.p50]);
+
+const t0 = performance.now();
+const big = await simulate(base, { ...friday, runs: 100 });
+console.log(`runs=100 in ${Math.round(performance.now() - t0)} ms (orders ${big.orders.p10}-${big.orders.p50}-${big.orders.p90})`);
+checks.push(["runs=100 under 3 s", performance.now() - t0 < 3000]);
+
 console.log();
 for (const [name, ok] of checks) console.log(`${ok ? "PASS" : "FAIL"}  ${name}`);
+if (checks.some(([, ok]) => !ok)) process.exit(1);
