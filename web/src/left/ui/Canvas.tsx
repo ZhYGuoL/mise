@@ -9,6 +9,7 @@ import { inputKey, useGenTask, useGeneration } from '@/generated/store'
 import { useMise } from '@/state/store'
 import { manualEdit, viewVersion } from '../client'
 import { cuisineLabel, diffConcepts, editLabel, formatValue, time12 } from '../format'
+import { DeployButton } from '../deploy/DeployButton'
 import { ExistingTags } from '../import/Tags'
 import { exit, spring } from '../motion'
 import { useSession } from '../session'
@@ -239,6 +240,7 @@ export function Canvas({ concept }: { concept: Concept }) {
         <Meta concept={concept} changed={changed} />
         <div className="flex items-center justify-between gap-3">
           <VersionRail diffOpen={diffOpen} onOpenDiff={() => setDiffOpen((o) => !o)} />
+          {!viewingOld && <DeployButton concept={concept} />}
           {viewingOld && (
             <Button variant="secondary" size="xs" onClick={() => viewVersion(head)} className="shrink-0">
               Back to v{head}
