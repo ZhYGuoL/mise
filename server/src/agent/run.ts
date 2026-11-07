@@ -12,7 +12,17 @@ import { complete, type Message, type ToolCall, type ToolChoice } from "./openro
 import { applyEdits, imageTargets, needsApproval } from "./patch";
 import { summarizePrediction, systemPrompt } from "./prompt";
 import { generate, simulate } from "./services";
-import { buildConcept, createConceptTool, editConceptTool, generateImagesTool, runOptimizeTool, simulateTool } from "./tools";
+import { matchQuery } from "../import/match";
+import { loadPlaces, toImportPlace } from "../import/places";
+import {
+  buildConcept,
+  createConceptTool,
+  editConceptTool,
+  generateImagesTool,
+  importRestaurantTool,
+  runOptimizeTool,
+  simulateTool,
+} from "./tools";
 
 export type Send = (e: AgentEvent) => Promise<void>;
 
@@ -25,9 +35,20 @@ const TOOL_LABEL: Record<string, string> = {
   edit_concept: "Writing edits",
   generate_images: "Queueing photos",
   run_optimize: "Setting the goal",
+  import_restaurant: "Finding the restaurant",
 };
 
-type State = { created: boolean; edited: boolean; rejects: number; nudged: boolean; optimizing: boolean };
+type State = {
+  created: boolean;
+  edited: boolean;
+  rejects: number;
+  nudged: boolean;
+  optimizing: boolean;
+  /** Lane H: import_restaurant ran this turn. A miss must not be nudged into create_concept. */
+  importTried: boolean;
+  /** Lane H: a real restaurant matched. The client runs the import, so the turn ends here. */
+  importing: boolean;
+};
 
 /** One request to /api/agent/chat. Holds the working concept and prediction while the turn runs. */
 class Turn {
@@ -96,11 +117,13 @@ class Turn {
     const lastUser = [...history].reverse().find((m) => m.role === "user")?.content ?? "";
     await this.send({ type: "thinking", label: "Reading the request", detail: lastUser.slice(0, 140) });
 
-    const state: State = { created: false, edited: false, rejects: 0, nudged: false, optimizing: false };
+    const state: State = { created: false, edited: false, rejects: 0, nudged: false, optimizing: false, importTried: false, importing: false };
     let namesShown = 0;
     for (let step = 0; step < MAX_STEPS; step++) {
       const finished = state.created || state.edited;
-      const tools = this.concept ? [editConceptTool, generateImagesTool, simulateTool, runOptimizeTool] : [createConceptTool];
+      const tools = this.concept
+        ? [editConceptTool, generateImagesTool, simulateTool, runOptimizeTool, importRestaurantTool]
+        : [createConceptTool, importRestaurantTool];
       // Some models (Claude Sonnet 5.5) reject a forced tool_choice. Offer only create_concept and nudge once instead.
       const toolChoice: ToolChoice = this.concept && finished ? "none" : "auto";
 
@@ -125,7 +148,7 @@ class Turn {
         },
       });
       if (res.toolCalls.length === 0) {
-        if (!this.concept && !state.nudged) {
+        if (!this.concept && !state.nudged && !state.importTried) {
           state.nudged = true;
           messages.push({ role: "assistant", content: res.content || "(no reply)" });
           messages.push({ role: "user", content: "Call create_concept now with the complete concept." });
@@ -141,6 +164,8 @@ class Turn {
       }
       // The optimize run takes over the turn in the client. No closing reply, so the rounds start at once.
       if (state.optimizing) break;
+      // Lane H: the client imports the restaurant (after a yes, if it replaces a concept), then asks the rest.
+      if (state.importing) break;
     }
   }
 
@@ -209,6 +234,28 @@ class Turn {
         if (!scenario.success) return `Rejected: ${scenario.error.issues.map((x) => x.message).join("; ")}`;
         const p = await this.simulate(scenario.data);
         return `Prediction:\n${summarizePrediction(p)}`;
+      }
+
+      case "import_restaurant": {
+        if (state.created || state.edited || state.optimizing || state.importing)
+          return "You already changed the concept this turn. Reply to the owner.";
+        state.importTried = true;
+        const query = typeof args.query === "string" ? args.query.trim() : "";
+        if (!query) return "Rejected: query is the restaurant name or Maps link the owner gave.";
+        const match = await matchQuery(query, await loadPlaces());
+        if (!match.ok) {
+          const close = match.suggestions.map((p) => `${p.restaurant.name} (${[p.facts.street, p.facts.neighborhood].filter(Boolean).join(", ")})`);
+          if (close.length > 1 && match.error.includes("Pick one"))
+            return `${match.error.replace(" Pick one.", "")} Ask the owner which one: ${close.join("; ")}. Do not call create_concept.`;
+          return `${match.error}${close.length ? ` Close names in the city: ${close.join("; ")}.` : ""} Tell the owner in one short sentence that it is not in the simulated city. Never invent it, and do not call create_concept unless the owner asks for a new concept.`;
+        }
+        const place = match.place.restaurant;
+        if (this.concept?.existing?.placeId === place.placeId)
+          return `${place.name} is already the current concept. Answer the owner on it with the other tools.`;
+        state.importing = true;
+        const question = typeof args.question === "string" && args.question.trim() ? args.question.trim() : undefined;
+        await this.send({ type: "import", place: toImportPlace(match.place), needsApproval: !!this.concept, question });
+        return "The import started.";
       }
 
       case "run_optimize": {

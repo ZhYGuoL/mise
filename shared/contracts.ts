@@ -300,6 +300,18 @@ export const AgentEvent = z.discriminatedUnion("type", [
    * `/optimize` inside this turn, after the chat stream ends. OptimizeGoal is declared below, hence lazy.
    */
   z.object({ type: z.literal("optimize"), goal: z.lazy(() => OptimizeGoal) }),
+  /**
+   * Lane H (optional): the chat agent matched a real city restaurant with its import_restaurant tool.
+   * The client runs the same import as `/import` inside this turn, after the chat stream ends.
+   * needsApproval: a concept exists, and the import replaces it, so the owner says yes first.
+   * question: the rest of the owner's message, which the agent then answers on the imported restaurant.
+   */
+  z.object({
+    type: z.literal("import"),
+    place: z.lazy(() => ImportPlace),
+    needsApproval: z.boolean(),
+    question: z.string().optional(),
+  }),
 ]);
 export type AgentEvent = z.infer<typeof AgentEvent>;
 

@@ -149,6 +149,28 @@ export const runOptimizeTool: ToolDef = {
   },
 };
 
+/** Lane H: load a real city restaurant as the concept. The client runs the same import as `/import`. */
+export const importRestaurantTool: ToolDef = {
+  type: "function",
+  function: {
+    name: "import_restaurant",
+    description:
+      "Load a real Pittsburgh restaurant from the simulated city as the concept: its real location, hours, rating and menu. Use it when the owner runs, owns or works at a specific real restaurant, or asks how a named real restaurant would do. Not for new ideas.",
+    parameters: {
+      type: "object",
+      properties: {
+        query: { type: "string", description: "The restaurant name or Google Maps link, as the owner wrote it." },
+        question: {
+          type: "string",
+          description:
+            "The rest of the owner's message, to answer once the restaurant is loaded, e.g. \"what if we stayed open till 2?\". Leave it out when the owner only named the restaurant.",
+        },
+      },
+      required: ["query"],
+    },
+  },
+};
+
 const slug = (s: string) =>
   s
     .toLowerCase()

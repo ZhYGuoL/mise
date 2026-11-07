@@ -2,6 +2,7 @@ import { type AgentEvent, type ChatMessage, type Concept, type ConceptEdit, type
 import { api } from '@/api'
 import { useMise } from '@/state/store'
 import { diffConcepts, editLabel, formatValue, touchedItems } from './format'
+import { importFromAgent } from './import/run'
 import { startOptimize } from './optimize/run'
 import { type Block, findBlock, type Turn, uid, updateBlock, updateTurn, useSession } from './session'
 
@@ -39,6 +40,11 @@ function history(): ChatMessage[] {
         const status =
           b.status === 'applied' ? `applied as v${b.version}` : b.status === 'skipped' ? 'the owner said no' : 'waiting for the owner'
         parts.push(`(Edits: ${what}. ${status}.)`)
+      }
+      // Lane H: an offer to load a real restaurant over the concept.
+      if (b.kind === 'import') {
+        const status = b.status === 'imported' ? 'imported' : b.status === 'skipped' ? 'the owner said no' : 'waiting for the owner'
+        parts.push(`(Offered to load ${b.place.name} over ${b.replaces}: ${status}.)`)
       }
     }
     if (parts.length) out.push({ role: 'assistant', content: parts.join('\n') })
@@ -92,6 +98,8 @@ type Ctx = {
   basePrediction: Prediction | null
   /** Wave 2: the agent called run_optimize. The run starts in this turn when the chat stream ends. */
   optimize?: OptimizeGoal
+  /** Lane H: the agent called import_restaurant. The import runs in this turn when the chat stream ends. */
+  import?: Extract<AgentEvent, { type: 'import' }>
 }
 
 const last = (turnId: string): Block | undefined => {
@@ -227,6 +235,10 @@ export function handleEvent(e: AgentEvent, ctx: Ctx) {
       ctx.optimize = e.goal
       return
     }
+    case 'import': {
+      ctx.import = e
+      return
+    }
     case 'error': {
       useMise.setState({ simulating: false })
       updateTurn(turnId, (blocks) => [...closeSteps(blocks), { kind: 'error', id: uid('b'), message: e.message }])
@@ -262,6 +274,15 @@ async function stream(body: Parameters<typeof api.agentChat>[0], turnId: string)
     finish(turnId)
   }
   if (ctx.optimize) await startOptimize(turnId, ctx.optimize)
+  if (ctx.import) await importFromAgent(turnId, ctx.import)
+}
+
+/** Lane H: run the agent again inside a turn that exists, e.g. the owner's question right after an import. */
+export async function continueTurn(turnId: string, extra: ChatMessage[]) {
+  useSession.setState({ busy: true })
+  updateTurn(turnId, (b) => b, { done: false })
+  const { scenario } = useMise.getState()
+  await stream({ messages: [...history(), ...extra], concept: baseConcept(), scenario, prediction: currentPrediction() }, turnId)
 }
 
 function currentPrediction(): Prediction | null {

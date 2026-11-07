@@ -1,4 +1,4 @@
-import type { Concept, ConceptEdit, Prediction, Scenario } from '@mise/shared'
+import type { Concept, ConceptEdit, ImportPlace, Prediction, Scenario } from '@mise/shared'
 import { create } from 'zustand'
 
 /** Lane A thread state. The concept and its versions live in the shared store (`@/state/store`). */
@@ -37,6 +37,17 @@ export type Block =
   | { kind: 'error'; id: string; message: string }
   /** Wave 2: one `/optimize` run. Its rounds live in the optimize store (`../optimize/run`). */
   | { kind: 'optimize'; id: string; runId: string }
+  /** Lane H: the agent wants to replace the concept with a real restaurant. The owner says yes first. */
+  | {
+      kind: 'import'
+      id: string
+      place: ImportPlace
+      /** name of the concept it replaces */
+      replaces: string
+      /** the rest of the owner's message, asked once the restaurant is loaded */
+      question?: string
+      status: 'pending' | 'importing' | 'imported' | 'skipped' | 'failed'
+    }
 
 export type Turn =
   | { id: string; role: 'user'; text: string }
