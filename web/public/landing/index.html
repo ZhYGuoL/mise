@@ -124,6 +124,15 @@ section{position:relative}
 .track{height:10px;border-radius:99px;background:#E9E0D0;margin-top:12px;overflow:hidden}
 .track i{display:block;height:100%;width:0;background:var(--rust);border-radius:99px;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
 
+/* MARQUEE */
+#plates{padding:6vh 0 4vh;overflow:hidden}
+#plates .ttl{padding:0 7vw;margin-bottom:46px}
+.mrow{display:flex;gap:22px;width:max-content;margin-bottom:22px;will-change:transform}
+.mcard{width:clamp(220px,22vw,320px);aspect-ratio:4/3;border-radius:22px;overflow:hidden;flex:none;background:#EFE6D6;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.mcard img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.mcard:hover{transform:translateY(-8px) rotate(-1.5deg)}
+.mcard:hover img{transform:scale(1.08)}
+
 @media (pointer:fine){body{cursor:none}a,button{cursor:none}}
 /* cursor */
 #cur{position:fixed;left:0;top:0;width:12px;height:12px;border-radius:50%;background:var(--rust);z-index:100;pointer-events:none;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:500;transition:width .35s cubic-bezier(.2,.8,.2,1),height .35s cubic-bezier(.2,.8,.2,1),background .3s}
@@ -193,6 +202,12 @@ section{position:relative}
 <section id="why">
  <div><div class="eyebrow">03 · Ask why</div><h2 class="big">And why people <span class="serif it">said no.</span></h2></div>
  <div class="obj" id="obj"></div>
+</section>
+
+<section id="plates">
+ <div class="ttl"><div class="eyebrow">Every dish, plated</div><h2 class="big">Generated, <span class="serif it">not stock.</span></h2></div>
+ <div class="mrow" id="m1"></div>
+ <div class="mrow" id="m2"></div>
 </section>
 
 <footer><span>Mise · Built at NOVA 2026, ScottyLabs</span><span>Pittsburgh</span></footer>
