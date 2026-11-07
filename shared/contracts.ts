@@ -78,6 +78,20 @@ export const Concept = z.object({
     voice: z.string(),
   }),
   promos: z.array(Promo).default([]),
+  /**
+   * Set when the concept is a real restaurant imported from the city (lane H).
+   * The simulator then REPLACES that place instead of adding a competitor: it drops the real
+   * place from the competitor set, uses its real rating/reviews, keeps residents' habit for it,
+   * and applies no "unknown new place" penalty.
+   */
+  existing: z.object({
+    placeId: z.string(),
+    name: z.string(),
+    rating: z.number().nullable(),
+    reviews: z.number().nullable(),
+    menuSource: z.enum(["website", "estimated", "manual"]),
+    websiteUrl: z.string().nullable().optional(),
+  }).optional(),
 });
 export type Concept = z.infer<typeof Concept>;
 
@@ -166,6 +180,14 @@ export const Prediction = z.object({
     note: z.string(),
   }),
   computedMs: z.number(),
+  /**
+   * Only for an existing restaurant with Google popular times (lane D).
+   * Google's relative busyness for scenario.day, 0-100 (100 = that place's busiest hour of the week),
+   * so the UI can overlay "Google says" against the simulated hourly shape. Foot traffic, not delivery.
+   */
+  observedByHour: z.array(z.object({ hour: z.number().int().min(0).max(23), busyPct: z.number() })).optional(),
+  /** Correlation between simulated orders by hour and observedByHour for this place and day. */
+  observedCorrelation: z.number().nullable().optional(),
 });
 export type Prediction = z.infer<typeof Prediction>;
 

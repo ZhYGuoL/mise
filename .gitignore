@@ -9,3 +9,5 @@ data/generated/
 .vite/
 *.tsbuildinfo
 .qa/
+
+.review/
