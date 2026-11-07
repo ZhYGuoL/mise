@@ -64,7 +64,8 @@ Rules:
   replace /location with a site id string from the list
 - Keep the name, cuisine and brand. Prefer the smallest change that reaches the target.
 - For an orders goal, do not give away the margin: a set that reaches the target with more revenue wins.
-- Do not repeat a set that was already tried. Build on what was kept.`;
+- Do not repeat a set that was already tried. Build on what was kept.
+- Write plan and reasons in plain words an owner reads. Never write codes like unknown_new_place or fee_too_high.`;
 
 async function proposeWithModel(
   goal: OptimizeGoal,

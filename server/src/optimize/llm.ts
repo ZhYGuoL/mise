@@ -46,13 +46,14 @@ export async function completeJson(opts: {
       ],
       temperature: opts.temperature ?? 0.5,
       max_tokens: opts.maxTokens ?? 1200,
-      response_format: { type: "json_object" },
+      // Haiku 5.5 reasons by default, and the reasoning counts against max_tokens. Off: 3x faster, no cut-off replies.
+      reasoning: { enabled: false },
       usage: { include: true },
     }),
   });
   if (!res.ok) throw new Error(`OpenRouter ${res.status}: ${(await res.text()).slice(0, 300)}`);
   const body = (await res.json()) as {
-    choices?: { message?: { content?: string | null } }[];
+    choices?: { message?: { content?: string | null; reasoning?: string | null }; finish_reason?: string }[];
     usage?: { cost?: number; prompt_tokens?: number; completion_tokens?: number };
     error?: { message?: string };
   };
@@ -66,7 +67,10 @@ export async function completeJson(opts: {
   try {
     return extractJson(text);
   } catch (err) {
-    console.warn(`[${opts.tag}] could not parse the reply: ${text.slice(0, 240).replace(/\n/g, " ")}`);
+    const c = body.choices?.[0];
+    console.warn(
+      `[${opts.tag}] could not parse the reply (finish ${c?.finish_reason}, reasoning ${c?.message?.reasoning?.length ?? 0} chars): ${text.slice(0, 240).replace(/\n/g, " ")}`,
+    );
     throw err;
   }
 }

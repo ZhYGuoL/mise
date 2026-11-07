@@ -85,15 +85,18 @@ function Progress({ run }: { run: Run }) {
   const y = (v: number) => top + (1 - v / hi) * (H - top - bottom)
   const cols = MAX_ROUNDS + 1
   const x = (round: number) => left + ((w - left - right) * round) / (cols - 1)
+  /** Sets in one round sit side by side, so close results do not hide each other. */
+  const xc = (round: number, i: number, n: number) => x(round) + (i - (n - 1) / 2) * 8
 
   // The kept path: start, then each round's kept set, flat when a round kept nothing.
-  const path: { round: number; v: number }[] = []
-  if (start !== null) path.push({ round: 0, v: start })
+  const path: { round: number; v: number; px: number }[] = []
+  if (start !== null) path.push({ round: 0, v: start, px: x(0) })
   for (const r of run.rounds) {
     if (!r.settled) continue
-    const k = r.kept !== null ? r.candidates.find((c) => c.index === r.kept)?.prediction : null
+    const i = r.candidates.findIndex((c) => c.index === r.kept)
+    const k = i >= 0 ? r.candidates[i].prediction : null
     const prev = path.at(-1)?.v ?? start ?? 0
-    path.push({ round: r.round, v: k ? metricOf(goal, k) : prev })
+    path.push({ round: r.round, v: k ? metricOf(goal, k) : prev, px: k ? xc(r.round, i, r.candidates.length) : x(r.round) })
   }
   const latest = path.at(-1)?.v ?? null
   const reached = latest !== null && latest >= goal.target
@@ -116,31 +119,34 @@ function Progress({ run }: { run: Run }) {
           ))}
           {/* every set that ran */}
           {run.rounds.flatMap((r) =>
-            r.candidates.map((c) =>
-              c.prediction ? (
+            r.candidates.map((c, i) => {
+              if (!c.prediction) return null
+              const cx = xc(r.round, i, r.candidates.length)
+              const cy = y(metricOf(goal, c.prediction))
+              return (
                 <circle
                   key={`${r.round}-${c.index}`}
-                  cx={x(r.round)}
-                  cy={y(metricOf(goal, c.prediction))}
+                  cx={cx}
+                  cy={cy}
                   r={3}
                   fill="var(--line-strong)"
                   stroke="var(--ink-3)"
                   strokeWidth={1}
-                  style={{ animation: 'pop-in 220ms cubic-bezier(0.23,1,0.32,1) both', transformOrigin: `${x(r.round)}px ${y(metricOf(goal, c.prediction))}px` }}
+                  style={{ animation: 'pop-in 220ms cubic-bezier(0.23,1,0.32,1) both', transformOrigin: `${cx}px ${cy}px` }}
                 />
-              ) : null,
-            ),
+              )
+            }),
           )}
           {/* kept path */}
           {path.slice(1).map((p, i) => {
             const a = path[i]
-            const len = Math.hypot(x(p.round) - x(a.round), y(p.v) - y(a.v))
+            const len = Math.hypot(p.px - a.px, y(p.v) - y(a.v))
             return (
               <line
                 key={`seg-${p.round}`}
-                x1={x(a.round)}
+                x1={a.px}
                 y1={y(a.v)}
-                x2={x(p.round)}
+                x2={p.px}
                 y2={y(p.v)}
                 stroke="var(--ink)"
                 strokeWidth={1.75}
@@ -153,15 +159,15 @@ function Progress({ run }: { run: Run }) {
           {path.map((p) => (
             <g key={`kept-${p.round}`}>
               <circle
-                cx={x(p.round)}
+                cx={p.px}
                 cy={y(p.v)}
                 r={4}
                 fill={p.v >= goal.target ? 'var(--green)' : 'var(--ink)'}
                 stroke="var(--surface)"
                 strokeWidth={1.5}
-                style={{ animation: 'pop-in 220ms cubic-bezier(0.23,1,0.32,1) both', transformOrigin: `${x(p.round)}px ${y(p.v)}px` }}
+                style={{ animation: 'pop-in 220ms cubic-bezier(0.23,1,0.32,1) both', transformOrigin: `${p.px}px ${y(p.v)}px` }}
               />
-              <text x={x(p.round)} y={y(p.v) - 8} fontSize={11} textAnchor={p.round === 0 ? 'start' : 'middle'} fill="var(--ink)" className="tabular-nums" style={{ fontWeight: 500, animation: 'fade-in 300ms ease-out both' }}>
+              <text x={p.px} y={y(p.v) - 8} fontSize={11} textAnchor={p.round === 0 ? 'start' : 'middle'} fill="var(--ink)" className="tabular-nums" style={{ fontWeight: 500, animation: 'fade-in 300ms ease-out both' }}>
                 {fmt(goal, p.v)}
               </text>
             </g>

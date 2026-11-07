@@ -205,6 +205,12 @@ export const InterviewAnswer = z.object({
   choseInstead: z.string().nullable(),
   /** the actual utility terms behind the decision. The answer must be faithful to these. */
   breakdown: z.array(z.object({ factor: z.string(), value: z.number() })),
+  /** Wave 2 (optional): the hour the resident usually orders on the scenario day, 0-23. */
+  hour: z.number().int().min(0).max(23).optional(),
+  /** Wave 2 (optional): the breakdown factor the answer leads with, the term that decided it. */
+  deciding: z.string().optional(),
+  /** Wave 2 (optional): their best other option, also when they picked the concept. Negative terms favor it. */
+  against: z.string().nullable().optional(),
 });
 
 /* ───────────── API surface ─────────────

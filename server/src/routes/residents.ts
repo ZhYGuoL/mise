@@ -49,8 +49,13 @@ function decidingCode(d: ResidentDecision, factor: string): Code | null {
   return null;
 }
 
+/** Their best other option. The decision names it only when they picked it, so read it from the terms too. */
+const againstOf = (d: ResidentDecision) =>
+  d.choseInstead ?? d.breakdown.map((t) => /^new place vs (.+?), /.exec(t.factor)?.[1]).find(Boolean) ?? null;
+
 function facts(res: Resident, concept: Concept, scenario: Scenario, d: ResidentDecision) {
   const deciding = decidingTerm(d);
+  const against = againstOf(d);
   const terms = d.breakdown
     .filter((t) => t.factor !== "total")
     .map((t) => `  ${t.value >= 0 ? "+" : ""}${t.value.toFixed(2)}  ${t.factor}`)
@@ -70,7 +75,7 @@ function facts(res: Resident, concept: Concept, scenario: Scenario, d: ResidentD
       `It is ${scenario.day}${scenario.weather !== "clear" ? `, ${scenario.weather}` : ""}, around ${hourText(d.hour)}, when you usually order delivery.`,
       choice,
       "",
-      `What decided it (positive favors ${concept.name}, negative favors ${d.choseInstead ?? "not ordering"}, bigger means it mattered more):`,
+      `What decided it (positive favors ${concept.name}, negative favors ${against ?? "not ordering"}, bigger means it mattered more):`,
       terms,
       d.blocked ? `${concept.name} was never an option: ${deciding?.factor}.` : "",
       deciding ? `Your main reason MUST be: ${deciding.factor}.` : "",
@@ -129,7 +134,7 @@ residents.post("/:id/ask", async (c) => {
         const out = (await completeJson({
           system: SYSTEM,
           user: `${text}\n\nQuestion from the owner: "${question.slice(0, 300)}"`,
-          maxTokens: 400,
+          maxTokens: 300,
           temperature: attempt === 0 ? 0.7 : 0.3,
           timeoutMs: 12_000,
           signal: c.req.raw.signal,
@@ -152,6 +157,9 @@ residents.post("/:id/ask", async (c) => {
       wouldOrderFromConcept: decision.wouldOrderFromConcept,
       choseInstead: decision.choseInstead,
       breakdown: decision.breakdown,
+      hour: decision.hour,
+      deciding: deciding?.factor,
+      against: againstOf(decision),
     }),
   );
 });

@@ -7,6 +7,7 @@ import { buildFlows, type Flow } from './lib/flows'
 import { usePlayhead, usePlayheadDriver } from './lib/playhead'
 import { DAY_MINUTES, toDayMinutes } from './lib/time'
 import { CityMap } from './map/CityMap'
+import { Interview } from './interview/Interview'
 import { ResidentCard } from './map/ResidentCard'
 import { Clock, TimeBar } from './map/TimeBar'
 import { SampledResidents, Objections, WhoOrdered } from './panels/Breakdown'
@@ -103,6 +104,9 @@ export function RightPane() {
           </div>
           <TimeBar prediction={prediction} color={color} />
         </div>
+
+        {/* Wave 2: interview the selected resident. */}
+        {selected && <Interview resident={selected} concept={concept} scenario={scenario} color={colorCss} />}
 
         {prediction && (
           <>

@@ -33,11 +33,24 @@ export function priceFloor(original: Concept, itemId: string | undefined): numbe
 
 const tags = (v: unknown) => (Array.isArray(v) ? v.filter((t) => DietTag.safeParse(t).success) : []);
 
+/** Objection codes in plain words, for reasons the model wrote with a code in them. */
+const CODE_WORDS: Record<string, string> = {
+  too_expensive: "price",
+  fee_too_high: "high fees",
+  too_far: "distance",
+  no_diet_option: "missing diet options",
+  wrong_cuisine: "cuisine",
+  closed_when_hungry: "closed hours",
+  unknown_new_place: "new-place doubt",
+};
+const plainReason = (r: string) =>
+  r.replace(/\b(too_expensive|fee_too_high|too_far|no_diet_option|wrong_cuisine|closed_when_hungry|unknown_new_place)\b( objection)?/g, (_, c: string) => CODE_WORDS[c]!);
+
 /** One edit through the guardrails. Returns null when the edit is not allowed. */
 function guardEdit(e: RawEdit, original: Concept, current: Concept, fallbackReason: string): ConceptEdit | null {
   const op = e.op;
   const path = typeof e.path === "string" ? e.path.trim() : "";
-  const reason = typeof e.reason === "string" && e.reason.trim() ? e.reason.trim().slice(0, 160) : fallbackReason;
+  const reason = typeof e.reason === "string" && e.reason.trim() ? plainReason(e.reason.trim()).slice(0, 160) : fallbackReason;
   let m: RegExpExecArray | null;
 
   if (op === "replace" && (m = /^\/menu\/(\d+)\/price$/.exec(path))) {
