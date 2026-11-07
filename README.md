@@ -9,7 +9,7 @@ Built at NOVA 2026 (ScottyLabs, CMU), Sat Nov 7 2026.
 - **Ideate in chat.** An agent turns a rough idea into a full concept and edits it on request. Every edit is a versioned diff you can review.
 - **Generate the brand.** Logo and a photo for every dish, generated from the concept.
 - **Simulate a Friday.** 10,000 simulated residents across Pittsburgh neighborhoods choose between your place and 192 real restaurants, hour by hour. You get orders by hour with a p10 to p90 range, revenue, market share, a time-lapse map, and the top reasons people chose somewhere else.
-- **Ask a resident why.** Click anyone on the map and ask why they did or didn't order. The answer comes from the same factors the simulator used.
+- **Ask a resident why.** Pick any simulated resident and ask why they did or didn't order. The answer comes from the same factors the simulator used.
 - **Optimize toward a goal.** "Get me to 120 orders on Friday" runs rounds of candidate edits, simulates each, and proposes the best set for approval.
 - **Start from a real restaurant.** `/import Noodlehead` loads an existing place (menu from its website when available), simulates it as itself, and overlays Google's real busy curve on the prediction.
 
