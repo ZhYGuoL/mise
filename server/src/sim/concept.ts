@@ -200,7 +200,7 @@ export function buildConceptModel(concept: Concept, scenario: Scenario, resident
     m.time[r] = res.weights.time * deliveryMinutes(km);
     m.newPlace[r] = NEW_PLACE_PENALTY + res.weights.novelty + ev.novelty;
     // Blocked by diet: keep the hypothetical so we can tell who would have ordered.
-    m.variety[r] = compatible === 0 ? 0 : dietVarietyTerm(compatible);
+    m.variety[r] = compatible === 0 || res.diet.length === 0 ? 0 : dietVarietyTerm(compatible);
 
     for (let s = 0; s < nS; s++) {
       const choice = itemUtilities(res, m, states[s]!, compatible === 0);
