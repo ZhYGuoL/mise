@@ -44,6 +44,10 @@ section{position:relative}
 .plate img{width:100%;height:100%;object-fit:cover;display:block;mix-blend-mode:multiply;will-change:transform}
 .cap{display:flex;justify-content:space-between;gap:10px;margin-top:10px;font-size:15px;font-weight:500;opacity:0}
 .cap .num{color:var(--muted);font-weight:400}
+.menu-title{position:absolute;left:0;right:0;top:13vh;text-align:center;z-index:4;opacity:0}
+.menu-title h2{font-size:clamp(34px,4.6vw,68px);letter-spacing:-.035em;font-weight:600;line-height:1}
+.menu-title h2 .serif{color:var(--rust)}
+.menu-title p{margin-top:10px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -55,6 +59,7 @@ section{position:relative}
    <h1 class="h1"><span class="line"><span>Open a restaurant</span></span><span class="line"><span class="serif it">before you open one.</span></span></h1>
    <p class="sub">Describe it. Mise plates it, prices it, and runs a Friday in Pittsburgh.</p>
   </div>
+  <div class="menu-title" id="menuTitle"><h2>An idea becomes <span class="serif it">a menu.</span></h2><p>Crunch House · 6 dishes · v3</p></div>
   <div id="dishes"></div>
  </div>
 </section>
