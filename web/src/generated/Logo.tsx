@@ -1,7 +1,7 @@
 import type { Concept } from '@mise/shared'
 import { motion } from 'motion/react'
-import { useEffect, useState } from 'react'
-import { photoFade } from './motion'
+import { useEffect } from 'react'
+import { photoFade, useCrossfade } from './motion'
 import { PixelLoader } from './parts'
 import { inputKey, useGenTask, useGeneration } from './store'
 
@@ -20,11 +20,8 @@ export function Logo({ concept, size = 40 }: { concept: Concept; size?: number }
   }, [key, concept.id, ensure])
 
   const { colors } = concept.brand
-  const url = task?.url ?? concept.brand.logoUrl
-  const [loadedUrl, setLoadedUrl] = useState<string | null>(null)
-  const [brokenUrl, setBrokenUrl] = useState<string | null>(null)
+  const mark = useCrossfade(task?.url ?? concept.brand.logoUrl)
   const generating = task?.status === 'generating'
-  const showsImage = !!url && brokenUrl !== url && loadedUrl === url
 
   return (
     <div
@@ -33,7 +30,7 @@ export function Logo({ concept, size = 40 }: { concept: Concept; size?: number }
         width: size,
         height: size,
         borderRadius: Math.max(6, Math.round(size * 0.16)),
-        background: colors.primary,
+        background: mark.base ? colors.background : colors.primary,
         color: colors.background,
         fontSize: size * 0.42,
       }}
@@ -41,25 +38,28 @@ export function Logo({ concept, size = 40 }: { concept: Concept; size?: number }
       aria-label={concept.name}
       aria-busy={generating}
     >
-      {!generating && !showsImage && concept.name.slice(0, 1)}
-      {url && brokenUrl !== url && (
+      {!mark.base && !generating && concept.name.slice(0, 1)}
+      {mark.base && <img src={mark.base} alt="" draggable={false} className="absolute inset-0 size-full object-cover" />}
+      {mark.incoming && (
         <motion.img
-          key={url}
-          src={url}
+          key={mark.incoming}
+          src={mark.incoming}
           alt=""
           draggable={false}
-          onLoad={() => setLoadedUrl(url)}
-          onError={() => setBrokenUrl(url)}
+          onLoad={() => mark.onLoad(mark.incoming!)}
+          onError={() => mark.onError(mark.incoming!)}
           initial={{ opacity: 0 }}
-          animate={{ opacity: loadedUrl === url ? (generating ? 0.5 : 1) : 0 }}
+          animate={{ opacity: mark.incomingLoaded ? 1 : 0 }}
           transition={photoFade}
+          onAnimationComplete={() => mark.incomingLoaded && mark.onShown(mark.incoming!)}
           className="absolute inset-0 size-full object-cover"
         />
       )}
-      {/* Over a dimmed old mark (regenerate) the loader takes the mark's color, else the letter's. */}
+      {/* A new take is on its way: the current mark steps back under a flat veil in the brand background. */}
+      {generating && mark.base && <span className="absolute inset-0" style={{ background: colors.background, opacity: 0.6 }} />}
       {generating && (
         <span className="absolute inset-0 z-10 grid place-items-center">
-          <PixelLoader tone={showsImage ? colors.primary : colors.background} />
+          <PixelLoader tone={mark.base ? colors.primary : colors.background} />
         </span>
       )}
     </div>

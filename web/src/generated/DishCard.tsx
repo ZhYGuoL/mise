@@ -1,8 +1,8 @@
 import type { Concept, MenuItem } from '@mise/shared'
 import { motion } from 'motion/react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import LoadingState from '@/components/primitives/LoadingState'
-import { photoFade } from './motion'
+import { photoFade, useCrossfade } from './motion'
 import { RetryIcon } from './parts'
 import { inputKey, useGenTask, useGeneration } from './store'
 
@@ -63,12 +63,10 @@ export function DishCard({
   }, [key, concept.id, item.id, ensure])
 
   const url = task?.url ?? item.imageUrl
-  const [loadedUrl, setLoadedUrl] = useState<string | null>(null)
-  const [brokenUrl, setBrokenUrl] = useState<string | null>(null)
-  const hasPhoto = !!url && brokenUrl !== url
-  const showsPhoto = hasPhoto && loadedUrl === url
+  const photo = useCrossfade(url)
+  const showsPhoto = !!photo.base
   const generating = task?.status === 'generating'
-  const failed = !generating && (task?.status === 'failed' || (!!url && brokenUrl === url))
+  const failed = !generating && (task?.status === 'failed' || photo.broken)
 
   return (
     <article
@@ -77,25 +75,31 @@ export function DishCard({
       }`}
     >
       <div className="@container relative aspect-[4/3] overflow-hidden">
-        <FallbackFace item={item} concept={concept} />
-        {hasPhoto && (
+        {!photo.base && <FallbackFace item={item} concept={concept} />}
+        {photo.base && (
+          <img src={photo.base} alt={item.name} draggable={false} className="absolute inset-0 size-full object-cover" />
+        )}
+        {photo.incoming && (
           <motion.img
-            key={url}
-            src={url}
-            alt={item.name}
+            key={photo.incoming}
+            src={photo.incoming}
+            alt={photo.base ? '' : item.name}
             draggable={false}
-            onLoad={() => setLoadedUrl(url)}
-            onError={() => setBrokenUrl(url)}
+            onLoad={() => photo.onLoad(photo.incoming!)}
+            onError={() => photo.onError(photo.incoming!)}
             initial={{ opacity: 0 }}
-            animate={{ opacity: loadedUrl === url ? (generating ? 0.5 : 1) : 0 }}
+            animate={{ opacity: photo.incomingLoaded ? 1 : 0 }}
             transition={photoFade}
+            onAnimationComplete={() => photo.incomingLoaded && photo.onShown(photo.incoming!)}
             className="absolute inset-0 size-full object-cover"
           />
         )}
+        {/* A new take is on its way: the current photo steps back under a flat veil. */}
+        {generating && photo.base && <div className="absolute inset-0 bg-surface/55" />}
 
         {generating && (
           // On a narrow card the queue already shows the time, so the chip drops its timer.
-          <div className="absolute top-2 left-2 z-10 flex h-7 items-center rounded-full bg-surface px-2.5 @max-[13rem]:[&_.font-mono]:hidden">
+          <div className="absolute top-2 left-2 z-10 flex h-7 items-center rounded-full border border-line bg-surface px-2.5 @max-[13rem]:[&_.font-mono]:hidden">
             <LoadingState label="Generating" />
           </div>
         )}

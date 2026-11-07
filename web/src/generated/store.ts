@@ -80,6 +80,9 @@ export const useGeneration = create<GenState>()((set, get) => {
     const id = ++requestSeq
     latest.set(key, id)
     const prev = get().tasks[key]
+    const nextInput = inputKey(concept, target)
+    // Same prompt: a failed new take leaves the current photo up. New prompt: the old photo is the wrong dish.
+    const fallbackUrl = prev?.inputKey === nextInput ? prev.url : null
     set((s) => ({
       tasks: {
         ...s.tasks,
@@ -87,7 +90,7 @@ export const useGeneration = create<GenState>()((set, get) => {
           target,
           status: 'generating',
           url: prev?.url ?? null,
-          inputKey: inputKey(concept, target),
+          inputKey: nextInput,
           startedAt: Date.now(),
           ms: null,
           serverStatus: null,
@@ -108,10 +111,10 @@ export const useGeneration = create<GenState>()((set, get) => {
       if (!r || latest.get(key) !== id) return
       const status: TaskStatus =
         r.status === 'failed' ? 'failed' : r.url ? 'done' : r.status === 'off' ? 'off' : 'failed'
-      patch(key, { status, url: r.url ?? prev?.url ?? null, ms: r.ms, serverStatus: r.status, error: r.error })
+      patch(key, { status, url: r.url ?? fallbackUrl, ms: r.ms, serverStatus: r.status, error: r.error })
     } catch (err) {
       if (latest.get(key) !== id) return
-      patch(key, { status: 'failed', error: err instanceof Error ? err.message : String(err) })
+      patch(key, { status: 'failed', url: fallbackUrl, error: err instanceof Error ? err.message : String(err) })
     }
   }
 

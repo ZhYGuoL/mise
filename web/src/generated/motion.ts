@@ -21,3 +21,24 @@ export function useElapsed(since: number, running: boolean): number {
 }
 
 export const seconds = (s: number) => `${s.toFixed(1)}s`
+
+/**
+ * Two image layers for a photo that can be replaced: `base` is the last photo that finished fading in,
+ * `incoming` is the new URL fading in on top. The base stays solid under it, so a new take
+ * crossfades instead of flashing through whatever is behind the photo.
+ */
+export function useCrossfade(url: string | null) {
+  const [shown, setShown] = useState<string | null>(null)
+  const [loaded, setLoaded] = useState<string | null>(null)
+  const [broken, setBroken] = useState<string | null>(null)
+  const ok = url && url !== broken ? url : null
+  return {
+    base: url ? shown : null,
+    incoming: ok && ok !== shown ? ok : null,
+    incomingLoaded: !!ok && loaded === ok,
+    broken: !!url && url === broken,
+    onLoad: (u: string) => setLoaded(u),
+    onError: (u: string) => setBroken(u),
+    onShown: (u: string) => setShown(u),
+  }
+}
