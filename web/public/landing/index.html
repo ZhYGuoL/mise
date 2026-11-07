@@ -133,6 +133,25 @@ section{position:relative}
 .mcard:hover{transform:translateY(-8px) rotate(-1.5deg)}
 .mcard:hover img{transform:scale(1.08)}
 
+/* END */
+#end{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10vh 6vw 8vh;position:relative}
+.bowl{position:relative;width:min(360px,70vw);margin-bottom:10px}
+.bowl .disc{width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden}
+.bowl img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;display:block;transform:scale(1.32);animation:spin 60s linear infinite}
+@keyframes spin{from{transform:rotate(0) scale(1.32)}to{transform:rotate(360deg) scale(1.32)}}
+.steam{position:absolute;left:50%;top:-150px;width:220px;height:220px;transform:translateX(-50%);pointer-events:none}
+.steam path{fill:none;stroke:#B9AE9C;stroke-width:5;stroke-linecap:round;opacity:0;animation:steam 3.6s ease-in infinite}
+.steam path:nth-child(2){animation-delay:1.2s}
+.steam path:nth-child(3){animation-delay:2.4s}
+@keyframes steam{0%{opacity:0;transform:translateY(60px) scaleY(.7)}30%{opacity:.55}100%{opacity:0;transform:translateY(-40px) scaleY(1.15)}}
+.endh{font-size:clamp(56px,11vw,180px);line-height:.9;letter-spacing:-.05em;font-weight:600}
+.endh .serif{color:var(--rust);font-weight:400}
+.endh .ch{display:inline-block;transform:translateY(110%);opacity:0;transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .9s}
+.endh.in .ch{transform:none;opacity:1}
+.endh .w{display:inline-block;overflow:hidden;padding-bottom:.08em}
+#end .cta{margin-top:40px;font-size:18px;padding:16px 28px}
+footer{padding:28px 36px;display:flex;justify-content:space-between;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+
 @media (pointer:fine){body{cursor:none}a,button{cursor:none}}
 /* cursor */
 #cur{position:fixed;left:0;top:0;width:12px;height:12px;border-radius:50%;background:var(--rust);z-index:100;pointer-events:none;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:500;transition:width .35s cubic-bezier(.2,.8,.2,1),height .35s cubic-bezier(.2,.8,.2,1),background .3s}
@@ -210,6 +229,11 @@ section{position:relative}
  <div class="mrow" id="m2"></div>
 </section>
 
+<section id="end">
+ <div class="bowl"><svg class="steam" viewBox="0 0 220 220"><path d="M70 200 C50 160 95 140 75 100 S90 40 80 20"/><path d="M110 200 C90 160 135 140 115 100 S130 40 120 20"/><path d="M150 200 C130 160 175 140 155 100 S170 40 160 20"/></svg><div class="disc"><img src="d5.jpg" alt="Tteokbokki"></div></div>
+ <h2 class="endh" id="endh"><span class="w">Mise</span> <span class="w serif it">en place.</span></h2>
+ <a class="cta" href="/?seed=1" data-cur="Open">Open the kitchen <span class="arr">→</span></a>
+</section>
 <footer><span>Mise · Built at NOVA 2026, ScottyLabs</span><span>Pittsburgh</span></footer>
 
 <script>
