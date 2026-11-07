@@ -5,6 +5,8 @@
 import path from "node:path";
 import { Concept, Scenario, type Prediction } from "@mise/shared";
 import { ROOT } from "../fixtures";
+import { loadCity } from "../city/load";
+import { explainResident } from "./explain";
 import { simulate } from "./simulate";
 
 const base = Concept.parse(await Bun.file(path.join(ROOT, "data/fixtures/concept.json")).json());
@@ -48,7 +50,8 @@ const vegan = await simulate(
 line("add a vegan main", vegan);
 checks.push(["vegan main -> fewer diet objections", obj(vegan, "no_diet_option") < obj(b, "no_diet_option")]);
 
-const far = await simulate(edit((c) => Object.assign(c.location, { lat: 40.4612, lon: -79.9255, neighborhood: "East Liberty" })), friday);
+const farConcept = edit((c) => Object.assign(c.location, { lat: 40.4612, lon: -79.9255, neighborhood: "East Liberty" }));
+const far = await simulate(farConcept, friday);
 line("move to East Liberty", far);
 const downtown = await simulate(edit((c) => Object.assign(c.location, { lat: 40.4406, lon: -79.9959, neighborhood: "Downtown" })), friday);
 line("move to Downtown", downtown);
@@ -85,6 +88,24 @@ checks.push(["one item +$1 -> orders same or lower", wings.orders.p50 <= b.order
 const launch = await simulate(edit((c) => c.promos.push({ id: "p2", description: "20% off your first order" , discountPct: 20 })), friday);
 line("launch promo 20%", launch);
 checks.push(["launch promo -> more orders", launch.orders.p50 > b.orders.p50]);
+
+// Sampled residents: each one is on the map, and the map agrees with their interview.
+const { restaurants } = await loadCity();
+for (const [name, c, p] of [["fixture", base, b], ["East Liberty", farConcept, far], ["Monday", base, monday]] as const) {
+  let agree = 0, yes = 0;
+  for (const id of p.sampleResidentIds) {
+    const d = await explainResident(c, p.scenario, id);
+    const flow = p.orderFlows.find((f) => f.residentId === id);
+    if (!d || !flow) continue;
+    if (d.wouldOrderFromConcept) yes++;
+    const same = d.wouldOrderFromConcept
+      ? flow.restaurant === "concept"
+      : flow.restaurant === "other" && flow.placeId === restaurants[d.choseInsteadIndex]?.placeId;
+    if (same) agree++;
+  }
+  console.log(`${name}: ${p.sampleResidentIds.length} samples, ${yes} would order, ${agree} match the map`);
+  checks.push([`${name}: sampled residents are on the map and match the interview`, p.sampleResidentIds.length >= 3 && agree === p.sampleResidentIds.length]);
+}
 
 const t0 = performance.now();
 const big = await simulate(base, { ...friday, runs: 100 });
