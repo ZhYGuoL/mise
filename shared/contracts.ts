@@ -188,6 +188,11 @@ export const Prediction = z.object({
   observedByHour: z.array(z.object({ hour: z.number().int().min(0).max(23), busyPct: z.number() })).optional(),
   /** Correlation between simulated orders by hour and observedByHour for this place and day. */
   observedCorrelation: z.number().nullable().optional(),
+  /**
+   * Added by Lane D (optional). Existing restaurant only: orders the real place gets today, as it is,
+   * in the same simulated days. Compare with `orders` to show what an edit changes vs today.
+   */
+  baselineOrders: Band.optional(),
 });
 export type Prediction = z.infer<typeof Prediction>;
 

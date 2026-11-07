@@ -4,7 +4,7 @@
  * The concept and the "no concept" baseline share every random draw, so stolenFrom is exact per order.
  * No LLM calls here.
  */
-import type { Concept, Prediction, Scenario, Segment } from "@mise/shared";
+import type { Concept, Prediction, Restaurant, Scenario, Segment } from "@mise/shared";
 import { CUISINE_LABEL, type Cuisine } from "../city/cuisine";
 import { DAYS } from "../city/load";
 import { AREA_NAME } from "../city/residents";
@@ -100,6 +100,10 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
   const hourRun: number[][] = Array.from({ length: 24 }, () => []);
   const segTotal = [0, 0, 0, 0, 0];
   const stolen = new Float64Array(nP);
+  const gained = new Float64Array(nP); // orders an existing restaurant loses to others after an edit
+  const baseExRun: number[] = [];
+  // An existing restaurant replaces its real self. -1 = a brand-new concept.
+  const ex = concept.existing ? restaurants.findIndex((p) => p.placeId === concept.existing!.placeId) : -1;
   const flowsRun: { r: number; t: number; p: number }[][] = [];
   const objections = new Map<Code, ObjectionAcc>();
   let considered = 0;
@@ -107,8 +111,9 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
   for (let run = 0; run < runs; run++) {
     const rand = rng(hash(seed, "run", run));
     const demand = Math.exp(DEMAND_SD * normal(rand));
-    const aware = AWARENESS_SD * normal(rand);
-    let orders = 0, revenue = 0, market = 0;
+    // How fast people discover a new place is uncertain. A real place is already known.
+    const aware = AWARENESS_SD * normal(rand) * (concept.existing ? 0 : 1);
+    let orders = 0, revenue = 0, market = 0, baseEx = 0;
     const byHour = new Array(24).fill(0);
     const flows: { r: number; t: number; p: number }[] = [];
 
@@ -125,11 +130,17 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
 
         const open = s.openAt[day]![hour]!;
         const row = r * nP;
-        let S = outsideAdj[r]!;
-        for (const j of open) S += exp[row + j]!;
+        // Today's city: every open place, including the real restaurant if the concept replaces one.
+        let others = outsideAdj[r]!;
+        let eEx = 0;
+        for (const j of open) {
+          if (j === ex) eEx = exp[row + j]!;
+          else others += exp[row + j]!;
+        }
+        const today = others + eEx;
 
-        // Baseline: where would they order with no concept in town? (-1 = they do not order)
-        let target = v * S - outsideAdj[r]!;
+        // Baseline: where would they order in today's city? (-1 = they do not order)
+        let target = v * today - outsideAdj[r]!;
         let base = -1;
         if (target >= 0) {
           for (const j of open) {
@@ -140,19 +151,44 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
             if (target < 0) break;
           }
         }
+        if (ex >= 0 && base === ex) baseEx++;
 
         const st = cm.stateOfHour[hour]!;
         const ck = r * nS + st;
         const isOpen = openMinute[hour * 60 + minute] === 1;
         const avail = isOpen && cm.inRadius[r] === 1 && cm.dietMains[r]! > 0;
         const uc = cm.utility[ck]! + aware;
-        let chose = false;
-        if (avail) {
-          const ec = Math.exp(SCALE * uc);
-          chose = w < ec / (S + ec);
+        const ec = avail ? Math.exp(SCALE * uc) : 0;
+        const withConcept = others + ec;
+
+        // With the concept: it replaces the real place (if any) and joins the rest. One shared draw w keeps
+        // as many choices as possible equal to today's, so the difference is the effect of the concept.
+        // For a brand-new concept (eEx = 0) this is: concept if w < ec / (others + ec), else today's pick.
+        let pick = base; // -2 = concept
+        const exPicked = ex >= 0 && base === ex;
+        if (ec >= eEx) {
+          if (exPicked || w < 1 - today / withConcept) pick = -2;
+        } else if (exPicked) {
+          const keep = ec / withConcept / (eEx / today);
+          if (w < keep) pick = -2;
+          else {
+            // The concept lost this customer. They go where they would without the real place.
+            let t2 = ((w - keep) / (1 - keep)) * others - outsideAdj[r]!;
+            pick = -1;
+            if (t2 >= 0) {
+              for (const j of open) {
+                const e = j === ex ? 0 : exp[row + j]!;
+                if (e === 0) continue;
+                pick = j;
+                t2 -= e;
+                if (t2 < 0) break;
+              }
+            }
+            if (pick >= 0) gained[pick]++;
+          }
         }
 
-        if (chose) {
+        if (pick === -2) {
           const state = cm.states[st]!;
           const items = itemUtilities(res, cm, state);
           const pickW = items.utilities.map((u) => (u === -Infinity ? 0 : Math.exp(SCALE * u)));
@@ -168,17 +204,17 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
           byHour[hour]++;
           segTotal[g]++;
           considered++;
-          if (base >= 0) stolen[base]++;
+          if (base >= 0 && base !== ex) stolen[base]++;
           flows.push({ r, t: hour * 60 + minute, p: -1 });
           continue;
         }
-        if (base < 0) continue;
+        if (pick < 0) continue;
         market++;
-        flows.push({ r, t: hour * 60 + minute, p: base });
+        flows.push({ r, t: hour * 60 + minute, p: pick });
 
         // Did they consider the concept? Compare with what they picked, term by term.
-        const fav = s.fav[r * 3] === base || s.fav[r * 3 + 1] === base || s.fav[r * 3 + 2] === base;
-        const t = placeTerms(res, places[base]!, s.km[row + base]!, fav);
+        const fav = s.fav[r * 3] === pick || s.fav[r * 3 + 1] === pick || s.fav[r * 3 + 2] === pick;
+        const t = placeTerms(res, places[pick]!, s.km[row + pick]!, fav);
         t.habit *= effects[g]!.habit;
         const uj = sumTerms(t);
         // Out of range: would they want it if it delivered to them? Judge it at the edge of the range.
@@ -214,9 +250,9 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
           acc.mains[Math.min(2, cm.dietMains[r]!)]++;
         }
         if (code === "closed_when_hungry") bump(acc.hour, hour);
-        if (code === "wrong_cuisine") bump(acc.cuisine, places[base]!.cuisines[0] ?? "american");
+        if (code === "wrong_cuisine") bump(acc.cuisine, places[pick]!.cuisines[0] ?? "american");
         if (code === "unknown_new_place") t.habit > t.rating + t.popularity ? acc.usual++ : acc.unrated++;
-        if (code === "too_expensive") bump(acc.place, base);
+        if (code === "too_expensive") bump(acc.place, pick);
         if (code === "too_expensive" && acc.cost.length < 4000) {
           const items = itemUtilities(res, cm, cm.states[st]!);
           const price = cm.states[st]!.prices[cm.mains[items.best]!]!;
@@ -227,6 +263,7 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
     }
 
     ordersRun.push(orders);
+    baseExRun.push(baseEx);
     revenueRun.push(revenue);
     marketRun.push(market);
     for (let h = 0; h < 24; h++) hourRun[h]!.push(byHour[h]);
@@ -239,8 +276,9 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
   const totalRevenue = revenueRun.reduce((a, b) => a + b, 0);
   const totalMarket = marketRun.reduce((a, b) => a + b, 0);
 
+  // Net orders each place loses to the concept, against today's city.
   const stolenFrom = [...stolen.entries()]
-    .map(([j, n]) => ({ j, lost: n / runs }))
+    .map(([j, n]) => ({ j, lost: (n - gained[j]!) / runs }))
     .filter((x) => x.lost >= 0.5)
     .sort((a, b) => b.lost - a.lost)
     .slice(0, 6)
@@ -313,6 +351,7 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
       hour: d.hour,
     })),
     calibration: { heldOutCorrelation: null, note: "not calibrated yet" },
+    ...existingFields(ex >= 0 ? restaurants[ex]! : null, scenario, hourRun, baseExRun),
     computedMs: Math.round(performance.now() - t0),
   };
 }
@@ -339,7 +378,8 @@ function objectionLabel(code: Code, acc: ObjectionAcc, concept: Concept, names: 
     case "closed_when_hungry":
       return `closed at ${hourLabel(top(acc.hour) ?? 0)}`;
     case "unknown_new_place":
-      return acc.usual >= acc.unrated ? "loyal to their usual spot" : "new and unrated";
+      if (acc.usual >= acc.unrated) return "loyal to their usual spot";
+      return concept.existing ? "rated lower than their pick" : "new and unrated";
   }
 }
 
@@ -378,4 +418,34 @@ function pickSamples(
     if (picked.length === before) break;
   }
   return picked;
+}
+
+/** Pearson correlation. null if fewer than 3 points or no variation. */
+export function pearson(a: number[], b: number[]): number | null {
+  const n = a.length;
+  if (n < 3) return null;
+  const ma = a.reduce((x, y) => x + y, 0) / n, mb = b.reduce((x, y) => x + y, 0) / n;
+  let sab = 0, saa = 0, sbb = 0;
+  for (let i = 0; i < n; i++) {
+    sab += (a[i]! - ma) * (b[i]! - mb);
+    saa += (a[i]! - ma) ** 2;
+    sbb += (b[i]! - mb) ** 2;
+  }
+  return saa === 0 || sbb === 0 ? null : sab / Math.sqrt(saa * sbb);
+}
+
+/**
+ * Existing restaurant only: its orders in today's city, and Google's busy curve for the day next to
+ * the simulated one. Correlation runs over the hours Google shows the place open.
+ */
+function existingFields(place: Restaurant | null, scenario: Scenario, hourRun: number[][], baseExRun: number[]) {
+  if (!place) return {};
+  const out: Pick<Prediction, "baselineOrders" | "observedByHour" | "observedCorrelation"> = { baselineOrders: band(baseExRun) };
+  const google = place.popularTimes?.[scenario.day];
+  if (!google) return out;
+  const observedByHour = Array.from({ length: 24 }, (_, hour) => ({ hour, busyPct: google[String(hour)] ?? 0 }));
+  const openHours = observedByHour.filter((o) => o.busyPct > 0).map((o) => o.hour);
+  const simP50 = openHours.map((h) => band(hourRun[h]!, 1).p50);
+  const r = pearson(simP50, openHours.map((h) => observedByHour[h]!.busyPct));
+  return { ...out, observedByHour, observedCorrelation: r === null ? null : round(r, 2) };
 }

@@ -60,7 +60,10 @@ export function decideAt(
   // Their best real option that hour.
   let best = -1;
   let bestU = -Infinity;
+  // An existing restaurant replaces its real self, so the real place is not an alternative.
+  const ex = concept.existing ? s.restaurants.findIndex((p) => p.placeId === concept.existing!.placeId) : -1;
   for (const j of s.openAt[day]![hour]!) {
+    if (j === ex) continue;
     const u0 = s.base[r * s.nP + j]!;
     if (u0 === -Infinity) continue;
     const fav = res.favorites.includes(s.restaurants[j]!.placeId);
@@ -99,7 +102,7 @@ export function decideAt(
       ["too_far", `delivery time: ${cMin} min vs ${jMin} min`, cm.time[ci]! - t.time],
       [
         "unknown_new_place",
-        fav ? `new place vs ${name}, a favorite` : `new place vs ${name}, ${s.restaurants[best]!.rating ?? "no"} stars`,
+        `${concept.existing ? `${concept.existing.rating ?? "no"} stars here` : "new place"} vs ${name}, ${fav ? "a favorite" : `${s.restaurants[best]!.rating ?? "no"} stars`}`,
         cm.newPlace[ci]! - (t.rating + t.popularity + t.habit),
       ],
     ];
