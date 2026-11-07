@@ -22,21 +22,38 @@ export type ResidentDecision = Omit<InterviewAnswer, "answer"> & {
   blocked: "too_far" | "no_diet_option" | "closed_when_hungry" | null;
   /** the term that hurt the concept most against their pick, null if the concept wins */
   reason: Code | null;
+  /** index of the restaurant they pick instead, -1 if none */
+  choseInsteadIndex: number;
 };
 
 const label = (cuisines: readonly string[]) => cuisines.map((c) => CUISINE_LABEL[c as Cuisine] ?? c).join(" and ") || "this food";
 
 /**
- * Deterministic decision for resident r. `ci` is the resident's index inside the concept model
- * (equal to r when the model was built for the whole city).
+ * Deterministic decision for resident r over their regular order hours (at least half as likely as
+ * their peak hour). Reports the hour where the concept did best. `ci` is the resident's index inside
+ * the concept model (equal to r when the model was built for the whole city).
  */
 export function decide(s: StaticCity, cm: ConceptModel, ci: number, r: number, concept: Concept, scenario: Scenario): ResidentDecision {
+  const weights = hourWeights(s.residents[r]!.segment, scenario);
+  const peak = Math.max(...weights);
+  let pick: ResidentDecision | null = null;
+  weights.forEach((w, hour) => {
+    if (w < 0.5 * peak) return;
+    const d = decideAt(s, cm, ci, r, concept, scenario, hour);
+    if (d.blocked === "closed_when_hungry") return;
+    if (!pick || d.margin > pick.margin) pick = d;
+  });
+  return pick ?? decideAt(s, cm, ci, r, concept, scenario, weights.indexOf(peak));
+}
+
+/** Deterministic decision for resident r at one hour of the scenario day. */
+export function decideAt(
+  s: StaticCity, cm: ConceptModel, ci: number, r: number, concept: Concept, scenario: Scenario, hour: number,
+): ResidentDecision {
   const res = s.residents[r]!;
   const day = DAYS.indexOf(scenario.day);
   const nS = cm.states.length;
   const ev = eventEffect(scenario.event, res.segment);
-  const weights = hourWeights(res.segment, scenario);
-  const hour = weights.indexOf(Math.max(...weights));
   const st = cm.stateOfHour[hour]!;
   const k = ci * nS + st;
 
@@ -105,14 +122,21 @@ export function decide(s: StaticCity, cm: ConceptModel, ci: number, r: number, c
     margin: round(margin, 2),
     blocked,
     reason,
+    choseInsteadIndex: wouldOrder ? -1 : best,
   };
 }
 
-/** Wave 2 entry point: POST /api/residents/:id/ask calls this, then writes the answer from `breakdown`. */
-export async function explainResident(concept: Concept, scenario: Scenario, residentId: string): Promise<ResidentDecision | null> {
+/**
+ * Wave 2 entry point: POST /api/residents/:id/ask calls this, then writes the answer from `breakdown`.
+ * Without `hour`, it judges the resident's regular order hours and reports the one in `hour`.
+ * For a resident in sampleResidentIds, this agrees with their order in orderFlows.
+ */
+export async function explainResident(
+  concept: Concept, scenario: Scenario, residentId: string, hour?: number,
+): Promise<ResidentDecision | null> {
   const s = await loadStatic();
   const r = s.residents.findIndex((x) => x.id === residentId);
   if (r < 0) return null;
   const cm = buildConceptModel(concept, scenario, [s.residents[r]!]);
-  return decide(s, cm, 0, r, concept, scenario);
+  return hour === undefined ? decide(s, cm, 0, r, concept, scenario) : decideAt(s, cm, 0, r, concept, scenario, hour);
 }

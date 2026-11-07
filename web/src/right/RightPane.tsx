@@ -118,6 +118,7 @@ export function RightPane() {
             </div>
             <SampledResidents
               residents={sampled}
+              decisions={prediction.sampleDecisions}
               flowsByResident={flowsByResident}
               concept={concept}
               color={colorCss}

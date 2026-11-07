@@ -3,7 +3,7 @@ import { motion } from 'motion/react'
 import type { Flow } from '../lib/flows'
 import { SEGMENT_LABEL, SEGMENT_ONE, int } from '../lib/format'
 import { spring } from '../lib/motion'
-import { clockLabel } from '../lib/time'
+import { clockLabel, toDayMinutes } from '../lib/time'
 
 function Card({ title, children, busy }: { title: string; children: React.ReactNode; busy: boolean }) {
   return (
@@ -78,6 +78,7 @@ export function WhoOrdered({ prediction, color, busy }: { prediction: Prediction
 /** The residents the simulation sampled. Clicking one selects it on the map. */
 export function SampledResidents({
   residents,
+  decisions,
   flowsByResident,
   concept,
   color,
@@ -86,6 +87,8 @@ export function SampledResidents({
   busy,
 }: {
   residents: Resident[]
+  /** The interview's decision per resident. The fixture has none, so the list falls back to the map's orders. */
+  decisions: Prediction['sampleDecisions']
   flowsByResident: Map<string, Flow>
   concept: Concept
   color: string
@@ -94,12 +97,22 @@ export function SampledResidents({
   busy: boolean
 }) {
   if (residents.length === 0) return null
+  const decisionById = new Map((decisions ?? []).map((d) => [d.residentId, d]))
+  const statusOf = (id: string) => {
+    const d = decisionById.get(id)
+    if (d) {
+      const place = d.wouldOrderFromConcept ? concept.name : d.choseInstead
+      return { concept: d.wouldOrderFromConcept, place, t: place ? toDayMinutes(d.hour, 0) : null }
+    }
+    const flow = flowsByResident.get(id)
+    return flow ? { concept: flow.concept, place: flow.concept ? concept.name : 'Elsewhere', t: flow.t } : { concept: false, place: null, t: null }
+  }
   return (
     <div className="rounded-card bg-surface p-3 shadow-hairline transition-opacity duration-150" style={{ opacity: busy ? 0.45 : 1 }}>
       <span className="px-0.5 text-[13px] font-semibold text-ink">Residents</span>
       <div className="mt-2 grid grid-cols-3 gap-1.5">
         {residents.map((r) => {
-          const flow = flowsByResident.get(r.id)
+          const status = statusOf(r.id)
           const selected = r.id === selectedId
           return (
             <button
@@ -118,10 +131,10 @@ export function SampledResidents({
               <span className="mt-1 flex items-center gap-1.5 text-[11.5px] text-ink-2">
                 <span
                   className="size-1.5 shrink-0 rounded-full"
-                  style={{ background: flow ? (flow.concept ? color : 'var(--ink-3)') : 'var(--line-strong)' }}
+                  style={{ background: status.place ? (status.concept ? color : 'var(--ink-3)') : 'var(--line-strong)' }}
                 />
-                <span className="truncate">{flow ? (flow.concept ? concept.name : 'Elsewhere') : 'No order'}</span>
-                {flow && <span className="ml-auto shrink-0 text-ink-3 tabular-nums">{clockLabel(flow.t)}</span>}
+                <span className="truncate">{status.place ?? 'No order'}</span>
+                {status.t !== null && <span className="ml-auto shrink-0 text-ink-3 tabular-nums">{clockLabel(status.t)}</span>}
               </span>
             </button>
           )

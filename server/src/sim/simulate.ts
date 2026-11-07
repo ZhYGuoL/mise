@@ -25,7 +25,7 @@ const DEMAND_SD = 0.06;
 /** How unsure we are about how fast a new place gets discovered (1 sd, utility). */
 const AWARENESS_SD = 0.25;
 const MAX_FLOWS = 600;
-const SAMPLE_POOL = 2000; // sampleResidentIds come from the first N, so ?sample=3000 always has them
+const SAMPLE_POOL = 3000; // sampleResidentIds come from the first N. The prediction pane loads ?sample=3000.
 
 type Code = Prediction["objections"][number]["code"];
 
@@ -267,12 +267,15 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
   const mid = median(ordersRun);
   const flowRun = ordersRun.reduce((best, o, i) => (Math.abs(o - mid) < Math.abs(ordersRun[best]! - mid) ? i : best), 0);
   const all = flowsRun[flowRun]!;
+  const samples = pickSamples(s, cm, concept, scenario, objectionList.map((o) => o.code), all);
+  // Every sampled resident's order is on the map, so the panel and the map agree.
+  const forced = samples.filter((x) => x.flow.p !== -1).map((x) => x.flow);
   const mine = all.filter((f) => f.p === -1).slice(0, 300);
-  const others = all.filter((f) => f.p !== -1);
-  const room = MAX_FLOWS - mine.length;
+  const others = all.filter((f) => f.p !== -1 && !forced.includes(f));
+  const room = MAX_FLOWS - mine.length - forced.length;
   const stride = others.length / Math.max(1, room);
   const picked = room > 0 ? Array.from({ length: Math.min(room, others.length) }, (_, i) => others[Math.floor(i * stride)]!) : [];
-  const orderFlows = [...mine, ...picked]
+  const orderFlows = [...mine, ...forced, ...picked]
     .sort((a, b) => a.t - b.t)
     .map((f) => ({
       residentId: residents[f.r]!.id,
@@ -302,7 +305,13 @@ export async function simulate(concept: Concept, scenario: Scenario): Promise<Pr
     stolenFrom,
     objections: objectionList,
     orderFlows,
-    sampleResidentIds: pickSamples(s, cm, concept, scenario, objectionList.map((o) => o.code)),
+    sampleResidentIds: samples.map((x) => residents[x.flow.r]!.id),
+    sampleDecisions: samples.map(({ d }) => ({
+      residentId: d.residentId,
+      wouldOrderFromConcept: d.wouldOrderFromConcept,
+      choseInstead: d.choseInstead,
+      hour: d.hour,
+    })),
     calibration: { heldOutCorrelation: null, note: "not calibrated yet" },
     computedMs: Math.round(performance.now() - t0),
   };
@@ -334,26 +343,39 @@ function objectionLabel(code: Code, acc: ObjectionAcc, concept: Concept, names: 
   }
 }
 
+type FlowEvent = { r: number; t: number; p: number };
+
 /**
- * Six residents worth interviewing, from the same deterministic decision the interview uses:
- * the two strongest yeses, the closest no for each top objection, and one hard no.
+ * Up to six residents worth interviewing. Each one placed a real order in the run the map plays,
+ * and that order agrees with the interview decision: the concept for a yes, the same other place for a no.
+ * Order: the two strongest yeses, the closest no for each top objection, one hard no, then more noes.
  */
-function pickSamples(s: StaticCity, cm: ConceptModel, concept: Concept, scenario: Scenario, topCodes: Code[]): string[] {
-  const pool = Array.from({ length: Math.min(SAMPLE_POOL, s.nR) }, (_, r) => decide(s, cm, r, r, concept, scenario));
-  const picked: ResidentDecision[] = [];
-  const add = (pred: (d: ResidentDecision) => boolean, by: (d: ResidentDecision) => number) => {
-    const d = pool.filter((x) => !picked.includes(x) && pred(x)).sort((a, b) => by(a) - by(b))[0];
-    if (d) picked.push(d);
+function pickSamples(
+  s: StaticCity, cm: ConceptModel, concept: Concept, scenario: Scenario, topCodes: Code[], run: FlowEvent[],
+): { d: ResidentDecision; flow: FlowEvent }[] {
+  const byResident = new Map<number, FlowEvent[]>();
+  for (const f of run) if (f.r < SAMPLE_POOL) byResident.set(f.r, [...(byResident.get(f.r) ?? []), f]);
+  const pool: { d: ResidentDecision; flow: FlowEvent }[] = [];
+  for (const [r, flows] of [...byResident.entries()].sort((a, b) => a[0] - b[0])) {
+    if (flows.length !== 1) continue; // one order that day, so the map cannot show a different one
+    const flow = flows[0]!;
+    const d = decide(s, cm, r, r, concept, scenario);
+    if (d.wouldOrderFromConcept ? flow.p === -1 : flow.p === d.choseInsteadIndex) pool.push({ d, flow });
+  }
+  const picked: typeof pool = [];
+  const add = (pred: (d: ResidentDecision) => boolean) => {
+    const hit = pool.filter((x) => !picked.includes(x) && pred(x.d)).sort((a, b) => b.d.margin - a.d.margin)[0];
+    if (hit) picked.push(hit);
   };
   const seg = (d: ResidentDecision) => s.residents[Number(d.residentId.slice(1))]!.segment;
-  add((d) => d.wouldOrderFromConcept && seg(d) === "undergrad", (d) => -d.margin);
-  add((d) => d.wouldOrderFromConcept && seg(d) !== "undergrad", (d) => -d.margin);
-  for (const code of topCodes.slice(0, 3)) add((d) => !d.wouldOrderFromConcept && d.reason === code, (d) => -d.margin);
-  add((d) => d.blocked !== null, (d) => -d.margin);
+  add((d) => d.wouldOrderFromConcept && seg(d) === "undergrad");
+  add((d) => d.wouldOrderFromConcept && seg(d) !== "undergrad");
+  for (const code of topCodes.slice(0, 3)) add((d) => !d.wouldOrderFromConcept && d.reason === code);
+  add((d) => d.blocked !== null);
   while (picked.length < 6) {
     const before = picked.length;
-    add((d) => !d.wouldOrderFromConcept, (d) => -d.margin);
+    add((d) => !d.wouldOrderFromConcept);
     if (picked.length === before) break;
   }
-  return picked.map((d) => d.residentId);
+  return picked;
 }
