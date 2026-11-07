@@ -2,6 +2,7 @@ import type { ConceptEdit } from '@mise/shared'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Button } from '@/components/atoms/Button'
 import { approve, skip, toggleEdit } from '../client'
+import { ImportApproval } from '../import/Approval'
 import { OptimizeRun } from '../optimize'
 import { editLabel, formatValue } from '../format'
 import { type Block, type Turn, useSession } from '../session'
@@ -318,6 +319,8 @@ function BlockView({ b, streaming }: { b: Block; streaming: boolean }) {
       return <Sim b={b} />
     case 'optimize':
       return <OptimizeRun runId={b.runId} />
+    case 'import':
+      return <ImportApproval b={b} />
     case 'error':
       return (
         <div className="flex items-start gap-2 rounded-control bg-red-tint px-2.5 py-2 text-[12.5px] text-red" style={ENTER}>

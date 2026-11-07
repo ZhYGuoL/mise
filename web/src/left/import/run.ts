@@ -1,8 +1,8 @@
 import type { AgentEvent, Concept, ImportPlace, ImportResponse } from '@mise/shared'
 import { api } from '@/api'
 import { useMise } from '@/state/store'
-import { finish, handleEvent, startTurn } from '../client'
-import { useSession } from '../session'
+import { continueTurn, finish, handleEvent, startTurn } from '../client'
+import { findBlock, uid, updateBlock, updateTurn, useSession } from '../session'
 import { importRestaurant, ImportFailure } from './api'
 
 /**
@@ -86,21 +86,31 @@ function shortLink(q: string) {
 
 export const isLink = (s: string) => /^\s*(https?:\/\/|www\.|maps\.app|goo\.gl)/i.test(s)
 
-export async function runImport(query: string, pick?: ImportPlace) {
-  const q = (pick?.name ?? query).trim()
-  if (!q || useSession.getState().busy) return
-  const turnId = startTurn(`/import ${isLink(q) ? shortLink(q) : q}`)
+/**
+ * Import into an agent turn that already exists, and show it like any agent work: the steps,
+ * "Created", the photos and the first simulated day. Returns true when the restaurant loaded.
+ */
+async function importInto(turnId: string, q: string, pick: ImportPlace | undefined, label: string): Promise<boolean> {
+  useSession.setState({ busy: true })
+  updateTurn(turnId, (b) => b, { done: false })
   const ctx = { turnId, basePrediction: null }
   const emit = (e: AgentEvent) => handleEvent(e, ctx)
   let images: Promise<unknown> = Promise.resolve()
+  let ok = false
 
-  emit({ type: 'thinking', label: 'Finding the restaurant', detail: isLink(q) ? shortLink(q) : q })
+  // After the agent's own steps, the import steps join that row, so the turn reads as one piece of work.
+  updateTurn(turnId, (blocks) => {
+    const last = blocks.at(-1)
+    return last?.kind === 'steps' ? [...blocks.slice(0, -1), { ...last, endedAt: null }] : blocks
+  })
+  emit({ type: 'thinking', label, detail: isLink(q) ? shortLink(q) : q })
   try {
     const res = await importRestaurant({ query: q, placeId: pick?.placeId })
     startOver(turnId)
     for (const e of steps(res)) emit(e)
     emit({ type: 'concept', concept: res.concept })
     images = photos(res.concept, emit)
+    ok = true
 
     const { scenario } = useMise.getState()
     emit({ type: 'simulating', scenario })
@@ -112,7 +122,7 @@ export async function runImport(query: string, pick?: ImportPlace) {
   } catch (err) {
     emit({ type: 'error', message: err instanceof Error ? err.message : String(err) })
     // Two branches, or a close name: put the query back so autocomplete lists the places to pick from.
-    if (err instanceof ImportFailure && err.suggestions.length) {
+    if (err instanceof ImportFailure && err.suggestions.length && !pick) {
       offered = { query: q, places: err.suggestions }
       useSession.setState({ draft: `/import ${q}` })
     }
@@ -120,4 +130,55 @@ export async function runImport(query: string, pick?: ImportPlace) {
   emit({ type: 'done' })
   await images
   finish(turnId)
+  return ok
+}
+
+export async function runImport(query: string, pick?: ImportPlace) {
+  const q = (pick?.name ?? query).trim()
+  if (!q || useSession.getState().busy) return
+  const turnId = startTurn(`/import ${isLink(q) ? shortLink(q) : q}`)
+  await importInto(turnId, q, pick, 'Finding the restaurant')
+}
+
+/* ───────────── from the chat agent's import_restaurant tool ───────────── */
+
+type ImportEvent = Extract<AgentEvent, { type: 'import' }>
+
+/** The rest of the owner's message ("what if we stayed open till 2?"), answered on the restaurant just loaded. */
+function ask(turnId: string, place: ImportPlace, question: string) {
+  return continueTurn(turnId, [
+    { role: 'assistant', content: `(Loaded ${place.name}, the owner's real restaurant, as v1.)` },
+    { role: 'user', content: question },
+  ])
+}
+
+/** Runs after the chat stream ends, inside the same turn. Replacing a concept waits for the owner's yes. */
+export async function importFromAgent(turnId: string, e: ImportEvent) {
+  const current = useMise.getState().concept
+  if (e.needsApproval && current) {
+    updateTurn(turnId, (blocks) => [
+      ...blocks,
+      { kind: 'import', id: uid('b'), place: e.place, replaces: current.name, question: e.question, status: 'pending' },
+    ])
+    return
+  }
+  if (await importInto(turnId, e.place.name, e.place, 'Importing')) {
+    if (e.question) await ask(turnId, e.place, e.question)
+  }
+}
+
+export async function approveImport(blockId: string) {
+  const found = findBlock(blockId)
+  if (found?.block.kind !== 'import' || found.block.status !== 'pending' || useSession.getState().busy) return
+  const { turnId, block } = found
+  updateBlock<'import'>(turnId, blockId, (x) => ({ ...x, status: 'importing' }))
+  const ok = await importInto(turnId, block.place.name, block.place, 'Importing')
+  updateBlock<'import'>(turnId, blockId, (x) => ({ ...x, status: ok ? 'imported' : 'failed' }))
+  if (ok && block.question) await ask(turnId, block.place, block.question)
+}
+
+export function skipImport(blockId: string) {
+  const found = findBlock(blockId)
+  if (found?.block.kind === 'import' && found.block.status === 'pending')
+    updateBlock<'import'>(found.turnId, blockId, (x) => ({ ...x, status: 'skipped' }))
 }

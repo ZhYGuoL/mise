@@ -53,7 +53,7 @@ export function pathLabel(path: string, concept: Concept): string {
     const field = FIELD[b] ?? cap(words(b))
     return `${item?.name ?? 'Dish'} · ${c !== undefined ? `${field}` : field}`
   }
-  if (head === 'hours') return b ? `${a} · ${FIELD[b] ?? b}` : `${a} hours`
+  if (head === 'hours') return b ? `${a} · ${FIELD[b] ?? b}` : a ? `${a} hours` : 'Hours'
   if (head === 'brand') return a === 'colors' ? FIELD[b] ?? 'Colors' : `Brand ${FIELD[a]?.toLowerCase() ?? a}`
   if (head === 'promos') return 'Promo'
   return FIELD[head] ?? cap(words(head))
@@ -67,6 +67,22 @@ export function editLabel(e: ConceptEdit, concept: Concept): string {
 }
 
 type Hours = { open: string; close: string } | null
+
+const WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
+/** A whole week of hours in one line: "Daily 12 PM to 10 PM", or "Mon to Thu 11 AM to 10 PM, Fri to Sun 11 AM to 2 AM". */
+function weekHours(week: Record<string, Hours>): string {
+  const groups: { from: string; to: string; text: string }[] = []
+  for (const day of WEEK) {
+    const h = week[day]
+    const text = h ? `${time12(h.open)} to ${time12(h.close)}` : 'Closed'
+    const g = groups.at(-1)
+    if (g && g.text === text) g.to = day
+    else groups.push({ from: day, to: day, text })
+  }
+  if (groups.length === 1) return `Daily ${groups[0].text}`
+  return groups.map((g) => `${g.from.slice(0, 3)}${g.to === g.from ? '' : ` to ${g.to.slice(0, 3)}`} ${g.text}`).join(', ')
+}
 
 export function formatValue(path: string, value: unknown): string {
   if (value === undefined) return ''
@@ -89,6 +105,7 @@ export function formatValue(path: string, value: unknown): string {
       const h = o as Exclude<Hours, null>
       return `${time12(h.open)} to ${time12(h.close)}`
     }
+    if (WEEK.every((d) => d in o)) return weekHours(o as Record<string, Hours>)
     if ('address' in o) return String(o.address)
     if ('name' in o && 'price' in o) return `${o.name} · ${usd(Number(o.price))}`
     if ('description' in o) return String(o.description)

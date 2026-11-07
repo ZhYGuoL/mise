@@ -55,7 +55,7 @@ function Readout({ prediction }: { prediction: Prediction }) {
       ) : (
         <span>No orders</span>
       )}
-      {busy && <span>Google busy {Math.round(busy.busyPct)}%</span>}
+      {busy && busy.busyPct > 0 && <span>Google busy {Math.round(busy.busyPct)}%</span>}
     </span>
   )
 }
