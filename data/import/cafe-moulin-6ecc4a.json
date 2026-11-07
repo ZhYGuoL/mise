@@ -1,0 +1,156 @@
+{
+ "placeId": "0x8834f21107ea90c3:0xb858a40846dae014",
+ "createdAt": "2026-11-07T19:16:59.052Z",
+ "costUsd": 0.0005692,
+ "hoursSource": "google",
+ "pages": [],
+ "concept": {
+  "id": "cafe-moulin-6ecc4a",
+  "version": 1,
+  "name": "Cafe Moulin",
+  "tagline": "Breakfast and crepes in Shadyside, Pittsburgh",
+  "cuisine": [
+   "breakfast",
+   "european"
+  ],
+  "location": {
+   "lat": 40.451686,
+   "lon": -79.9332924,
+   "address": "732 Filbert Street, Pittsburgh, PA 15232",
+   "neighborhood": "Shadyside"
+  },
+  "hours": {
+   "Sunday": {
+    "open": "08:00",
+    "close": "16:00"
+   },
+   "Monday": {
+    "open": "08:00",
+    "close": "16:00"
+   },
+   "Tuesday": {
+    "open": "08:00",
+    "close": "16:00"
+   },
+   "Wednesday": {
+    "open": "08:00",
+    "close": "16:00"
+   },
+   "Thursday": {
+    "open": "08:00",
+    "close": "16:00"
+   },
+   "Friday": {
+    "open": "08:00",
+    "close": "16:00"
+   },
+   "Saturday": {
+    "open": "08:00",
+    "close": "16:00"
+   }
+  },
+  "priceTier": 1,
+  "deliveryFee": 2.99,
+  "serviceFeePct": 14,
+  "menu": [
+   {
+    "id": "m1",
+    "name": "Sweet Crepe",
+    "description": "Thin French crepe folded with butter and sugar, or your choice of a simple sweet filling.",
+    "price": 7.5,
+    "category": "main",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "A folded crepe with butter and powdered sugar in a takeout clamshell box, overhead view, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m2",
+    "name": "Ham and Cheese Crepe",
+    "description": "Savory buckwheat crepe filled with sliced ham and melted Swiss cheese.",
+    "price": 9.25,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A savory folded crepe filled with ham and melted cheese in a takeout container, overhead view, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m3",
+    "name": "Spinach and Feta Crepe",
+    "description": "Savory crepe with sauteed spinach, feta, and herbs.",
+    "price": 9,
+    "category": "main",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "A savory folded crepe with spinach and crumbled feta in a takeout box, overhead view, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m4",
+    "name": "Breakfast Crepe Combo",
+    "description": "Savory crepe with scrambled egg, cheese, and bacon, served with a side of fresh fruit.",
+    "price": 11.5,
+    "category": "combo",
+    "tags": [],
+    "imagePrompt": "A savory crepe with egg, cheese, and bacon beside a small cup of fresh fruit in takeout packaging, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m5",
+    "name": "Egg Sandwich on Baguette",
+    "description": "Fried egg, cheese, and your choice of meat on a toasted baguette.",
+    "price": 8.75,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A toasted baguette egg sandwich cut in half in a paper wrap, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m6",
+    "name": "Yogurt Parfait",
+    "description": "Greek yogurt layered with granola and seasonal fruit.",
+    "price": 5.5,
+    "category": "dessert",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "A clear cup of yogurt parfait with granola and berries with a lid, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m7",
+    "name": "Drip Coffee",
+    "description": "Freshly brewed house coffee in a takeout cup.",
+    "price": 2.75,
+    "category": "drink",
+    "tags": [
+     "vegan",
+     "gluten_free"
+    ],
+    "imagePrompt": "A takeout cup of coffee with a sleeve and lid on a counter, no text, no people.",
+    "imageUrl": null
+   }
+  ],
+  "brand": {
+   "logoUrl": null,
+   "logoPrompt": "A simple flat two-color mark of a folded crepe beside a steaming coffee cup, with the name Moulin set in a clean serif.",
+   "colors": {
+    "primary": "#8C4A2F",
+    "background": "#FBF5EC",
+    "ink": "#2B1D14"
+   },
+   "voice": "Warm and unfussy, like a neighborhood cafe that is glad you stopped in for a quick, good breakfast."
+  },
+  "promos": [],
+  "existing": {
+   "placeId": "0x8834f21107ea90c3:0xb858a40846dae014",
+   "name": "Cafe Moulin",
+   "rating": 4.6,
+   "reviews": 1628,
+   "menuSource": "estimated",
+   "websiteUrl": null
+  }
+ }
+}

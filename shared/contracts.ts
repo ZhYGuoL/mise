@@ -383,3 +383,49 @@ export const AskResidentRequest = z.object({
 });
 export type AskResidentRequest = z.infer<typeof AskResidentRequest>;
 export type InterviewAnswer = z.infer<typeof InterviewAnswer>;
+
+/* ───────────── lane H: start from an existing restaurant ───────────── */
+
+/**
+ * POST /api/import  body ImportRequest -> ImportResponse   (Lane H)
+ * GET  /api/import/places                -> ImportPlace[]    (Lane H, for autocomplete)
+ * No match is a 404 { error, suggestions? }. The server never invents a restaurant.
+ */
+export const ImportRequest = z.object({
+  /** a restaurant name ("Noodlehead") or a Google Maps link */
+  query: z.string().min(1),
+  /** set when the owner picked a place from autocomplete, so chains with two branches are not ambiguous */
+  placeId: z.string().optional(),
+});
+export type ImportRequest = z.infer<typeof ImportRequest>;
+
+export const ImportResponse = z.object({
+  concept: Concept,
+  /** true = served from the import cache, no model call */
+  cached: z.boolean().optional(),
+  costUsd: z.number().optional(),
+  ms: z.number().optional(),
+  /** where the hours came from: Google popular times, the OpenStreetMap tag, or cuisine defaults */
+  hoursSource: z.enum(["google", "osm", "default"]).optional(),
+});
+export type ImportResponse = z.infer<typeof ImportResponse>;
+
+/** One city restaurant as autocomplete shows it. street and neighborhood tell two branches apart. */
+export const ImportPlace = z.object({
+  placeId: z.string(),
+  name: z.string(),
+  street: z.string().nullable(),
+  neighborhood: z.string().nullable(),
+  cuisine: z.array(z.string()),
+  rating: z.number().nullable(),
+  reviews: z.number().nullable(),
+  aliases: z.array(z.string()).optional(),
+});
+export type ImportPlace = z.infer<typeof ImportPlace>;
+
+export const ImportError = z.object({
+  error: z.string(),
+  /** close names from the city, when the query matched nothing well enough */
+  suggestions: z.array(ImportPlace).optional(),
+});
+export type ImportError = z.infer<typeof ImportError>;

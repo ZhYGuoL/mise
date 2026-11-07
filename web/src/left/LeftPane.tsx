@@ -1,6 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useMise } from '@/state/store'
 import { sendMessage } from './client'
+import { loadPlaces } from './import'
 import { playReplay } from './replay'
 import { useSession } from './session'
 import { Canvas } from './ui/Canvas'
@@ -26,6 +27,14 @@ let replayStarted = false
 export function LeftPane() {
   const concept = useMise((s) => s.concept)
   const turns = useSession((s) => s.turns)
+  const start = useRef<HTMLDivElement>(null)
+
+  /** Lane H: start from a real restaurant. Opens /import with the most reviewed places listed. */
+  const startFromExisting = async () => {
+    await loadPlaces()
+    useSession.setState({ draft: '/import ' })
+    start.current?.querySelector('textarea')?.focus()
+  }
 
   useEffect(() => {
     if (params.get('replay') === '1' && !replayStarted) {
@@ -37,9 +46,9 @@ export function LeftPane() {
   if (!concept && turns.length === 0) {
     return (
       <div className="flex h-full flex-col items-center justify-center px-8 pb-16">
-        <div className="flex w-full max-w-[460px] flex-col gap-3">
+        <div ref={start} className="flex w-full max-w-[460px] flex-col gap-3">
           <h1 className="text-[20px] leading-tight font-semibold text-ink">What are you opening?</h1>
-          <Composer placeholder="Describe the restaurant" onSend={(t) => void sendMessage(t)} autoFocus />
+          <Composer placeholder="Describe the restaurant" onSend={(t) => void sendMessage(t)} autoFocus menuBelow />
           <div className="flex flex-col">
             {IDEAS.map((idea) => (
               <button
@@ -55,6 +64,19 @@ export function LeftPane() {
                 {idea}
               </button>
             ))}
+            <button
+              type="button"
+              onClick={() => void startFromExisting()}
+              className="-mx-1.5 mt-1 flex items-center gap-2 rounded-control border-t border-line px-1.5 pt-2.5 pb-1.5 text-left text-[12.5px] text-ink-2 transition-colors duration-100 hover:bg-hover-2 hover:text-ink"
+            >
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--ink-3)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                <path d="M3 9l1.5-5h15L21 9" />
+                <path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0" />
+                <path d="M5 11.5V20h14v-8.5" />
+              </svg>
+              Existing restaurant
+              <span className="ml-auto font-mono text-[11.5px] text-ink-3">/import</span>
+            </button>
           </div>
         </div>
       </div>

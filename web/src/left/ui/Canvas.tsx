@@ -9,6 +9,7 @@ import { inputKey, useGenTask, useGeneration } from '@/generated/store'
 import { useMise } from '@/state/store'
 import { manualEdit, viewVersion } from '../client'
 import { cuisineLabel, diffConcepts, editLabel, formatValue, time12 } from '../format'
+import { ExistingTags } from '../import/Tags'
 import { exit, spring } from '../motion'
 import { useSession } from '../session'
 
@@ -224,9 +225,12 @@ export function Canvas({ concept }: { concept: Concept }) {
             {generating.includes('logo') && <GeneratingDot />}
           </div>
           <div className="min-w-0 flex-1">
-            <h2 className="truncate text-[20px] leading-tight font-semibold text-ink" style={flash(changed.includes('/name'))}>
-              {concept.name}
-            </h2>
+            <div className="flex min-w-0 items-center gap-2">
+              <h2 className="min-w-0 truncate text-[20px] leading-tight font-semibold text-ink" style={flash(changed.includes('/name'))}>
+                {concept.name}
+              </h2>
+              <ExistingTags concept={concept} />
+            </div>
             <p className="truncate text-[13px] text-ink-2" style={flash(changed.includes('/tagline'))}>
               {concept.tagline}
             </p>

@@ -1,0 +1,151 @@
+{
+ "placeId": "node/1371543264",
+ "createdAt": "2026-11-07T19:16:54.603Z",
+ "costUsd": 0.000582,
+ "hoursSource": "default",
+ "pages": [],
+ "concept": {
+  "id": "mad-mex-5a65a7",
+  "version": 1,
+  "name": "Mad Mex",
+  "tagline": "Mexican takeout and casual dining on South Highland Ave, Pit",
+  "cuisine": [
+   "mexican"
+  ],
+  "location": {
+   "lat": 40.4582399,
+   "lon": -79.9253141,
+   "address": "South Highland Avenue, Pittsburgh, PA 15206",
+   "neighborhood": "Shadyside"
+  },
+  "hours": {
+   "Sunday": {
+    "open": "11:00",
+    "close": "22:00"
+   },
+   "Monday": {
+    "open": "11:00",
+    "close": "22:00"
+   },
+   "Tuesday": {
+    "open": "11:00",
+    "close": "22:00"
+   },
+   "Wednesday": {
+    "open": "11:00",
+    "close": "22:00"
+   },
+   "Thursday": {
+    "open": "11:00",
+    "close": "22:00"
+   },
+   "Friday": {
+    "open": "11:00",
+    "close": "23:00"
+   },
+   "Saturday": {
+    "open": "11:00",
+    "close": "23:00"
+   }
+  },
+  "priceTier": 2,
+  "deliveryFee": 2.99,
+  "serviceFeePct": 14,
+  "menu": [
+   {
+    "id": "m1",
+    "name": "Chicken Burrito",
+    "description": "Flour tortilla filled with grilled chicken, rice, black beans, cheese, and salsa.",
+    "price": 11.5,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A foil-wrapped chicken burrito cut in half on a takeout paper tray, rice and cheese visible, warm lighting, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m2",
+    "name": "Beef Burrito",
+    "description": "Flour tortilla stuffed with seasoned ground beef, rice, beans, cheese, and pico de gallo.",
+    "price": 12.25,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A wrapped beef burrito in a takeout container with pico de gallo on the side, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m3",
+    "name": "Beef Tacos (3)",
+    "description": "Three soft corn tortillas with seasoned beef, onion, cilantro, and lime.",
+    "price": 10.75,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "Three soft corn tacos with cilantro and lime wedges in a cardboard takeout box, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m4",
+    "name": "Chicken Quesadilla",
+    "description": "Grilled flour tortilla with melted cheese and seasoned chicken, served with sour cream and salsa.",
+    "price": 10.95,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A golden grilled quesadilla cut into wedges with sour cream and salsa cups, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m5",
+    "name": "Chicken Enchiladas (2)",
+    "description": "Two rolled tortillas topped with red sauce and melted cheese, served with rice and beans.",
+    "price": 12.5,
+    "category": "combo",
+    "tags": [],
+    "imagePrompt": "Two enchiladas under red sauce and melted cheese with rice and beans in a takeout tray, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m6",
+    "name": "Nachos Supreme",
+    "description": "Tortilla chips topped with melted cheese, beans, jalapenos, sour cream, and guacamole.",
+    "price": 9.95,
+    "category": "side",
+    "tags": [
+     "spicy"
+    ],
+    "imagePrompt": "A loaded plate of tortilla chips with melted cheese, jalapenos, and guacamole in a takeout box, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m7",
+    "name": "Horchata",
+    "description": "Cold cinnamon rice drink served over ice.",
+    "price": 3.5,
+    "category": "drink",
+    "tags": [
+     "vegetarian",
+     "gluten_free"
+    ],
+    "imagePrompt": "A tall cup of horchata with ice and a cinnamon stick on a takeout carrier, no text, no people.",
+    "imageUrl": null
+   }
+  ],
+  "brand": {
+   "logoUrl": null,
+   "logoPrompt": "A flat two-color mark pairing a simple chili pepper outline with bold sans-serif letters spelling MAD MEX, red on cream.",
+   "colors": {
+    "primary": "#D7261E",
+    "background": "#FFF6EC",
+    "ink": "#2B1B12"
+   },
+   "voice": "Friendly and straightforward, talking to customers like neighbors who want a good, filling meal without fuss."
+  },
+  "promos": [],
+  "existing": {
+   "placeId": "node/1371543264",
+   "name": "Mad Mex",
+   "rating": null,
+   "reviews": null,
+   "menuSource": "estimated",
+   "websiteUrl": null
+  }
+ }
+}

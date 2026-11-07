@@ -1,0 +1,155 @@
+{
+ "placeId": "0x8834f274aa6beb9d:0x3351518f2f77bbed",
+ "createdAt": "2026-11-07T19:16:44.929Z",
+ "costUsd": 0.0006573,
+ "hoursSource": "google",
+ "pages": [],
+ "concept": {
+  "id": "casbah-fb1917",
+  "version": 1,
+  "name": "Casbah",
+  "tagline": "Mediterranean kitchen and wine bar in Shadyside, Pittsburgh",
+  "cuisine": [
+   "mediterranean"
+  ],
+  "location": {
+   "lat": 40.458153,
+   "lon": -79.9249504,
+   "address": "229 South Highland Avenue, Pittsburgh, PA 15206",
+   "neighborhood": "Shadyside"
+  },
+  "hours": {
+   "Sunday": {
+    "open": "11:00",
+    "close": "21:00"
+   },
+   "Monday": {
+    "open": "11:00",
+    "close": "21:00"
+   },
+   "Tuesday": {
+    "open": "11:00",
+    "close": "21:00"
+   },
+   "Wednesday": {
+    "open": "11:00",
+    "close": "21:00"
+   },
+   "Thursday": {
+    "open": "11:00",
+    "close": "21:00"
+   },
+   "Friday": {
+    "open": "11:00",
+    "close": "22:00"
+   },
+   "Saturday": {
+    "open": "16:00",
+    "close": "22:00"
+   }
+  },
+  "priceTier": 3,
+  "deliveryFee": 2.99,
+  "serviceFeePct": 14,
+  "menu": [
+   {
+    "id": "m1",
+    "name": "Chicken Shawarma Plate",
+    "description": "Marinated grilled chicken thigh with rice, garlic sauce, pickled vegetables and warm pita.",
+    "price": 19.5,
+    "category": "main",
+    "tags": [
+     "gluten_free"
+    ],
+    "imagePrompt": "Takeout container with grilled chicken shawarma slices over rice, garlic sauce drizzle, pickled onions, and warm pita on the side, overhead shot, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m2",
+    "name": "Lamb Kofta Plate",
+    "description": "Spiced ground lamb skewers with herbed yogurt, tomato salad and rice.",
+    "price": 22,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "Takeout box with two grilled lamb kofta skewers, herbed yogurt sauce, tomato and cucumber salad, flatbread, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m3",
+    "name": "Falafel Plate",
+    "description": "Crisp chickpea falafel with hummus, tahini, cucumber salad and pita.",
+    "price": 15.5,
+    "category": "main",
+    "tags": [
+     "vegetarian",
+     "vegan"
+    ],
+    "imagePrompt": "Takeout container with golden falafel balls, hummus swirl, tahini drizzle, cucumber salad and pita bread, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m4",
+    "name": "Grilled Salmon Plate",
+    "description": "Grilled salmon fillet with lemon herb sauce, roasted vegetables and couscous.",
+    "price": 26,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "Takeout container with grilled salmon fillet, lemon herb sauce, roasted vegetables and couscous, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m5",
+    "name": "Roasted Vegetable Bowl",
+    "description": "Seasonal roasted vegetables over herbed grains with feta, olives and tahini.",
+    "price": 16,
+    "category": "main",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "Takeout bowl of roasted vegetables over grains, crumbled feta, olives and tahini drizzle, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m6",
+    "name": "Mezze Sampler",
+    "description": "Hummus, baba ganoush, tabbouleh, dolmas and pita for sharing.",
+    "price": 18,
+    "category": "combo",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "Takeout containers of hummus, baba ganoush, tabbouleh and dolmas with pita bread, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m7",
+    "name": "House Red Wine Glass",
+    "description": "A glass of house red wine.",
+    "price": 11,
+    "category": "drink",
+    "tags": [],
+    "imagePrompt": "Glass of red wine beside a takeout bag, no text, no people.",
+    "imageUrl": null
+   }
+  ],
+  "brand": {
+   "logoUrl": null,
+   "logoPrompt": "A flat two-color mark pairing a simple olive branch with a stylized arch evoking a Mediterranean doorway, around the word Casbah.",
+   "colors": {
+    "primary": "#B5562E",
+    "background": "#FBF6EE",
+    "ink": "#2B2118"
+   },
+   "voice": "Warm and welcoming, inviting guests to slow down and enjoy a relaxed Mediterranean meal or a glass of wine."
+  },
+  "promos": [],
+  "existing": {
+   "placeId": "0x8834f274aa6beb9d:0x3351518f2f77bbed",
+   "name": "Casbah",
+   "rating": 4.6,
+   "reviews": 1411,
+   "menuSource": "estimated",
+   "websiteUrl": "https://www.casbah.kitchen/"
+  }
+ }
+}

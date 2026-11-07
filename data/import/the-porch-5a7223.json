@@ -1,0 +1,155 @@
+{
+ "placeId": "0x8834f228872ecb07:0x358805f7bc78c73a",
+ "createdAt": "2026-11-07T19:20:19.469Z",
+ "costUsd": 0.0017983,
+ "hoursSource": "google",
+ "pages": [
+  "https://www.dineattheporch.com/schenley",
+  "https://www.dineattheporch.com/schenley/menu"
+ ],
+ "concept": {
+  "id": "the-porch-5a7223",
+  "version": 1,
+  "name": "The Porch",
+  "tagline": "American restaurant on Schenley Drive in Oakland, Pittsburgh",
+  "cuisine": [
+   "american"
+  ],
+  "location": {
+   "lat": 40.4427046,
+   "lon": -79.9530636,
+   "address": "Schenley Drive, Pittsburgh, PA 15213",
+   "neighborhood": "North Oakland"
+  },
+  "hours": {
+   "Sunday": {
+    "open": "10:00",
+    "close": "21:00"
+   },
+   "Monday": {
+    "open": "07:00",
+    "close": "22:00"
+   },
+   "Tuesday": {
+    "open": "07:00",
+    "close": "22:00"
+   },
+   "Wednesday": {
+    "open": "07:00",
+    "close": "22:00"
+   },
+   "Thursday": {
+    "open": "07:00",
+    "close": "22:00"
+   },
+   "Friday": {
+    "open": "07:00",
+    "close": "23:00"
+   },
+   "Saturday": {
+    "open": "10:00",
+    "close": "23:00"
+   }
+  },
+  "priceTier": 2,
+  "deliveryFee": 2.99,
+  "serviceFeePct": 14,
+  "menu": [
+   {
+    "id": "m1",
+    "name": "Porch Truffle Burger",
+    "description": "American Wagyu beef with bacon marmalade, caramelized onion, and truffle aioli on a brioche bun.",
+    "price": 19,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A wagyu beef burger with melted cheese, caramelized onions, lettuce and tomato on a brioche bun with a pickle spear, packed in a takeout clamshell box with fries beside it, no text, no people",
+    "imageUrl": null
+   },
+   {
+    "id": "m2",
+    "name": "Honey Truffle Chicken",
+    "description": "Chicken in honey truffle sauce with scallions, mashed potatoes, and green beans.",
+    "price": 25,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "Sliced chicken glazed in glossy honey truffle sauce, topped with scallions, next to mashed potatoes and green beans in a takeout container, no text, no people",
+    "imageUrl": null
+   },
+   {
+    "id": "m3",
+    "name": "Szechuan Salmon",
+    "description": "Pan-seared salmon with Szechuan glaze, vegetable fried rice, and sesame seeds.",
+    "price": 28,
+    "category": "main",
+    "tags": [
+     "spicy"
+    ],
+    "imagePrompt": "Pan-seared salmon fillet with a glossy Szechuan glaze and sesame seeds over vegetable fried rice in a takeout container, no text, no people",
+    "imageUrl": null
+   },
+   {
+    "id": "m4",
+    "name": "Thai Peanut Shrimp",
+    "description": "Shrimp salad with cabbage, edamame, carrots, vermicelli, fried wontons, and Thai peanut sauce.",
+    "price": 18,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A colorful salad of shrimp, cabbage, edamame, carrots and vermicelli with crispy fried wontons and peanut sauce in a takeout bowl, no text, no people",
+    "imageUrl": null
+   },
+   {
+    "id": "m5",
+    "name": "Angus Beef Cavatelli Bolognese",
+    "description": "House made cavatelli with Angus beef bolognese, fresh ricotta, and basil.",
+    "price": 22,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "Cavatelli pasta in rich beef bolognese topped with fresh ricotta and basil in a takeout container, no text, no people",
+    "imageUrl": null
+   },
+   {
+    "id": "m6",
+    "name": "Firefly Fries",
+    "description": "House cut fries with parmesan, truffle oil, fines herbes, and roasted garlic aioli.",
+    "price": 7,
+    "category": "side",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "A takeout carton of golden fries dusted with parmesan and herbs, with a small cup of garlic aioli, no text, no people",
+    "imageUrl": null
+   },
+   {
+    "id": "m7",
+    "name": "Caesar Side Salad",
+    "description": "Romaine with farm bread croutons, shaved parmesan, and Caesar dressing.",
+    "price": 6,
+    "category": "side",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "A small takeout container of romaine lettuce with croutons and shaved parmesan in Caesar dressing, no text, no people",
+    "imageUrl": null
+   }
+  ],
+  "brand": {
+   "logoUrl": null,
+   "logoPrompt": "A simple flat mark of a front porch railing with a small honeycomb hexagon tucked into one corner, two colors, dark green on cream.",
+   "colors": {
+    "primary": "#2E5E3E",
+    "background": "#F7F3E8",
+    "ink": "#1F2A22"
+   },
+   "voice": "Friendly and unfussy, speaking like a neighborhood spot that cares about local ingredients and a relaxed patio meal."
+  },
+  "promos": [],
+  "existing": {
+   "placeId": "0x8834f228872ecb07:0x358805f7bc78c73a",
+   "name": "The Porch",
+   "rating": 4.1,
+   "reviews": 2298,
+   "menuSource": "website",
+   "websiteUrl": "https://www.dineattheporch.com/schenley"
+  }
+ }
+}

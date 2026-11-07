@@ -1,0 +1,156 @@
+{
+ "placeId": "0x8834f20011b3bf63:0xbcefd93286afbd9e",
+ "createdAt": "2026-11-07T19:16:17.648Z",
+ "costUsd": 0.0014184000000000002,
+ "hoursSource": "google",
+ "pages": [
+  "https://everydaynoodles.net/",
+  "https://everydaynoodles.net/pittsburgh-everyday-noodles-food-menu",
+  "https://everydaynoodles.net/pittsburgh-everyday-noodles-drink-menu"
+ ],
+ "concept": {
+  "id": "everyday-noodles-2bc57b",
+  "version": 1,
+  "name": "Everyday Noodles",
+  "tagline": "Hand-pulled noodles and Chinese favorites in Squirrel Hill, ",
+  "cuisine": [
+   "asian"
+  ],
+  "location": {
+   "lat": 40.4382538,
+   "lon": -79.9201019,
+   "address": "Forbes Avenue, Pittsburgh, PA 15221",
+   "neighborhood": "Squirrel Hill North"
+  },
+  "hours": {
+   "Sunday": {
+    "open": "11:00",
+    "close": "21:00"
+   },
+   "Monday": {
+    "open": "11:00",
+    "close": "22:00"
+   },
+   "Tuesday": {
+    "open": "11:00",
+    "close": "22:00"
+   },
+   "Wednesday": {
+    "open": "11:00",
+    "close": "22:00"
+   },
+   "Thursday": {
+    "open": "11:00",
+    "close": "22:00"
+   },
+   "Friday": {
+    "open": "11:00",
+    "close": "22:00"
+   },
+   "Saturday": {
+    "open": "11:00",
+    "close": "22:00"
+   }
+  },
+  "priceTier": 1,
+  "deliveryFee": 2.99,
+  "serviceFeePct": 14,
+  "menu": [
+   {
+    "id": "m1",
+    "name": "Braised Beef Noodle Soup (S)",
+    "description": "Noodle soup with braised beef, served in a choice of thin or wide flour noodles or rice noodles.",
+    "price": 16,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A takeout container of braised beef noodle soup with tender beef chunks, noodles, and green onion in a clear broth, sealed with a plastic lid and paper bag, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m2",
+    "name": "Braised Beef Tendon Noodle Soup (S)",
+    "description": "Noodle soup with braised beef tendon, served in a choice of thin or wide flour noodles or rice noodles.",
+    "price": 16,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A takeout container of braised beef tendon noodle soup with gelatinous tendon pieces, noodles, and greens in a dark broth, sealed with a plastic lid and paper bag, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m3",
+    "name": "Oxtail Noodle Soup Consomme",
+    "description": "Noodle soup with oxtail in a clear consomme broth.",
+    "price": 16,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A takeout container of oxtail noodle soup in a clear golden consomme with noodles and oxtail pieces, sealed with a plastic lid and paper bag, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m4",
+    "name": "Dan Dan Noodles Szechuan Style",
+    "description": "Szechuan-style noodles with peanut sauce, served with a choice of thin or wide flour noodles or rice noodles.",
+    "price": 11,
+    "category": "main",
+    "tags": [
+     "spicy"
+    ],
+    "imagePrompt": "A takeout container of Szechuan dan dan noodles tossed in peanut sauce with minced pork and chili oil, topped with green onion, sealed with a plastic lid and paper bag, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m5",
+    "name": "Hot Spicy Wonton Noodles",
+    "description": "Noodles with shrimp pork wontons in a hot and spicy sauce.",
+    "price": 11,
+    "category": "main",
+    "tags": [
+     "spicy"
+    ],
+    "imagePrompt": "A takeout container of hot spicy wonton noodles with plump wontons in red chili sauce and scallions, sealed with a plastic lid and paper bag, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m6",
+    "name": "Pork Soup Dumplings (8)",
+    "description": "Eight steamed pork soup dumplings.",
+    "price": 14,
+    "category": "side",
+    "tags": [],
+    "imagePrompt": "A takeout box holding eight steamed pork soup dumplings with pleated tops in a paper liner, no text, no people.",
+    "imageUrl": null
+   },
+   {
+    "id": "m7",
+    "name": "Sweet Egg Yolk Steamed Buns (3)",
+    "description": "Three steamed buns filled with sweet egg yolk.",
+    "price": 9,
+    "category": "dessert",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "A takeout box with three soft golden steamed buns with sweet egg yolk filling visible on a paper liner, no text, no people.",
+    "imageUrl": null
+   }
+  ],
+  "brand": {
+   "logoUrl": null,
+   "logoPrompt": "A flat two-color mark of a single noodle strand curling into a simple bowl shape, with the name Everyday Noodles set in a clean sans-serif beside it.",
+   "colors": {
+    "primary": "#B5332B",
+    "background": "#FBF6EE",
+    "ink": "#2B1D14"
+   },
+   "voice": "Friendly and direct, inviting neighbors to watch the noodles being pulled and order a freshly made bowl."
+  },
+  "promos": [],
+  "existing": {
+   "placeId": "0x8834f20011b3bf63:0xbcefd93286afbd9e",
+   "name": "Everyday Noodles",
+   "rating": 4.5,
+   "reviews": 2279,
+   "menuSource": "website",
+   "websiteUrl": "https://everydaynoodles.net/"
+  }
+ }
+}
