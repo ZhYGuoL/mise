@@ -1,52 +1,42 @@
 # Mise
 
-Cursor for restaurants. Ideate a restaurant with an agent, generate its brand, menu and food photos,
-and see how it would do in a simulated Pittsburgh before spending a dollar.
+Cursor for restaurants. Describe a restaurant idea in chat, and Mise drafts the concept (name, menu, prices, logo, dish photos), then predicts how it would do in a simulated Pittsburgh before you spend a dollar.
 
-Built solo at NOVA 2026 (ScottyLabs, CMU). Hacking 11:00 AM to 5:00 PM ET, Sat Nov 7 2026.
+Built at NOVA 2026 (ScottyLabs, CMU), Sat Nov 7 2026.
 
-## Priority order (every agent follows this)
-1. **Product works end to end**: type an idea -> concept + photos -> simulate -> map + numbers move.
-2. **Demo polish**: the time-lapse, diffs, the optimize loop.
-3. **Rigor, only if time**: census data, calibration, critic passes.
+## What it does
 
-## Run order
-1. **Scaffold (alone):** `cd ~/github/mise && claude --dangerously-skip-permissions`, then: `Read briefs/00-scaffold.md and do it.`
-2. **OpenRouter key into `~/github/mise/.env`** when the team email arrives.
-3. **Wave 1, four agents in parallel**, each in its own worktree:
+- **Ideate in chat.** An agent turns a rough idea into a full concept and edits it on request. Every edit is a versioned diff you can review.
+- **Generate the brand.** Logo and a photo for every dish, generated from the concept.
+- **Simulate a Friday.** 10,000 simulated residents across Pittsburgh neighborhoods choose between your place and 192 real restaurants, hour by hour. You get orders by hour with a p10 to p90 range, revenue, market share, a time-lapse map, and the top reasons people chose somewhere else.
+- **Ask a resident why.** Click anyone on the map and ask why they did or didn't order. The answer comes from the same factors the simulator used.
+- **Optimize toward a goal.** "Get me to 120 orders on Friday" runs rounds of candidate edits, simulates each, and proposes the best set for approval.
+- **Start from a real restaurant.** `/import Noodlehead` loads an existing place (menu from its website when available), simulates it as itself, and overlays Google's real busy curve on the prediction.
+
+## Is the simulator any good?
+
+We calibrated it against Google "popular times" for 64 real restaurants in the area, fitting on 51 and testing on 13 it never saw. On the held-out places, the median correlation with the real hourly shape is **0.54**, against **0.44** for a naive city-average curve and 0.32 before calibration. It beats the naive curve on 9 of 13. Details and the worst cases are in [`docs/calibration.md`](docs/calibration.md).
+
+## Run it
+
+Requires [Bun](https://bun.sh) and an OpenRouter key.
 
 ```bash
-cd ~/github/mise
-[ -f .env ] || cp .env.example .env
-i=1
-for L in a-ideation b-generation d-sim e-predict; do
-  git worktree add ../mise-$L lane/$L
-  # .env is gitignored, so worktrees do not get it. Each lane gets its own port pair.
-  grep -vE '^(WEB_)?PORT=' .env > ../mise-$L/.env
-  printf 'PORT=886%s\nWEB_PORT=526%s\n' $i $i >> ../mise-$L/.env
-  (cd ../mise-$L && bun install)
-  i=$((i+1))
-done
-# one terminal tab per lane:
-cd ../mise-a-ideation   && claude --dangerously-skip-permissions "Read CLAUDE.md, then briefs/A-ideation.md, and do it."
-cd ../mise-b-generation && claude --dangerously-skip-permissions "Read CLAUDE.md, then briefs/B-generation.md, and do it."
-cd ../mise-d-sim        && claude --dangerously-skip-permissions "Read CLAUDE.md, then briefs/D-sim.md, and do it."
-cd ../mise-e-predict    && claude --dangerously-skip-permissions "Read CLAUDE.md, then briefs/E-predict.md, and do it."
+bun install
+cp .env.example .env   # add OPENROUTER_API_KEY and model ids
+bun run dev            # web on :5173, API on :8787
 ```
 
-Lane ports: A on 5261, B on 5262, D on 5263, E on 5264 (API on 8861 to 8864). `main` stays on 5173 and 8787.
+Open `http://localhost:5173/?seed=1` for a pre-filled sample concept. Set `MOCK=1` to run without a key.
 
-4. **2:00 PM merge** into `main` (D, then B, then A and E). Start Wave 2: `briefs/F-wave2-agents.md`.
-5. **3:30 PM merge, feature freeze.** Run the demo 3 times, record a backup video. Phase 3 rigor only now.
-6. **Wave 3 only if time:** `briefs/G-wave3-room-test.md`.
+## Stack
 
-## Who owns what
-| Path | Owner |
-|---|---|
-| `shared/contracts.ts` | shared (add optional fields only) |
-| `data/raw/` | real Pittsburgh restaurant data, collected Nov 7 |
-| `data/fixtures/` | sample data for every endpoint |
-| `web/src/left/`, `server/src/agent/` | Lane A |
-| `web/src/generated/`, `server/src/generate/` | Lane B |
-| `server/src/{sim,city}/`, `data/city/` | Lane D |
-| `web/src/right/` | Lane E |
+TypeScript end to end: Bun + Hono server, Vite + React web, MapLibre + deck.gl map, zod contracts in `shared/`. Models via OpenRouter. UI components from the Beautiful UI and shadcn registries.
+
+## Data
+
+Restaurant list from OpenStreetMap and Google Maps, plus hand-collected Google popular times, gathered Nov 7 2026 (`data/raw/`). Resident segments are hand-set by neighborhood, not census data yet.
+
+## How it was built
+
+Built in parallel lanes with coding agents, one git worktree per lane. The original plan and lane briefs are in [`docs/build-plan.md`](docs/build-plan.md) and [`briefs/`](briefs/).
