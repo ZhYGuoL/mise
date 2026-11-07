@@ -1,7 +1,7 @@
 import { type AgentEvent, type ChatMessage, type Concept, type ConceptEdit, Prediction } from '@mise/shared'
 import { api } from '@/api'
 import { useMise } from '@/state/store'
-import { diffConcepts, formatValue, pathLabel, touchedItems } from './format'
+import { diffConcepts, editLabel, formatValue, touchedItems } from './format'
 import { type Block, findBlock, type Turn, uid, updateBlock, updateTurn, useSession } from './session'
 
 /**
@@ -46,7 +46,7 @@ function history(): ChatMessage[] {
 }
 
 const describe = (edits: ConceptEdit[], base: Concept) =>
-  edits.map((e) => `${pathLabel(e.path, base)} ${formatValue(e.path, e.previous)} to ${formatValue(e.path, e.value)}`).join('; ')
+  edits.map((e) => `${editLabel(e, base)}: ${formatValue(e.path, e.previous) || 'none'} to ${formatValue(e.path, e.value) || 'none'}`).join('; ')
 
 /* ───────────── concept + image patches ───────────── */
 

@@ -7,7 +7,7 @@ import { DishCard } from '@/generated/DishCard'
 import { Logo } from '@/generated/Logo'
 import { useMise } from '@/state/store'
 import { manualEdit, viewVersion } from '../client'
-import { cuisineLabel, diffConcepts, formatValue, pathLabel, time12 } from '../format'
+import { cuisineLabel, diffConcepts, editLabel, formatValue, time12 } from '../format'
 import { exit, spring } from '../motion'
 import { useSession } from '../session'
 
@@ -108,7 +108,7 @@ function VersionDiff({ concept }: { concept: Concept }) {
         <tbody>
           {rows.map((r) => (
             <tr key={r.path} className="border-b border-line last:border-0">
-              <td className="truncate px-3 py-2 text-[12.5px] font-medium text-ink">{pathLabel(r.path, r.op === 'add' ? concept : prev)}</td>
+              <td className="truncate px-3 py-2 text-[12.5px] font-medium text-ink">{editLabel(r, r.op === 'remove' ? prev : concept)}</td>
               <td className="truncate px-3 py-2 text-[12.5px] tabular-nums text-red line-through decoration-red/50" style={{ background: r.op === 'add' ? undefined : 'var(--red-tint)' }}>
                 {r.op === 'add' ? '' : formatValue(r.path, r.previous)}
               </td>

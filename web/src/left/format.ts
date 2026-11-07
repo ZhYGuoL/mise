@@ -59,6 +59,13 @@ export function pathLabel(path: string, concept: Concept): string {
   return FIELD[head] ?? cap(words(head))
 }
 
+/** Label for one edit. A whole dish added or removed says so, and its value carries the name. */
+export function editLabel(e: ConceptEdit, concept: Concept): string {
+  const [head, , field] = parsePath(e.path)
+  if (head === 'menu' && field === undefined && e.op !== 'replace') return e.op === 'add' ? 'New dish' : 'Dish removed'
+  return pathLabel(e.path, concept)
+}
+
 type Hours = { open: string; close: string } | null
 
 export function formatValue(path: string, value: unknown): string {
@@ -101,14 +108,27 @@ export function diffConcepts(a: Concept, b: Concept): ConceptEdit[] {
     const leaf = LEAF.some((re) => re.test(path))
     const bothObjects = x && y && typeof x === 'object' && typeof y === 'object'
     if (!leaf && bothObjects && Array.isArray(x) === Array.isArray(y)) {
+      if (path === '/menu') {
+        // Dishes match by id, so removing one does not make every dish after it look changed.
+        // Paths of kept and new dishes use their index in the newer version, removed ones their old index.
+        const xs = x as { id: string }[]
+        const ys = y as { id: string }[]
+        xs.forEach((item, i) => {
+          if (!ys.some((o) => o.id === item.id)) out.push({ op: 'remove', path: `/menu/${i}`, previous: item, reason: '' })
+        })
+        ys.forEach((item, j) => {
+          const old = xs.find((o) => o.id === item.id)
+          if (old) walk(old, item, `/menu/${j}`)
+          else out.push({ op: 'add', path: `/menu/${j}`, value: item, reason: '' })
+        })
+        return
+      }
       if (Array.isArray(x) && Array.isArray(y)) {
         const n = Math.max(x.length, y.length)
         for (let i = 0; i < n; i++) {
           const p = `${path}/${i}`
           if (i >= x.length) out.push({ op: 'add', path: p, value: y[i], reason: '' })
           else if (i >= y.length) out.push({ op: 'remove', path: p, previous: x[i], reason: '' })
-          else if (path === '/menu' && (x[i] as { id: string }).id !== (y[i] as { id: string }).id)
-            out.push({ op: 'replace', path: p, previous: x[i], value: y[i], reason: '' })
           else walk(x[i], y[i], p)
         }
         return
@@ -131,7 +151,7 @@ export function touchedItems(edits: ConceptEdit[], concept: Concept): string[] {
   const ids = new Set<string>()
   for (const e of edits) {
     const [head, i] = parsePath(e.path)
-    if (head !== 'menu') continue
+    if (head !== 'menu' || e.op === 'remove') continue
     const item = i === '-' ? concept.menu.at(-1) : concept.menu[Number(i)]
     if (item) ids.add(item.id)
   }

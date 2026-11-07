@@ -2,7 +2,7 @@ import type { ConceptEdit } from '@mise/shared'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Button } from '@/components/atoms/Button'
 import { approve, skip, toggleEdit } from '../client'
-import { formatValue, pathLabel } from '../format'
+import { editLabel, formatValue } from '../format'
 import { type Block, type Turn, useSession } from '../session'
 
 /* Beautiful UI thread: thinking-state steps, streaming text, tool-chips rows, diff-table approval. */
@@ -156,7 +156,7 @@ function EditRows({ b }: { b: Extract<Block, { kind: 'edits' }> }) {
               disabled={!e.reason}
               className="-mx-1.5 flex h-7 w-[calc(100%+12px)] min-w-0 items-center gap-2 rounded-control px-1.5 text-left text-[12px] transition-colors duration-100 enabled:hover:bg-hover-2"
             >
-              <span className="shrink-0 text-ink-2">{pathLabel(e.path, b.base)}</span>
+              <span className="shrink-0 text-ink-2">{editLabel(e, b.base)}</span>
               <span className="inline-flex h-5.5 min-w-0 items-center rounded-chip bg-surface px-1.5 text-[11.5px] shadow-btn">
                 <Change e={e} />
               </span>
@@ -212,7 +212,7 @@ function Approval({ b }: { b: Extract<Block, { kind: 'edits' }> }) {
               </span>
               <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                 <div className="flex min-w-0 items-baseline justify-between gap-3">
-                  <span className="min-w-0 truncate text-[13px] font-medium text-ink">{pathLabel(e.path, b.base)}</span>
+                  <span className="min-w-0 truncate text-[13px] font-medium text-ink">{editLabel(e, b.base)}</span>
                   <span className="shrink-0 text-[12.5px]">
                     <Change e={e} />
                   </span>

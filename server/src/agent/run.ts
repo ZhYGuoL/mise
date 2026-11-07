@@ -91,16 +91,13 @@ class Turn {
     const lastUser = [...history].reverse().find((m) => m.role === "user")?.content ?? "";
     await this.send({ type: "thinking", label: "Reading the request", detail: lastUser.slice(0, 140) });
 
-    const state = { created: false, edited: false, rejects: 0 };
+    const state = { created: false, edited: false, rejects: 0, nudged: false };
     let namesShown = 0;
     for (let step = 0; step < MAX_STEPS; step++) {
       const finished = state.created || state.edited;
       const tools = this.concept ? [editConceptTool, generateImagesTool, simulateTool] : [createConceptTool];
-      const toolChoice: ToolChoice = !this.concept
-        ? { type: "function", function: { name: "create_concept" } }
-        : finished
-          ? "none"
-          : "auto";
+      // Some models (Claude Sonnet 5.5) reject a forced tool_choice. Offer only create_concept and nudge once instead.
+      const toolChoice: ToolChoice = this.concept && finished ? "none" : "auto";
 
       const res = await complete({
         messages,
@@ -122,7 +119,15 @@ class Turn {
           }
         },
       });
-      if (res.toolCalls.length === 0) break;
+      if (res.toolCalls.length === 0) {
+        if (!this.concept && !state.nudged) {
+          state.nudged = true;
+          messages.push({ role: "assistant", content: res.content || "(no reply)" });
+          messages.push({ role: "user", content: "Call create_concept now with the complete concept." });
+          continue;
+        }
+        break;
+      }
 
       messages.push({ role: "assistant", content: res.content || null, tool_calls: res.toolCalls });
       for (const call of res.toolCalls) {
@@ -132,7 +137,7 @@ class Turn {
     }
   }
 
-  private async handle(call: ToolCall, state: { created: boolean; edited: boolean; rejects: number }): Promise<string> {
+  private async handle(call: ToolCall, state: { created: boolean; edited: boolean; rejects: number; nudged: boolean }): Promise<string> {
     let args: Record<string, unknown>;
     try {
       args = JSON.parse(call.function.arguments || "{}");
@@ -153,7 +158,7 @@ class Turn {
         await this.send({ type: "concept", concept: built.concept });
         this.startImages(imageTargets(null, built.concept));
         const p = await this.simulate();
-        return `Created v1 "${built.concept.name}" at ${built.concept.location.address}.\nPrediction:\n${summarizePrediction(p)}\nNow reply to the owner.`;
+        return `Created v1 "${built.concept.name}" at ${built.concept.location.address}.\nPrediction:\n${summarizePrediction(p)}\nNow reply to the owner in at most two short sentences, under 40 words.`;
       }
 
       case "edit_concept": {
@@ -169,7 +174,7 @@ class Turn {
         state.edited = true;
         if (needsApproval(res.edits)) {
           await this.send({ type: "edits", edits: res.edits, needsApproval: true });
-          return "Sent to the owner for approval. Nothing is applied yet. In one or two sentences, say what you propose and why, citing the prediction.";
+          return "The owner now sees an approval card with these edits. Reply in one sentence under 30 words: what you propose and the prediction number behind it. Do not mention approval, waiting or re-running the prediction.";
         }
         const before = this.concept;
         const prevP50 = this.prediction?.orders.p50;
@@ -179,7 +184,7 @@ class Turn {
         this.startImages(imageTargets(before, res.concept));
         const p = await this.simulate();
         const delta = prevP50 === undefined ? "" : `\nChange in p50 orders: ${Math.round(p.orders.p50 - prevP50)}.`;
-        return `Applied as v${res.concept.version}.\nNew prediction:\n${summarizePrediction(p)}${delta}\nNow reply to the owner.`;
+        return `Applied as v${res.concept.version}.\nNew prediction:\n${summarizePrediction(p)}${delta}\nNow reply to the owner in at most two short sentences, under 40 words.`;
       }
 
       case "generate_images": {

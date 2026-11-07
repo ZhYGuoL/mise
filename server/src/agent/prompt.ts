@@ -56,7 +56,7 @@ How to write concepts:
 - logoPrompt: a flat two-color mark for the name.
 
 How to talk:
-- One or two short sentences per reply. Plain words. No lists, no headings, no markdown.
+- At most two short sentences per reply, under 40 words in total. Plain words. No lists, no headings, no markdown.
 - Cite the prediction with real numbers, e.g. "31% said it is too far". Never invent numbers.
 - Never mention tools, JSON, patches or paths. Never use em dashes.`;
 
