@@ -41,8 +41,8 @@ function staticLayers(scene: Scene) {
         id: 'residents',
         data: scene.residents,
         getPosition: (r) => [r.home.lon, r.home.lat],
-        getFillColor: rgba(MAP.ink, 40),
-        getRadius: 1.5,
+        getFillColor: rgba(MAP.dot, 200),
+        getRadius: 1.6,
         radiusUnits: 'pixels',
         pickable: true,
       }),
@@ -50,8 +50,8 @@ function staticLayers(scene: Scene) {
         id: 'restaurants',
         data: scene.restaurants.filter((r) => !stolenIds.has(r.placeId)),
         getPosition: (r) => [r.lon, r.lat],
-        getFillColor: rgba(MAP.ink, 90),
-        getRadius: 2.2,
+        getFillColor: rgba(MAP.place, 255),
+        getRadius: 2.4,
         radiusUnits: 'pixels',
       }),
     ],
@@ -62,7 +62,7 @@ function staticLayers(scene: Scene) {
         id: 'stolen',
         data: scene.stolen,
         getPosition: (s) => [s.lon, s.lat],
-        getFillColor: rgba(MAP.ink, 255),
+        getFillColor: rgba(MAP.placeStrong, 255),
         getLineColor: rgba(MAP.surface, 255),
         getRadius: 3.5,
         radiusUnits: 'pixels',
@@ -143,7 +143,7 @@ function settledLayers(scene: Scene, s: Settled, n: number): Layer[] {
       id,
       data,
       getPath: pathOf,
-      getColor: concept ? rgba(scene.color, 100) : rgba(MAP.ink, 14),
+      getColor: concept ? rgba(scene.color, 140) : rgba(MAP.ink, 22),
       getWidth: concept ? 1.25 : 1,
       widthUnits: 'pixels',
       capRounded: true,
@@ -181,7 +181,7 @@ export function buildLayers(scene: Scene, focus: Focus, t: number): Layer[] {
       const age = t - f.t
       if (age < 0) break
       if (age > span) continue
-      const tint = f.concept ? scene.color : MAP.ink
+      const tint = f.concept ? scene.color : MAP.place
       const p = age / FLIGHT_MINUTES
       const head = Math.min(p, 1)
       const tail = Math.min(Math.max(p - TRAIL, 0), 1)
@@ -215,7 +215,7 @@ export function buildLayers(scene: Scene, focus: Focus, t: number): Layer[] {
 
   const layers: Layer[] = [
     ...fixed.below,
-    ...settledLayers(scene, done.other, arrived(done.other.arrivals, t)),
+    ...(new URLSearchParams(location.search).get('trails') !== '1' ? [] : settledLayers(scene, done.other, arrived(done.other.arrivals, t))),
     ...settledLayers(scene, done.concept, nConcept),
     ...fixed.above,
     new ScatterplotLayer<LonLat>({
@@ -303,7 +303,7 @@ export function buildLayers(scene: Scene, focus: Focus, t: number): Layer[] {
         id: 'selected',
         data: [home],
         getPosition: (d) => d,
-        getFillColor: rgba(MAP.ink, 255),
+        getFillColor: rgba(MAP.placeStrong, 255),
         getLineColor: rgba(MAP.surface, 255),
         getRadius: 3.5,
         radiusUnits: 'pixels',
