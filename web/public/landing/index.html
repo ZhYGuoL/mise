@@ -84,6 +84,36 @@ section{position:relative}
 .row small{display:block;color:var(--muted);font-size:13px;margin-top:3px}
 .row .num{font-weight:500}
 
+/* SIM */
+#sim{height:400vh;background:var(--cream)}
+#sim .stick{display:grid;grid-template-columns:1.55fr 1fr}
+.mapwrap{position:relative;overflow:hidden}
+#map{position:absolute;inset:0;width:100%;height:100%}
+.maphead{position:absolute;top:96px;left:44px;z-index:2;transition:color .4s}
+.clock{font-family:'Geist Mono',monospace;font-size:clamp(40px,5vw,76px);letter-spacing:-.04em;font-weight:500;line-height:1}
+.daylabel{font-size:14px;margin-top:8px;opacity:.65}
+.legend{position:absolute;left:44px;bottom:36px;display:flex;gap:18px;font-size:13px;z-index:2;opacity:.75}
+.legend span{display:flex;align-items:center;gap:7px}
+.legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.side{padding:96px 44px 36px;display:flex;flex-direction:column;gap:22px;border-left:1px solid var(--line);background:var(--cream)}
+.stat-big{font-size:clamp(70px,8vw,128px);font-weight:600;letter-spacing:-.05em;line-height:.9}
+.stat-big small{font-size:18px;letter-spacing:0;font-weight:400;color:var(--muted);margin-left:8px}
+.range{color:var(--muted);font-size:15px;margin-top:8px;opacity:0;transition:opacity .5s}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.kv div{border:1px solid var(--line);border-radius:16px;padding:14px 16px;background:var(--paper)}
+.kv label{font-size:13px;color:var(--muted)}
+.kv p{font-size:28px;font-weight:600;letter-spacing:-.03em;margin-top:4px}
+.bars{display:flex;align-items:flex-end;gap:5px;height:130px;position:relative;padding-bottom:20px}
+.bar{flex:1;height:100%;position:relative}
+.bar .band{position:absolute;left:0;right:0;background:var(--rust);opacity:0;border-radius:3px;transition:opacity .4s}
+.bar .fill{position:absolute;left:18%;right:18%;bottom:0;background:var(--rust);border-radius:3px 3px 0 0;transform-origin:bottom;transform:scaleY(0)}
+.bar .lab{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--muted);white-space:nowrap}
+.bar.now .fill{background:var(--ink)}
+.stolen{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:14px;min-height:22px}
+.stolen span{opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s cubic-bezier(.2,.8,.2,1)}
+.stolen span.on{opacity:1;transform:none}
+.stolen em{font-style:normal;color:var(--rust);font-weight:500}
+
 @media (pointer:fine){body{cursor:none}a,button{cursor:none}}
 /* cursor */
 #cur{position:fixed;left:0;top:0;width:12px;height:12px;border-radius:50%;background:var(--rust);z-index:100;pointer-events:none;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:500;transition:width .35s cubic-bezier(.2,.8,.2,1),height .35s cubic-bezier(.2,.8,.2,1),background .3s}
@@ -130,6 +160,22 @@ section{position:relative}
    <div class="card-head"><div class="logo" id="logo"><img src="logo.png" alt="Crunch House logo"></div><div><div class="cname" id="cname"></div><div class="ctag" id="ctag"></div></div></div>
    <div class="chips" id="chips"></div>
    <div class="rows" id="rows"></div>
+  </div>
+ </div>
+</section>
+
+<section id="sim">
+ <div class="stick">
+  <div class="mapwrap" id="mapwrap">
+   <canvas id="map"></canvas>
+   <div class="maphead" id="maphead"><div class="eyebrow" style="color:inherit;opacity:.6">02 · Simulate</div><div class="clock num" id="clock">11:00 AM</div><div class="daylabel">Friday · clear · 10,000 residents · 192 restaurants</div></div>
+   <div class="legend" id="legend"><span><i style="background:var(--rust)"></i>Ordered from you</span><span><i style="background:#8A8175"></i>Went elsewhere</span></div>
+  </div>
+  <div class="side">
+   <div><div class="eyebrow">Orders</div><div class="stat-big num"><span id="orders">0</span><small>p50</small></div><div class="range num" id="range">76 to 133 · p10 to p90</div></div>
+   <div class="kv"><div><label>Revenue</label><p class="num" id="rev">$0</p></div><div><label>Market share</label><p class="num" id="share">0.0%</p></div></div>
+   <div><div class="eyebrow" style="margin-bottom:10px">Orders by hour</div><div class="bars" id="bars"></div></div>
+   <div><div class="eyebrow" style="margin-bottom:10px">Customers taken</div><div class="stolen" id="stolen"></div></div>
   </div>
  </div>
 </section>
