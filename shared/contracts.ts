@@ -260,15 +260,37 @@ export type OptimizeGoal = z.infer<typeof OptimizeGoal>;
 export const AgentOptimizeRequest = z.object({ concept: Concept, goal: OptimizeGoal });
 export type AgentOptimizeRequest = z.infer<typeof AgentOptimizeRequest>;
 
-export const GenerateDishRequest = z.object({ concept: Concept, itemId: z.string() });
+/** Lane B: how a generate call ended. "off" = no key, no MODEL_IMAGE, or MOCK=1, and nothing cached. */
+export const GenerateStatus = z.enum(["generated", "cached", "off", "failed"]);
+export type GenerateStatus = z.infer<typeof GenerateStatus>;
+
+export const GenerateDishRequest = z.object({
+  concept: Concept,
+  itemId: z.string(),
+  /** Lane B: true = skip the cache and make a new take. The new take becomes the cached one. */
+  regenerate: z.boolean().optional(),
+});
 export type GenerateDishRequest = z.infer<typeof GenerateDishRequest>;
 /** null = not generated (generation off or failed). The UI shows the fallback card. */
-export const GenerateDishResponse = z.object({ imageUrl: z.string().nullable() });
+export const GenerateDishResponse = z.object({
+  imageUrl: z.string().nullable(),
+  status: GenerateStatus.optional(), // Lane B
+  ms: z.number().optional(), // Lane B: server time for this call
+  error: z.string().optional(), // Lane B: set when status is "failed"
+});
 export type GenerateDishResponse = z.infer<typeof GenerateDishResponse>;
 
-export const GenerateLogoRequest = z.object({ concept: Concept });
+export const GenerateLogoRequest = z.object({
+  concept: Concept,
+  regenerate: z.boolean().optional(), // Lane B, same as GenerateDishRequest.regenerate
+});
 export type GenerateLogoRequest = z.infer<typeof GenerateLogoRequest>;
-export const GenerateLogoResponse = z.object({ logoUrl: z.string().nullable() });
+export const GenerateLogoResponse = z.object({
+  logoUrl: z.string().nullable(),
+  status: GenerateStatus.optional(), // Lane B
+  ms: z.number().optional(), // Lane B
+  error: z.string().optional(), // Lane B
+});
 export type GenerateLogoResponse = z.infer<typeof GenerateLogoResponse>;
 
 export const GenerateMenuCardRequest = z.object({ concept: Concept });
