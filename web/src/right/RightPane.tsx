@@ -1,15 +1,12 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useMise } from '@/state/store'
 import { conceptColor, css } from './lib/color'
 import { useBaseline, useCity, useRunView, useSimulateNewVersions } from './lib/data'
 import { buildFlows, type Flow } from './lib/flows'
 import { usePlayhead, usePlayheadDriver } from './lib/playhead'
 import { DAY_MINUTES, toDayMinutes } from './lib/time'
-import { CityMap } from './map/CityMap'
+import { CityCard } from './map/CityCard'
 import { Interview } from './interview/Interview'
-import { ResidentCard } from './map/ResidentCard'
-import { TakenList } from './map/TakenList'
-import { MapLoading, TimeBar } from './map/TimeBar'
 import { SampledResidents, Objections, WhoOrdered } from './panels/Breakdown'
 import { Headline } from './panels/Headline'
 import { HourChart } from './panels/HourChart'
@@ -28,8 +25,6 @@ export function RightPane() {
   const prediction = useRunView((s) => s.prediction)
   const busy = useRunView((s) => s.busy)
   const baseline = useBaseline(prediction)
-  const [labelsFit, setLabelsFit] = useState(true)
-  const [highlight, setHighlight] = useState<string | null>(null)
 
   const brand = concept?.brand.colors.primary ?? ''
   const color = useMemo(() => conceptColor(brand), [brand])
@@ -65,8 +60,6 @@ export function RightPane() {
     usePlayhead.getState().rest(Math.floor(first / 60) * 60 - 60)
   }, [prediction])
 
-  const closeResident = useCallback(() => selectResident(null), [selectResident])
-
   if (!concept) return null
 
   return (
@@ -74,38 +67,19 @@ export function RightPane() {
       <div className="flex flex-col gap-3 p-4">
         <ScenarioBar scenario={scenario} />
 
-        <div className="overflow-hidden rounded-card bg-surface shadow-hairline">
-          <div className="relative h-[clamp(320px,44vh,480px)]">
-            <CityMap
-              concept={concept}
-              color={color}
-              restaurants={city?.restaurants ?? []}
-              residents={city?.residents ?? []}
-              flows={flows}
-              stolen={prediction?.stolenFrom ?? []}
-              selected={selected}
-              selectedFlow={selected ? (flowsByResident.get(selected.id) ?? null) : null}
-              highlight={labelsFit ? null : highlight}
-              showLost={labelsFit}
-              onSelectResident={selectResident}
-              onLabelsFit={setLabelsFit}
-            >
-              {busy && <MapLoading />}
-              {selected && city && (
-                <ResidentCard
-                  resident={selected}
-                  flow={flowsByResident.get(selected.id) ?? null}
-                  concept={concept}
-                  color={color}
-                  restaurants={city.restaurants}
-                  onClose={closeResident}
-                />
-              )}
-            </CityMap>
-          </div>
-          <TimeBar prediction={prediction} concept={concept} color={color} />
-          {prediction && !labelsFit && <TakenList stolen={prediction.stolenFrom} onHighlight={setHighlight} />}
-        </div>
+        <CityCard
+          concept={concept}
+          scenario={scenario}
+          prediction={prediction}
+          busy={busy}
+          color={color}
+          restaurants={city?.restaurants ?? null}
+          residents={city?.residents ?? []}
+          flows={flows}
+          flowsByResident={flowsByResident}
+          selected={selected}
+          onSelectResident={selectResident}
+        />
 
         {/* Wave 2: interview the selected resident. */}
         {selected && <Interview resident={selected} concept={concept} scenario={scenario} color={colorCss} />}

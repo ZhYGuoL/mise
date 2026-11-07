@@ -1,11 +1,10 @@
-import type { Concept, Prediction } from '@mise/shared'
+import type { Prediction } from '@mise/shared'
 import { Pause, Play } from 'lucide-react'
 import { useRef } from 'react'
 import LoadingState from '@/components/primitives/LoadingState'
 import { css, type RGB } from '../lib/color'
-import { ordersSoFar } from '../lib/flows'
 import { usePlayhead } from '../lib/playhead'
-import { DAY_MINUTES, DAY_START_HOUR, clockLabel, hourLabel, hourSlot, openWindow } from '../lib/time'
+import { DAY_MINUTES, DAY_START_HOUR, clockLabel, hourLabel, hourSlot } from '../lib/time'
 
 /** Shown on the map while a new run is simulating. The previous day stays drawn under it. */
 export function MapLoading() {
@@ -20,8 +19,8 @@ export function MapLoading() {
 const SLOTS = Array.from({ length: 24 }, (_, i) => i)
 const TICKS = [0, 6, 12, 18, 24]
 
-/** Play button, the clock, a scrubber drawn as the hourly order histogram, and the running order count. */
-export function TimeBar({ prediction, concept, color }: { prediction: Prediction | null; concept: Concept; color: RGB }) {
+/** Play button and a scrubber drawn as the hourly order histogram, on the card's own surface. */
+export function TimeBar({ prediction, color }: { prediction: Prediction | null; color: RGB }) {
   const t = usePlayhead((s) => s.t)
   const playing = usePlayhead((s) => s.playing)
   const trackRef = useRef<HTMLDivElement>(null)
@@ -29,13 +28,8 @@ export function TimeBar({ prediction, concept, color }: { prediction: Prediction
 
   const bySlot = SLOTS.map((slot) => prediction?.byHour.find((b) => hourSlot(b.hour) === slot)?.p50 ?? 0)
   const max = Math.max(1, ...bySlot)
-  const count = prediction ? ordersSoFar(prediction, t) : 0
   const x = t / DAY_MINUTES
   const ended = t >= DAY_MINUTES
-
-  const open = prediction ? openWindow(concept, prediction.scenario.day) : null
-  const isOpen = open !== null && t >= open[0] && t < open[1]
-  const status = ended ? 'End of day' : isOpen ? 'Open' : 'Closed'
 
   const seekTo = (clientX: number) => {
     const r = trackRef.current?.getBoundingClientRect()
@@ -44,7 +38,7 @@ export function TimeBar({ prediction, concept, color }: { prediction: Prediction
   }
 
   return (
-    <div className="flex h-14 items-center gap-3 border-t border-line bg-surface px-3">
+    <div className="mt-3 flex items-center gap-3 px-0.5">
       <button
         type="button"
         aria-label={playing ? 'Pause' : ended ? 'Replay the day' : 'Play'}
@@ -61,12 +55,7 @@ export function TimeBar({ prediction, concept, color }: { prediction: Prediction
         />
       </button>
 
-      <div className="flex w-[66px] shrink-0 flex-col gap-1 leading-none">
-        <span className="text-[13px] font-semibold text-ink tabular-nums">{clockLabel(t)}</span>
-        <span className="text-[11.5px] whitespace-nowrap text-ink-3">{status}</span>
-      </div>
-
-      <div className="flex min-w-0 flex-1 flex-col gap-1 pt-1">
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
         <div
           ref={trackRef}
           role="slider"
@@ -131,11 +120,6 @@ export function TimeBar({ prediction, concept, color }: { prediction: Prediction
         </div>
       </div>
 
-      <div className="flex w-[84px] shrink-0 items-baseline justify-end gap-1.5">
-        <span className="size-2 shrink-0 self-center rounded-full" style={{ background: css(color) }} />
-        <span className="text-[13px] leading-none font-semibold text-ink tabular-nums">{count}</span>
-        <span className="text-[12px] leading-none text-ink-3">orders</span>
-      </div>
     </div>
   )
 }
