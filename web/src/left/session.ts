@@ -35,6 +35,8 @@ export type Block =
       before: number | null
     }
   | { kind: 'error'; id: string; message: string }
+  /** Wave 2: one `/optimize` run. Its rounds live in the optimize store (`../optimize/run`). */
+  | { kind: 'optimize'; id: string; runId: string }
 
 export type Turn =
   | { id: string; role: 'user'; text: string }
