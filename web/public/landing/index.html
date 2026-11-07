@@ -219,6 +219,25 @@ function heroFrame(t){const target=prog(hero);hp=RM?target:lerp(hp,target,.09);
 
 loops.push(heroFrame);
 
+/* ---------- chat ---------- */
+const chat=$('#chat'),prompt="Korean fried chicken. Open late near campus, nothing over $14.";
+const chipsTxt=['Korean · Fried chicken','$$','North Oakland','Fri 11 AM to 2 AM','$2.99 delivery'];
+$('#chips').innerHTML=chipsTxt.map(c=>`<span class="chip">${c}</span>`).join('');
+$('#rows').innerHTML=M.menu.map(m=>`<div class="row"><div><b>${m.n}</b><small>${m.d}</small></div><span class="num">$0.00</span></div>`).join('');
+const steps=[...document.querySelectorAll('.step')],chips=[...document.querySelectorAll('.chip')],rowsEl=[...document.querySelectorAll('.row')];
+let cp=0;
+function chatFrame(){const target=prog(chat);cp=RM?target:lerp(cp,target,.1);const p=cp;
+ const k=seg(p,.04,.26);$('#typed').textContent=prompt.slice(0,Math.round(k*prompt.length));$('#caret').style.display=k<1?'inline-block':'none';
+ steps.forEach((s,i)=>{const v=seg(p,.27+i*.05,.31+i*.05);s.style.opacity=v;s.style.transform=`translateY(${(1-v)*10}px)`;s.classList.toggle('done',v>=1)});
+ const lv=seg(p,.4,.5);const lg=$('#logo');lg.style.opacity=lv;lg.style.transform=`scale(${lv?back(lv):0}) rotate(${(1-lv)*-30}deg)`;
+ const nv=seg(p,.45,.55);$('#cname').textContent=M.name.slice(0,Math.round(nv*M.name.length));
+ const tv=seg(p,.53,.58);const tg=$('#ctag');tg.textContent=M.tagline;tg.style.opacity=tv;tg.style.transform=`translateY(${(1-tv)*8}px)`;
+ chips.forEach((c,i)=>{const v=seg(p,.56+i*.02,.6+i*.02);c.style.opacity=v;c.style.transform=`scale(${v?back(v):.6})`});
+ rowsEl.forEach((r,i)=>{const v=seg(p,.64+i*.045,.71+i*.045);r.style.opacity=v;r.style.transform=`translateX(${(1-out(v))*40}px)`;r.querySelector('.num').textContent='$'+(M.menu[i].p*out(v)).toFixed(2)});
+}
+
+loops.push(chatFrame);
+
 function resize(){DPR=Math.min(devicePixelRatio||1,2);resizers.forEach(f=>f())}
 addEventListener('resize',resize);resize();
 function frame(t){loops.forEach(f=>f(t));requestAnimationFrame(frame)}
