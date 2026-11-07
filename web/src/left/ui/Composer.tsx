@@ -135,7 +135,7 @@ export function Composer({
           }}
           placeholder={placeholder}
           aria-label="Message"
-          className="max-h-[120px] min-h-5 flex-1 resize-none bg-transparent text-[13px] leading-5 text-ink outline-none placeholder:text-ink-3"
+          className="max-h-[120px] min-h-7 flex-1 resize-none bg-transparent py-1 text-[13px] leading-5 text-ink outline-none placeholder:text-ink-3"
         />
         <button
           type="button"

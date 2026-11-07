@@ -226,7 +226,7 @@ export function Interview({
             }}
             placeholder={`Ask ${resident.name}`}
             aria-label={`Question for ${resident.name}`}
-            className="max-h-[80px] min-h-5 flex-1 resize-none bg-transparent text-[13px] leading-5 text-ink outline-none placeholder:text-ink-3"
+            className="max-h-[80px] min-h-6 flex-1 resize-none bg-transparent py-0.5 text-[13px] leading-5 text-ink outline-none placeholder:text-ink-3"
           />
           <button
             type="button"

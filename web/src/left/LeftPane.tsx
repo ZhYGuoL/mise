@@ -67,7 +67,7 @@ export function LeftPane() {
             <button
               type="button"
               onClick={() => void startFromExisting()}
-              className="-mx-1.5 mt-1 flex items-center gap-2 rounded-control border-t border-line px-1.5 pt-2.5 pb-1.5 text-left text-[12.5px] text-ink-2 transition-colors duration-100 hover:bg-hover-2 hover:text-ink"
+              className="-mx-1.5 mt-1 flex items-center gap-2 rounded-control border-t border-line px-1.5 py-2 text-left text-[12.5px] text-ink-2 transition-colors duration-100 hover:bg-hover-2 hover:text-ink"
             >
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--ink-3)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
                 <path d="M3 9l1.5-5h15L21 9" />
