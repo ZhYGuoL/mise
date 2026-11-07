@@ -122,6 +122,9 @@ export const Prediction = z.object({
   revenue: Band,             // whole day, USD, after promos, before fees
   avgTicket: z.number(),
   marketSharePct: z.number(), // share of all delivery orders in the sim area that day
+  /** Added by Lane D (optional): the same two numbers as p10/p50/p90 across runs, so the UI can show ranges. */
+  avgTicketBand: Band.optional(),
+  marketSharePctBand: Band.optional(),
   byHour: z.array(Band.extend({ hour: z.number().int().min(0).max(23) })),
   bySegment: z.array(z.object({ segment: Segment, orders: z.number(), sharePct: z.number() })),
   stolenFrom: z.array(z.object({
