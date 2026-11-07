@@ -7,7 +7,7 @@ import { normalizeCuisines } from "../city/cuisine";
 import { hash, normal, rng } from "../city/rng";
 import {
   DISCOVERY_BONUS, MORNING_PENALTY, NEW_PLACE_PENALTY, PROMO_BONUS, RADIUS_KM, SCALE, deliveryMinutes, dietVarietyTerm, distanceKm,
-  eventEffect, feeTerm, isMorning, priceTerm, tasteFor, typicalCost,
+  eventEffect, feeTerm, isMorning, popularityTerm, priceTerm, ratingTerm, tasteFor, typicalCost,
 } from "./model";
 
 const DAYS: Day[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -179,6 +179,7 @@ export function buildConceptModel(concept: Concept, scenario: Scenario, resident
   const n = residents.length;
   const nS = states.length;
   const cuisines = normalizeCuisines(concept.cuisine);
+  const existing = concept.existing ?? null;
   const servesBreakfast = cuisines.includes("breakfast") || cuisines.includes("cafe");
   const m: ConceptModel = {
     concept, cuisines, menu, mains, sides, drinks, stateOfHour, states,
@@ -198,7 +199,12 @@ export function buildConceptModel(concept: Concept, scenario: Scenario, resident
     m.dietMains[r] = Math.min(255, compatible);
     m.taste[r] = tasteFor(res.weights.cuisine, cuisines);
     m.time[r] = res.weights.time * deliveryMinutes(km);
-    m.newPlace[r] = NEW_PLACE_PENALTY + res.weights.novelty + ev.novelty;
+    // A new place is unknown. A real place brings its rating, its review count, and its regulars.
+    m.newPlace[r] = existing
+      ? ratingTerm(res.weights.rating, existing.rating) +
+        popularityTerm(existing.reviews) +
+        (res.favorites.includes(existing.placeId) ? res.weights.habit * ev.habit : 0)
+      : NEW_PLACE_PENALTY + res.weights.novelty + ev.novelty;
     // Blocked by diet: keep the hypothetical so we can tell who would have ordered.
     m.variety[r] = compatible === 0 || res.diet.length === 0 ? 0 : dietVarietyTerm(compatible);
 

@@ -5,7 +5,9 @@
 import path from "node:path";
 import { Concept, Scenario, type Prediction } from "@mise/shared";
 import { ROOT } from "../fixtures";
+import { TIER_PRICE } from "../city/cuisine";
 import { loadCity } from "../city/load";
+import { placeModel } from "./model";
 import { explainResident } from "./explain";
 import { simulate } from "./simulate";
 
@@ -109,6 +111,65 @@ for (const [name, c, p] of [["fixture", base, b], ["East Liberty", farConcept, f
   }
   console.log(`${name}: ${p.sampleResidentIds.length} samples, ${yes} would order, ${agree} match the map and the interview`);
   checks.push([`${name}: sampled residents: list, map and interview agree`, p.sampleResidentIds.length >= 3 && agree === p.sampleResidentIds.length]);
+}
+
+// Existing restaurants: an unchanged import replaces its real self.
+const city = await loadCity();
+/** A plain import of a real place: its location, cuisine, open hours and price tier. */
+function importPlace(name: string): Concept {
+  const i = city.restaurants.findIndex((r) => r.name === name);
+  const r = city.restaurants[i]!;
+  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"] as const;
+  const isOpen = (d: number, h: number) => city.openAt[(d + 7) % 7]![h]!.includes(i);
+  const hm = (h: number) => `${String(h % 24).padStart(2, "0")}:00`;
+  const hours = Object.fromEntries(
+    days.map((day, d) => {
+      let open = -1;
+      for (let h = 5; h < 24 && open < 0; h++) if (isOpen(d, h)) open = h;
+      if (open < 0) return [day, null];
+      let close = open;
+      while (close < open + 23 && (close < 24 ? isOpen(d, close) : isOpen(d + 1, close - 24))) close++;
+      return [day, { open: hm(open), close: hm(close) }];
+    }),
+  ) as Concept["hours"];
+  const model = placeModel(r);
+  const price = TIER_PRICE[r.priceTier ?? 2]!;
+  const tags = (["vegetarian", "vegan", "halal", "gluten_free"] as const).filter((d) => model.diet[d]);
+  return Concept.parse({
+    ...structuredClone(base),
+    id: `existing-${i}`,
+    name: r.name,
+    cuisine: r.cuisine,
+    location: { lat: r.lat, lon: r.lon, address: r.name, neighborhood: "Oakland" },
+    hours,
+    priceTier: r.priceTier ?? 2,
+    deliveryFee: 2.99,
+    serviceFeePct: 14,
+    promos: [],
+    menu: [0.85, 0.95, 1.05, 1.15].map((f, k) => ({
+      id: `e${k}`, name: `Main ${k + 1}`, description: "Imported.", price: Math.round(price * f * 2) / 2,
+      category: "main", tags: k === 0 ? tags : [], imageUrl: null,
+    })),
+    existing: { placeId: r.placeId, name: r.name, rating: r.rating, reviews: r.reviews, menuSource: "estimated" },
+  });
+}
+
+for (const name of ["CHiKN", "Noodlehead", "Pizza Palermo", "Sushi Fuku"]) {
+  const c = importPlace(name);
+  const p = await simulate(c, friday);
+  const today = p.baselineOrders?.p50 ?? 0;
+  const stolenSum = p.stolenFrom.reduce((a, x) => a + x.ordersLost, 0);
+  console.log(
+    `existing ${name.padEnd(14)} orders ${p.orders.p50} vs today ${today}  stolen ${stolenSum}  ` +
+      `google r=${p.observedCorrelation ?? "n/a"}  ${p.computedMs}ms`,
+  );
+  checks.push([`unchanged import of ${name} -> about its orders today`, today > 0 && Math.abs(p.orders.p50 - today) <= Math.max(3, 0.25 * today)]);
+  checks.push([`unchanged import of ${name} -> stolenFrom near zero`, stolenSum <= Math.max(3, 0.15 * today)]);
+  const cheaper = await simulate({ ...c, menu: c.menu.map((m) => ({ ...m, price: Math.round(m.price * 0.8 * 2) / 2 })) }, friday);
+  const cheaperStolen = cheaper.stolenFrom.reduce((a, x) => a + x.ordersLost, 0);
+  console.log(`  20% cheaper: orders ${cheaper.orders.p50} vs today ${cheaper.baselineOrders?.p50}  stolen ${cheaperStolen}`);
+  // The extra orders come from many places, often under 0.5 each, so stolenFrom may not list them.
+  checks.push([`${name} 20% cheaper -> more orders than today`, cheaper.orders.p50 > today]);
 }
 
 const t0 = performance.now();
