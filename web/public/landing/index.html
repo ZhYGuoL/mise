@@ -54,6 +54,36 @@ section{position:relative}
 .scrollcue b:after{content:"";position:absolute;left:0;top:-40px;width:1px;height:40px;background:var(--ink);animation:drip 1.6s cubic-bezier(.6,0,.2,1) infinite}
 @keyframes drip{to{top:40px}}
 
+/* CHAT */
+#chat{height:280vh}
+#chat .stick{display:grid;grid-template-columns:1fr 1.1fr;gap:5vw;align-items:center;padding:0 7vw}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.big{font-size:clamp(34px,4.4vw,64px);letter-spacing:-.035em;font-weight:600;line-height:1}
+.big .serif{color:var(--rust)}
+.panel{margin-top:34px;background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:22px;max-width:520px}
+.bubble{margin-left:auto;background:var(--ink);color:var(--cream);padding:14px 18px;border-radius:18px 18px 4px 18px;font-size:16px;line-height:1.4;max-width:88%;width:fit-content;min-height:50px}
+.caret{display:inline-block;width:2px;height:1.05em;background:var(--rust);vertical-align:-3px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.steps{margin-top:18px;display:flex;flex-direction:column;gap:10px}
+.step{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--muted);opacity:0}
+.step .dot{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line);position:relative;flex:none;transition:background .3s,border-color .3s}
+.step.done{color:var(--ink)}
+.step.done .dot{background:var(--rust);border-color:var(--rust)}
+.step.done .dot:after{content:"";position:absolute;left:5px;top:2px;width:4px;height:8px;border:solid #fff;border-width:0 1.6px 1.6px 0;transform:rotate(45deg)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:26px;padding:30px;position:relative}
+.card-head{display:flex;gap:18px;align-items:center}
+.logo{width:84px;height:84px;border-radius:20px;overflow:hidden;flex:none;opacity:0;background:#fff}
+.logo img{width:100%;height:100%;object-fit:cover}
+.cname{font-size:clamp(28px,2.8vw,40px);font-weight:600;letter-spacing:-.03em;min-height:1.1em}
+.ctag{color:var(--muted);margin-top:4px;opacity:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;opacity:0;background:#fff}
+.rows{margin-top:22px;border-top:1px solid var(--line)}
+.row{display:flex;justify-content:space-between;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--line);opacity:0}
+.row b{font-weight:500}
+.row small{display:block;color:var(--muted);font-size:13px;margin-top:3px}
+.row .num{font-weight:500}
+
 @media (pointer:fine){body{cursor:none}a,button{cursor:none}}
 /* cursor */
 #cur{position:fixed;left:0;top:0;width:12px;height:12px;border-radius:50%;background:var(--rust);z-index:100;pointer-events:none;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:500;transition:width .35s cubic-bezier(.2,.8,.2,1),height .35s cubic-bezier(.2,.8,.2,1),background .3s}
@@ -78,6 +108,29 @@ section{position:relative}
   <div class="menu-title" id="menuTitle"><h2>An idea becomes <span class="serif it">a menu.</span></h2><p>Crunch House · 6 dishes · v3</p></div>
   <div id="dishes"></div>
   <div class="scrollcue" id="cue">Scroll<b></b></div>
+ </div>
+</section>
+
+<section id="chat">
+ <div class="stick">
+  <div>
+   <div class="eyebrow">01 · Ideate</div>
+   <h2 class="big">Say it like you'd <span class="serif it">say it to a friend.</span></h2>
+   <div class="panel">
+    <div class="bubble"><span id="typed"></span><span class="caret" id="caret"></span></div>
+    <div class="steps" id="steps">
+     <div class="step"><span class="dot"></span>Named it</div>
+     <div class="step"><span class="dot"></span>Drew the logo</div>
+     <div class="step"><span class="dot"></span>Priced 6 dishes</div>
+     <div class="step"><span class="dot"></span>Plated the photos</div>
+    </div>
+   </div>
+  </div>
+  <div class="card">
+   <div class="card-head"><div class="logo" id="logo"><img src="logo.png" alt="Crunch House logo"></div><div><div class="cname" id="cname"></div><div class="ctag" id="ctag"></div></div></div>
+   <div class="chips" id="chips"></div>
+   <div class="rows" id="rows"></div>
+  </div>
  </div>
 </section>
 
