@@ -1,7 +1,8 @@
-import { type AgentEvent, type ChatMessage, type Concept, type ConceptEdit, Prediction } from '@mise/shared'
+import { type AgentEvent, type ChatMessage, type Concept, type ConceptEdit, type OptimizeGoal, Prediction } from '@mise/shared'
 import { api } from '@/api'
 import { useMise } from '@/state/store'
 import { diffConcepts, editLabel, formatValue, touchedItems } from './format'
+import { startOptimize } from './optimize/run'
 import { type Block, findBlock, type Turn, uid, updateBlock, updateTurn, useSession } from './session'
 
 /**
@@ -86,7 +87,12 @@ function carryImages(next: Concept): Concept {
 
 /* ───────────── event folding ───────────── */
 
-type Ctx = { turnId: string; basePrediction: Prediction | null }
+type Ctx = {
+  turnId: string
+  basePrediction: Prediction | null
+  /** Wave 2: the agent called run_optimize. The run starts in this turn when the chat stream ends. */
+  optimize?: OptimizeGoal
+}
 
 const last = (turnId: string): Block | undefined => {
   const t = useSession.getState().turns.find((x) => x.id === turnId)
@@ -217,6 +223,10 @@ export function handleEvent(e: AgentEvent, ctx: Ctx) {
       useSession.setState({ busy: false })
       return
     }
+    case 'optimize': {
+      ctx.optimize = e.goal
+      return
+    }
     case 'error': {
       useMise.setState({ simulating: false })
       updateTurn(turnId, (blocks) => [...closeSteps(blocks), { kind: 'error', id: uid('b'), message: e.message }])
@@ -251,6 +261,7 @@ async function stream(body: Parameters<typeof api.agentChat>[0], turnId: string)
   } finally {
     finish(turnId)
   }
+  if (ctx.optimize) await startOptimize(turnId, ctx.optimize)
 }
 
 function currentPrediction(): Prediction | null {

@@ -6,8 +6,8 @@ import type { Concept, Day, MenuItem, Resident, Scenario } from "@mise/shared";
 import { normalizeCuisines } from "../city/cuisine";
 import { hash, normal, rng } from "../city/rng";
 import {
-  DISCOVERY_BONUS, MORNING_PENALTY, NEW_PLACE_PENALTY, PROMO_BONUS, RADIUS_KM, SCALE, deliveryMinutes, dietVarietyTerm, distanceKm,
-  eventEffect, feeTerm, isMorning, priceTerm, tasteFor, typicalCost,
+  DISCOVERY_BONUS, NEW_PLACE_PENALTY, PROMO_BONUS, affinityFor, daypartOf, RADIUS_KM, SCALE, deliveryMinutes, dietVarietyTerm, distanceKm,
+  eventEffect, feeTerm, popularityTerm, priceTerm, ratingTerm, tasteFor, timeTerm, typicalCost,
 } from "./model";
 
 const DAYS: Day[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -55,7 +55,8 @@ export type PriceState = {
   promoted: boolean[];
   deliveryFee: number;
   lateNight: boolean;
-  morning: boolean;
+  /** 0 morning, 1 lunch, 2 afternoon, 3 dinner, 4 late */
+  daypart: number;
   discovery: boolean;
 };
 
@@ -71,6 +72,8 @@ export type ConceptModel = {
   drinks: number[];
   /** priceState index for each hour of the scenario day */
   stateOfHour: number[];
+  /** how much people want this cuisine at each daypart */
+  affinity: number[];
   states: PriceState[];
   /** per resident */
   km: Float32Array;
@@ -150,8 +153,8 @@ export function buildConceptModel(concept: Concept, scenario: Scenario, resident
     const minute = h * 60 + 30;
     const on = concept.promos.map((p) => promoActive(p, scenario.day, minute));
     const lateNight = h >= 22 || h < 4;
-    const morning = isMorning(h);
-    const key = `${on.map(Number).join("")}|${lateNight}|${morning}`;
+    const daypart = daypartOf(h);
+    const key = `${on.map(Number).join("")}|${lateNight}|${daypart}`;
     let idx = keys.indexOf(key);
     if (idx < 0) {
       const prices = menu.map((m) => m.price);
@@ -169,7 +172,7 @@ export function buildConceptModel(concept: Concept, scenario: Scenario, resident
           promoted[i] = true;
         });
       });
-      states.push({ prices, promoted, deliveryFee, lateNight, morning, discovery });
+      states.push({ prices, promoted, deliveryFee, lateNight, daypart, discovery });
       keys.push(key);
       idx = states.length - 1;
     }
@@ -179,9 +182,11 @@ export function buildConceptModel(concept: Concept, scenario: Scenario, resident
   const n = residents.length;
   const nS = states.length;
   const cuisines = normalizeCuisines(concept.cuisine);
-  const servesBreakfast = cuisines.includes("breakfast") || cuisines.includes("cafe");
+  const existing = concept.existing ?? null;
+  // Does anyone want this food at this time of day? Same table as for real places.
+  const affinity = affinityFor(cuisines);
   const m: ConceptModel = {
-    concept, cuisines, menu, mains, sides, drinks, stateOfHour, states,
+    concept, cuisines, menu, mains, sides, drinks, stateOfHour, states, affinity,
     km: new Float32Array(n), inRadius: new Uint8Array(n), dietMains: new Uint8Array(n),
     taste: new Float32Array(n), time: new Float32Array(n), newPlace: new Float32Array(n), variety: new Float32Array(n),
     menuPart: new Float32Array(n * nS), pricePart: new Float32Array(n * nS), feePart: new Float32Array(n * nS),
@@ -197,8 +202,13 @@ export function buildConceptModel(concept: Concept, scenario: Scenario, resident
     m.inRadius[r] = km <= RADIUS_KM ? 1 : 0;
     m.dietMains[r] = Math.min(255, compatible);
     m.taste[r] = tasteFor(res.weights.cuisine, cuisines);
-    m.time[r] = res.weights.time * deliveryMinutes(km);
-    m.newPlace[r] = NEW_PLACE_PENALTY + res.weights.novelty + ev.novelty;
+    m.time[r] = timeTerm(res.weights.time, deliveryMinutes(km));
+    // A new place is unknown. A real place brings its rating, its review count, and its regulars.
+    m.newPlace[r] = existing
+      ? ratingTerm(res.weights.rating, existing.rating) +
+        popularityTerm(existing.reviews) +
+        (res.favorites.includes(existing.placeId) ? res.weights.habit * ev.habit : 0)
+      : NEW_PLACE_PENALTY + res.weights.novelty + ev.novelty;
     // Blocked by diet: keep the hypothetical so we can tell who would have ordered.
     m.variety[r] = compatible === 0 || res.diet.length === 0 ? 0 : dietVarietyTerm(compatible);
 
@@ -213,9 +223,9 @@ export function buildConceptModel(concept: Concept, scenario: Scenario, resident
       m.menuPart[k] = menuPart;
       m.pricePart[k] = priceTerm(res.weights.price, typicalCost(bestPrice), res.budgetPerMeal);
       m.feePart[k] = feeTerm(res.weights.price, res.budgetPerMeal, states[s]!.deliveryFee, concept.serviceFeePct, bestPrice);
-      const morning = states[s]!.morning && !servesBreakfast ? MORNING_PENALTY : 0;
+      const timeOfDay = affinity[states[s]!.daypart]!;
       const discovery = states[s]!.discovery ? DISCOVERY_BONUS : 0;
-      m.utility[k] = m.taste[r]! + m.time[r]! + m.newPlace[r]! + discovery + m.variety[r]! + menuPart + morning;
+      m.utility[k] = m.taste[r]! + m.time[r]! + m.newPlace[r]! + discovery + m.variety[r]! + menuPart + timeOfDay;
     }
   }
   return m;

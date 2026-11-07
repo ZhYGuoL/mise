@@ -188,6 +188,11 @@ export const Prediction = z.object({
   observedByHour: z.array(z.object({ hour: z.number().int().min(0).max(23), busyPct: z.number() })).optional(),
   /** Correlation between simulated orders by hour and observedByHour for this place and day. */
   observedCorrelation: z.number().nullable().optional(),
+  /**
+   * Added by Lane D (optional). Existing restaurant only: orders the real place gets today, as it is,
+   * in the same simulated days. Compare with `orders` to show what an edit changes vs today.
+   */
+  baselineOrders: Band.optional(),
 });
 export type Prediction = z.infer<typeof Prediction>;
 
@@ -290,6 +295,11 @@ export const AgentEvent = z.discriminatedUnion("type", [
   z.object({ type: z.literal("prediction"), prediction: Prediction, optimize: OptimizeStep.optional() }),
   z.object({ type: z.literal("done") }),
   z.object({ type: z.literal("error"), message: z.string() }),
+  /**
+   * Wave 2 (optional): the chat agent asked for an optimize run. The client starts the same run as
+   * `/optimize` inside this turn, after the chat stream ends. OptimizeGoal is declared below, hence lazy.
+   */
+  z.object({ type: z.literal("optimize"), goal: z.lazy(() => OptimizeGoal) }),
 ]);
 export type AgentEvent = z.infer<typeof AgentEvent>;
 

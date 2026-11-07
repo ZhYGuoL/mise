@@ -8,7 +8,7 @@ import { CUISINE_LABEL, type Cuisine } from "../city/cuisine";
 import { DAYS } from "../city/load";
 import { round } from "../city/rng";
 import { buildConceptModel, conceptOpen, type ConceptModel } from "./concept";
-import { RADIUS_KM, deliveryMinutes, eventEffect, hourWeights, placeTerms } from "./model";
+import { RADIUS_KM, daypartOf, deliveryMinutes, eventEffect, hourWeights, placeTerms } from "./model";
 import { loadStatic, type StaticCity } from "./static";
 
 type Code = Prediction["objections"][number]["code"];
@@ -60,11 +60,14 @@ export function decideAt(
   // Their best real option that hour.
   let best = -1;
   let bestU = -Infinity;
+  // An existing restaurant replaces its real self, so the real place is not an alternative.
+  const ex = concept.existing ? s.restaurants.findIndex((p) => p.placeId === concept.existing!.placeId) : -1;
   for (const j of s.openAt[day]![hour]!) {
+    if (j === ex) continue;
     const u0 = s.base[r * s.nP + j]!;
     if (u0 === -Infinity) continue;
     const fav = res.favorites.includes(s.restaurants[j]!.placeId);
-    const u = u0 + (fav ? res.weights.habit * ev.habit : 0);
+    const u = u0 + (fav ? res.weights.habit * ev.habit : 0) + s.aff[j * 5 + daypartOf(hour)]!;
     if (u > bestU) [best, bestU] = [j, u];
   }
 
@@ -93,13 +96,17 @@ export function decideAt(
     const jMin = Math.round(deliveryMinutes(s.km[r * s.nP + best]!));
     // Positive values favor the concept, negative favor what they would pick instead.
     const terms: [Code, string, number][] = [
-      ["wrong_cuisine", `taste: ${label(cm.cuisines)} vs ${label(place.cuisines)} at ${name}`, cm.taste[ci]! - t.taste],
+      [
+        "wrong_cuisine",
+        `taste: ${label(cm.cuisines)} vs ${label(place.cuisines)} at ${name}`,
+        cm.taste[ci]! + cm.affinity[daypartOf(hour)]! - t.taste - s.aff[best * 5 + daypartOf(hour)]!,
+      ],
       ["too_expensive", `price vs their $${res.budgetPerMeal} budget`, cm.pricePart[k]! - t.price],
       ["fee_too_high", "delivery fees vs the usual $2.99 + 14%", cm.feePart[k]!],
       ["too_far", `delivery time: ${cMin} min vs ${jMin} min`, cm.time[ci]! - t.time],
       [
         "unknown_new_place",
-        fav ? `new place vs ${name}, a favorite` : `new place vs ${name}, ${s.restaurants[best]!.rating ?? "no"} stars`,
+        `${concept.existing ? `${concept.existing.rating ?? "no"} stars here` : "new place"} vs ${name}, ${fav ? "a favorite" : `${s.restaurants[best]!.rating ?? "no"} stars`}`,
         cm.newPlace[ci]! - (t.rating + t.popularity + t.habit),
       ],
     ];
