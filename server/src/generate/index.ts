@@ -14,7 +14,7 @@ import path from "node:path";
 import type { Concept, GenerateStatus } from "@mise/shared";
 import { HTTPException } from "hono/http-exception";
 import { GENERATED_DIR, isMock } from "../fixtures";
-import { type AspectRatio, generateImage } from "./openrouter";
+import { type AspectRatio, generateImage, ImageError } from "./openrouter";
 import { dishPrompt, logoPrompt } from "./prompts";
 
 export type GenerateResult = { url: string | null; status: GenerateStatus; ms: number; error?: string };
@@ -118,6 +118,7 @@ async function run(job: Job): Promise<GenerateResult> {
         try {
           return await attempt();
         } catch (err) {
+          if (err instanceof ImageError && err.permanent) throw err;
           if (performance.now() - t0 > RETRY_IF_FAILED_WITHIN_MS) throw err;
           console.warn(`[generate] ${job.conceptId}/${job.target} retry after: ${(err as Error).message}`);
           return await attempt();

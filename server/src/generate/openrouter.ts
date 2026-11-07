@@ -6,7 +6,16 @@ export type ImageResult = { bytes: Uint8Array; mime: string; costUsd: number | n
 
 const ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
 
-export class ImageError extends Error {}
+export class ImageError extends Error {
+  /** HTTP status from OpenRouter, if the call got that far. */
+  constructor(message: string, readonly status?: number) {
+    super(message);
+  }
+  /** Bad key, bad model id, bad request: trying again gives the same answer. */
+  get permanent() {
+    return this.status !== undefined && this.status >= 400 && this.status < 500 && this.status !== 408 && this.status !== 429;
+  }
+}
 
 export async function generateImage(opts: {
   model: string;
@@ -33,7 +42,7 @@ export async function generateImage(opts: {
     }),
     signal: AbortSignal.timeout(opts.timeoutMs),
   });
-  if (!res.ok) throw new ImageError(`OpenRouter ${res.status}: ${(await res.text()).slice(0, 300)}`);
+  if (!res.ok) throw new ImageError(`OpenRouter ${res.status}: ${(await res.text()).slice(0, 300)}`, res.status);
 
   const json = (await res.json()) as {
     error?: { message?: string };

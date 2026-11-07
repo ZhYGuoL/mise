@@ -90,7 +90,7 @@ function Row({ label, task, onRegenerate }: { label: string; task: GenTask | und
       <button
         type="button"
         onClick={onRegenerate}
-        disabled={running}
+        disabled={running || status === 'off'}
         aria-label={status === 'failed' ? `Retry ${label}` : `Regenerate ${label}`}
         title={status === 'failed' ? 'Retry' : 'Regenerate'}
         className="-mr-1 grid size-7 shrink-0 place-items-center rounded-full text-ink-3 transition-colors duration-[80ms]
