@@ -11,7 +11,7 @@ Built solo at NOVA 2026 (ScottyLabs, CMU). Hacking 11:00 AM to 5:00 PM ET, Sat N
 3. **Rigor, only if time**: census data, calibration, critic passes.
 
 ## Run order
-1. **Scaffold (alone):** `cd ~/github/mise && claude`, then: `Read briefs/00-scaffold.md and do it.`
+1. **Scaffold (alone):** `cd ~/github/mise && claude --dangerously-skip-permissions`, then: `Read briefs/00-scaffold.md and do it.`
 2. **OpenRouter key into `~/github/mise/.env`** when the team email arrives.
 3. **Wave 1, four agents in parallel**, each in its own worktree:
 
@@ -28,10 +28,10 @@ for L in a-ideation b-generation d-sim e-predict; do
   i=$((i+1))
 done
 # one terminal tab per lane:
-cd ../mise-a-ideation   && claude "Read CLAUDE.md, then briefs/A-ideation.md, and do it."
-cd ../mise-b-generation && claude "Read CLAUDE.md, then briefs/B-generation.md, and do it."
-cd ../mise-d-sim        && claude "Read CLAUDE.md, then briefs/D-sim.md, and do it."
-cd ../mise-e-predict    && claude "Read CLAUDE.md, then briefs/E-predict.md, and do it."
+cd ../mise-a-ideation   && claude --dangerously-skip-permissions "Read CLAUDE.md, then briefs/A-ideation.md, and do it."
+cd ../mise-b-generation && claude --dangerously-skip-permissions "Read CLAUDE.md, then briefs/B-generation.md, and do it."
+cd ../mise-d-sim        && claude --dangerously-skip-permissions "Read CLAUDE.md, then briefs/D-sim.md, and do it."
+cd ../mise-e-predict    && claude --dangerously-skip-permissions "Read CLAUDE.md, then briefs/E-predict.md, and do it."
 ```
 
 Lane ports: A on 5261, B on 5262, D on 5263, E on 5264 (API on 8861 to 8864). `main` stays on 5173 and 8787.
