@@ -66,7 +66,23 @@ function Steps({ b }: { b: Extract<Block, { kind: 'steps' }> }) {
         <span style={{ color: working ? 'var(--ink-2)' : 'var(--ink-3)' }}>
           <Svg size={14} fill>{Icon.spark}</Svg>
         </span>
-        <span className="text-[13px] font-medium whitespace-nowrap text-ink-2">{working ? 'Working' : `Worked for ${secs}s`}</span>
+        {working ? (
+          // Beautiful UI ThinkingState shimmer: a light band sweeps the label while the agent works.
+          <span
+            className="bg-clip-text text-[13px] font-medium whitespace-nowrap text-transparent"
+            style={{
+              backgroundImage: 'linear-gradient(90deg, var(--ink-3) 35%, var(--ink) 50%, var(--ink-3) 65%)',
+              backgroundSize: '200% 100%',
+              animation: 'shimmer-text 1.4s linear infinite',
+            }}
+          >
+            Working
+          </span>
+        ) : (
+          <span className="text-[13px] font-medium whitespace-nowrap text-ink-2" style={{ animation: 'fade-in 350ms ease-out both' }}>
+            Worked for {secs}s
+          </span>
+        )}
         <span className="text-ink-3 transition-transform duration-200" style={{ transform: expanded ? 'rotate(180deg)' : 'none' }}>
           <Svg size={13}>{Icon.chevron}</Svg>
         </span>
