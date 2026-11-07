@@ -1,0 +1,12 @@
+{
+  "name": "@mise/shared",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./contracts.ts",
+    "./contracts": "./contracts.ts"
+  },
+  "dependencies": {
+    "zod": "^4.6.7"
+  }
+}

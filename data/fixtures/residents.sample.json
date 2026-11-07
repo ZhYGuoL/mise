@@ -1,0 +1,888 @@
+[
+ {
+  "id": "r00000",
+  "name": "Priya",
+  "age": 20,
+  "segment": "undergrad",
+  "household": "roommates",
+  "incomeBand": "<25k",
+  "tractId": "42003040500",
+  "home": {
+   "lat": 40.44262,
+   "lon": -79.94242
+  },
+  "diet": [
+   "halal"
+  ],
+  "budgetPerMeal": 12,
+  "weights": {
+   "price": -0.35,
+   "time": -0.026,
+   "rating": 0.38,
+   "habit": 1.14,
+   "novelty": 0.57,
+   "cuisine": {
+    "fried_chicken": 1.44,
+    "chinese": -0.88,
+    "korean": 1.15,
+    "mexican": -0.28,
+    "japanese": -0.64
+   }
+  },
+  "ordersPerWeek": 0.9,
+  "favorites": [
+   "0x8834f229c1916861:0x53f4274779962c46",
+   "0x8834f30cf1cff84d:0xe440b270e9df0120",
+   "0x8834f1ff11ba608d:0x78c29b1261d9ac8"
+  ],
+  "persona": "Priya, 20. Orders late after studio or problem sets, splits with roommates when it's cheap."
+ },
+ {
+  "id": "r00001",
+  "name": "Marcus",
+  "age": 26,
+  "segment": "grad_student",
+  "household": "roommates",
+  "incomeBand": "25-50k",
+  "tractId": "42003070300",
+  "home": {
+   "lat": 40.43634,
+   "lon": -79.95047
+  },
+  "diet": [
+   "vegan"
+  ],
+  "budgetPerMeal": 14,
+  "weights": {
+   "price": -0.36,
+   "time": -0.094,
+   "rating": 0.63,
+   "habit": 0.87,
+   "novelty": -0.27,
+   "cuisine": {
+    "chinese": 0.82,
+    "fried_chicken": -0.28,
+    "thai": 1.45,
+    "american": -0.7,
+    "pizza": 0.05
+   }
+  },
+  "ordersPerWeek": 3.1,
+  "favorites": [
+   "0x8834f1001167594b:0x48c24faab8d7ef8e",
+   "0x8834f2299519ad27:0xd14a95c133f1ee16",
+   "0x8834f21107ea90c3:0xb858a40846dae014"
+  ],
+  "persona": "Marcus, 26. Long lab days, orders dinner twice a week, watches the delivery fee."
+ },
+ {
+  "id": "r00002",
+  "name": "Wei",
+  "age": 32,
+  "segment": "young_professional",
+  "household": "alone",
+  "incomeBand": "50-100k",
+  "tractId": "42003040500",
+  "home": {
+   "lat": 40.43745,
+   "lon": -79.95236
+  },
+  "diet": [],
+  "budgetPerMeal": 24,
+  "weights": {
+   "price": -0.58,
+   "time": -0.058,
+   "rating": 0.9,
+   "habit": 0.59,
+   "novelty": 0.41,
+   "cuisine": {
+    "sandwich": -0.04,
+    "mediterranean": 0.67,
+    "american": -0.94,
+    "thai": 0.15,
+    "indian": -0.58
+   }
+  },
+  "ordersPerWeek": 0.9,
+  "favorites": [
+   "0x8834f2471009e6ef:0x32be1e1d570493b",
+   "0x8834f210d21b6b57:0xaa8f83a6511e4d50",
+   "0x8834f229e7c1281b:0x2e51f875346ecbbf"
+  ],
+  "persona": "Wei, 32. Works downtown, orders when it rains or after the gym."
+ },
+ {
+  "id": "r00003",
+  "name": "Sofia",
+  "age": 44,
+  "segment": "family",
+  "household": "family_with_kids",
+  "incomeBand": "100k+",
+  "tractId": "42003140100",
+  "home": {
+   "lat": 40.43681,
+   "lon": -79.94104
+  },
+  "diet": [],
+  "budgetPerMeal": 44,
+  "weights": {
+   "price": -0.28,
+   "time": -0.053,
+   "rating": 0.62,
+   "habit": 1.83,
+   "novelty": 0.75,
+   "cuisine": {
+    "pizza": 0.65,
+    "fried_chicken": -0.97,
+    "sandwich": 1.08,
+    "japanese": -0.54,
+    "mediterranean": -0.3
+   }
+  },
+  "ordersPerWeek": 1.0,
+  "favorites": [
+   "0x8834f247388af59b:0x162dd2cc244eee43",
+   "0x8834f211a8bd839f:0x3f7f1d0ae057d773",
+   "0x8834f229eaaa8f6f:0x9876bf9677550ffb"
+  ],
+  "persona": "Sofia, 44. Orders for four on Fridays, cares about portions and kids' options."
+ },
+ {
+  "id": "r00004",
+  "name": "Jake",
+  "age": 33,
+  "segment": "young_professional",
+  "household": "partner",
+  "incomeBand": "50-100k",
+  "tractId": "42003040500",
+  "home": {
+   "lat": 40.43918,
+   "lon": -79.93902
+  },
+  "diet": [
+   "vegan"
+  ],
+  "budgetPerMeal": 25,
+  "weights": {
+   "price": -0.24,
+   "time": -0.099,
+   "rating": 0.7,
+   "habit": 0.66,
+   "novelty": 0.28,
+   "cuisine": {
+    "fried_chicken": 0.53,
+    "korean": -0.82,
+    "pizza": -0.48,
+    "sandwich": -0.06,
+    "japanese": 0.59
+   }
+  },
+  "ordersPerWeek": 3.8,
+  "favorites": [
+   "0x8834f2299548a83f:0x2d9cadb877988244",
+   "0x8834edf52ca98b5f:0xedd9a20ba850dce4",
+   "0x8834f3003073fa6f:0x1d49fddcbba11adf"
+  ],
+  "persona": "Jake, 33. Works downtown, orders when it rains or after the gym."
+ },
+ {
+  "id": "r00005",
+  "name": "Aisha",
+  "age": 18,
+  "segment": "undergrad",
+  "household": "roommates",
+  "incomeBand": "<25k",
+  "tractId": "42003040600",
+  "home": {
+   "lat": 40.45016,
+   "lon": -79.93191
+  },
+  "diet": [],
+  "budgetPerMeal": 12,
+  "weights": {
+   "price": -0.38,
+   "time": -0.036,
+   "rating": 1.16,
+   "habit": 1.04,
+   "novelty": 0.4,
+   "cuisine": {
+    "korean": 1.11,
+    "japanese": 0.3,
+    "thai": 1.27,
+    "fried_chicken": -0.11,
+    "indian": -0.44
+   }
+  },
+  "ordersPerWeek": 2.4,
+  "favorites": [
+   "0x8834f229eb85879d:0x7d9dde6f183cf1a6",
+   "0x8834f229c08ed2db:0x10f61c9bebef4098",
+   "0x8834f210c4f9aaab:0x98ce43a75a59ca7b"
+  ],
+  "persona": "Aisha, 18. Orders late after studio or problem sets, splits with roommates when it's cheap."
+ },
+ {
+  "id": "r00006",
+  "name": "Daniel",
+  "age": 29,
+  "segment": "grad_student",
+  "household": "roommates",
+  "incomeBand": "25-50k",
+  "tractId": "42003070300",
+  "home": {
+   "lat": 40.44184,
+   "lon": -79.97501
+  },
+  "diet": [
+   "vegetarian"
+  ],
+  "budgetPerMeal": 18,
+  "weights": {
+   "price": -0.24,
+   "time": -0.068,
+   "rating": 0.61,
+   "habit": 1.71,
+   "novelty": 0.44,
+   "cuisine": {
+    "indian": -0.43,
+    "sandwich": -0.51,
+    "fried_chicken": -0.49,
+    "chinese": 0.56,
+    "korean": 1.25
+   }
+  },
+  "ordersPerWeek": 3.4,
+  "favorites": [
+   "0x8834f187a052cc1f:0x78ee782c5cee73b6",
+   "0x8834f274a8134971:0x101414de3fc82f2f",
+   "0x8834f27351bdcf7f:0x56d5c1121206cad0"
+  ],
+  "persona": "Daniel, 29. Long lab days, orders dinner twice a week, watches the delivery fee."
+ },
+ {
+  "id": "r00007",
+  "name": "Mei",
+  "age": 21,
+  "segment": "undergrad",
+  "household": "roommates",
+  "incomeBand": "<25k",
+  "tractId": "42003070800",
+  "home": {
+   "lat": 40.4564,
+   "lon": -79.93247
+  },
+  "diet": [
+   "vegan"
+  ],
+  "budgetPerMeal": 16,
+  "weights": {
+   "price": -0.48,
+   "time": -0.027,
+   "rating": 0.44,
+   "habit": 1.99,
+   "novelty": -0.46,
+   "cuisine": {
+    "mediterranean": 1.34,
+    "american": -0.61,
+    "pizza": 0.37,
+    "sandwich": -0.95,
+    "indian": 1.0
+   }
+  },
+  "ordersPerWeek": 3.0,
+  "favorites": [
+   "0x8834f2000885e71b:0x5c9bea6c6387a04d",
+   "0x8834f24714cafc2d:0x6743f418dd59bde8",
+   "0x8834f16dc8903f0f:0xbf2cb89d3b0a43c6"
+  ],
+  "persona": "Mei, 21. Orders late after studio or problem sets, splits with roommates when it's cheap."
+ },
+ {
+  "id": "r00008",
+  "name": "Omar",
+  "age": 40,
+  "segment": "family",
+  "household": "family_with_kids",
+  "incomeBand": "100k+",
+  "tractId": "42003040500",
+  "home": {
+   "lat": 40.44446,
+   "lon": -79.95385
+  },
+  "diet": [],
+  "budgetPerMeal": 45,
+  "weights": {
+   "price": -0.56,
+   "time": -0.048,
+   "rating": 0.71,
+   "habit": 1.38,
+   "novelty": 0.68,
+   "cuisine": {
+    "mexican": 0.28,
+    "japanese": 1.18,
+    "pizza": 0.94,
+    "mediterranean": 0.52,
+    "thai": 0.94
+   }
+  },
+  "ordersPerWeek": 1.0,
+  "favorites": [
+   "0x8834f3e885b69ca5:0x2bc9d1d8d32d0a43",
+   "0x8834f3003073fa6f:0x1d49fddcbba11adf",
+   "0x8834f201d8eff2b1:0x8300ae30e6f64a87"
+  ],
+  "persona": "Omar, 40. Orders for four on Fridays, cares about portions and kids' options."
+ },
+ {
+  "id": "r00009",
+  "name": "Hannah",
+  "age": 20,
+  "segment": "undergrad",
+  "household": "roommates",
+  "incomeBand": "<25k",
+  "tractId": "42003140100",
+  "home": {
+   "lat": 40.44405,
+   "lon": -79.93695
+  },
+  "diet": [],
+  "budgetPerMeal": 11,
+  "weights": {
+   "price": -0.16,
+   "time": -0.092,
+   "rating": 0.36,
+   "habit": 0.99,
+   "novelty": 0.77,
+   "cuisine": {
+    "mediterranean": 0.27,
+    "japanese": 1.02,
+    "chinese": 0.27,
+    "thai": -0.38,
+    "sandwich": 0.31
+   }
+  },
+  "ordersPerWeek": 3.6,
+  "favorites": [
+   "0x8834f2298ca23ea7:0x25889e2ec68121c1",
+   "0x8834f30cf1cff84d:0xe440b270e9df0120",
+   "0x8834f210dfe82e2f:0xd21b7c032976c0f9"
+  ],
+  "persona": "Hannah, 20. Orders late after studio or problem sets, splits with roommates when it's cheap."
+ },
+ {
+  "id": "r00010",
+  "name": "Luis",
+  "age": 44,
+  "segment": "family",
+  "household": "family_with_kids",
+  "incomeBand": "100k+",
+  "tractId": "42003040500",
+  "home": {
+   "lat": 40.44098,
+   "lon": -79.9543
+  },
+  "diet": [],
+  "budgetPerMeal": 43,
+  "weights": {
+   "price": -0.55,
+   "time": -0.032,
+   "rating": 0.94,
+   "habit": 1.49,
+   "novelty": -0.31,
+   "cuisine": {
+    "pizza": 1.21,
+    "american": -0.59,
+    "chinese": 0.67,
+    "fried_chicken": -0.44,
+    "japanese": 0.77
+   }
+  },
+  "ordersPerWeek": 4.0,
+  "favorites": [
+   "0x8834f2269e5af495:0xd2b178a16b338072",
+   "0x8834f39b00a083bf:0x3e546e5b364208e1",
+   "0x8834f21107ea90c3:0xb858a40846dae014"
+  ],
+  "persona": "Luis, 44. Orders for four on Fridays, cares about portions and kids' options."
+ },
+ {
+  "id": "r00011",
+  "name": "Grace",
+  "age": 28,
+  "segment": "grad_student",
+  "household": "roommates",
+  "incomeBand": "25-50k",
+  "tractId": "42003140100",
+  "home": {
+   "lat": 40.44293,
+   "lon": -79.9443
+  },
+  "diet": [],
+  "budgetPerMeal": 20,
+  "weights": {
+   "price": -0.58,
+   "time": -0.029,
+   "rating": 1.13,
+   "habit": 0.84,
+   "novelty": 0.64,
+   "cuisine": {
+    "fried_chicken": -0.55,
+    "thai": 0.89,
+    "mediterranean": 1.05,
+    "korean": 1.12,
+    "mexican": 0.69
+   }
+  },
+  "ordersPerWeek": 3.8,
+  "favorites": [
+   "0x8834f2269e5af495:0xd2b178a16b338072",
+   "0x8834f1001167594b:0x48c24faab8d7ef8e",
+   "0x8834f247388af59b:0x162dd2cc244eee43"
+  ],
+  "persona": "Grace, 28. Long lab days, orders dinner twice a week, watches the delivery fee."
+ },
+ {
+  "id": "r00012",
+  "name": "Ethan",
+  "age": 33,
+  "segment": "family",
+  "household": "family_with_kids",
+  "incomeBand": "100k+",
+  "tractId": "42003040500",
+  "home": {
+   "lat": 40.44387,
+   "lon": -79.94317
+  },
+  "diet": [
+   "vegetarian"
+  ],
+  "budgetPerMeal": 43,
+  "weights": {
+   "price": -0.42,
+   "time": -0.038,
+   "rating": 0.54,
+   "habit": 0.68,
+   "novelty": -0.48,
+   "cuisine": {
+    "japanese": 0.32,
+    "mexican": -0.4,
+    "thai": -0.73,
+    "pizza": -0.6,
+    "korean": -0.87
+   }
+  },
+  "ordersPerWeek": 1.2,
+  "favorites": [
+   "0x8834f229c1916861:0x53f4274779962c46",
+   "0x8834f24714cafc2d:0x6743f418dd59bde8",
+   "0x8834f210fe81462b:0xae2577e047da3765"
+  ],
+  "persona": "Ethan, 33. Orders for four on Fridays, cares about portions and kids' options."
+ },
+ {
+  "id": "r00013",
+  "name": "Yuki",
+  "age": 34,
+  "segment": "young_professional",
+  "household": "alone",
+  "incomeBand": "50-100k",
+  "tractId": "42003140100",
+  "home": {
+   "lat": 40.44565,
+   "lon": -79.94509
+  },
+  "diet": [],
+  "budgetPerMeal": 19,
+  "weights": {
+   "price": -0.36,
+   "time": -0.095,
+   "rating": 0.4,
+   "habit": 1.73,
+   "novelty": 0.06,
+   "cuisine": {
+    "american": -0.46,
+    "japanese": -0.43,
+    "mexican": -0.5,
+    "thai": 1.2,
+    "indian": 0.82
+   }
+  },
+  "ordersPerWeek": 1.0,
+  "favorites": [
+   "0x8834f274a8134971:0x101414de3fc82f2f",
+   "0x8834f3000273994d:0xb436b4f0898b9ff1",
+   "0x8834f3dc3e1ed587:0xdc4beebd39c163b1"
+  ],
+  "persona": "Yuki, 34. Works downtown, orders when it rains or after the gym."
+ },
+ {
+  "id": "r00014",
+  "name": "Noah",
+  "age": 18,
+  "segment": "undergrad",
+  "household": "roommates",
+  "incomeBand": "<25k",
+  "tractId": "42003070300",
+  "home": {
+   "lat": 40.45014,
+   "lon": -79.95583
+  },
+  "diet": [],
+  "budgetPerMeal": 17,
+  "weights": {
+   "price": -0.17,
+   "time": -0.035,
+   "rating": 0.54,
+   "habit": 0.51,
+   "novelty": -0.03,
+   "cuisine": {
+    "indian": 1.41,
+    "japanese": -0.23,
+    "sandwich": -0.11,
+    "chinese": -1.0,
+    "korean": -0.05
+   }
+  },
+  "ordersPerWeek": 2.2,
+  "favorites": [
+   "0x8834f229eb85879d:0x7d9dde6f183cf1a6",
+   "0x8834f210dfe82e2f:0xd21b7c032976c0f9",
+   "0x8834f23c0ba04f23:0x58570035b87f1ec"
+  ],
+  "persona": "Noah, 18. Orders late after studio or problem sets, splits with roommates when it's cheap."
+ },
+ {
+  "id": "r00015",
+  "name": "Fatima",
+  "age": 18,
+  "segment": "undergrad",
+  "household": "roommates",
+  "incomeBand": "<25k",
+  "tractId": "42003140100",
+  "home": {
+   "lat": 40.44002,
+   "lon": -79.93978
+  },
+  "diet": [
+   "halal"
+  ],
+  "budgetPerMeal": 11,
+  "weights": {
+   "price": -0.58,
+   "time": -0.088,
+   "rating": 0.44,
+   "habit": 1.84,
+   "novelty": 0.52,
+   "cuisine": {
+    "mediterranean": -0.29,
+    "mexican": 0.55,
+    "indian": -0.64,
+    "american": 1.06,
+    "fried_chicken": 0.79
+   }
+  },
+  "ordersPerWeek": 2.3,
+  "favorites": [
+   "0x8834f31854c4d015:0xb54ba173e2297fcc",
+   "0x8834f229eb85879d:0x7d9dde6f183cf1a6",
+   "0x8834f16dc8903f0f:0xbf2cb89d3b0a43c6"
+  ],
+  "persona": "Fatima, 18. Orders late after studio or problem sets, splits with roommates when it's cheap."
+ },
+ {
+  "id": "r00016",
+  "name": "Ben",
+  "age": 22,
+  "segment": "undergrad",
+  "household": "roommates",
+  "incomeBand": "<25k",
+  "tractId": "42003040500",
+  "home": {
+   "lat": 40.44965,
+   "lon": -79.94745
+  },
+  "diet": [],
+  "budgetPerMeal": 16,
+  "weights": {
+   "price": -0.43,
+   "time": -0.074,
+   "rating": 0.74,
+   "habit": 0.5,
+   "novelty": 0.54,
+   "cuisine": {
+    "japanese": 0.84,
+    "sandwich": -0.37,
+    "fried_chicken": -0.81,
+    "mediterranean": -0.34,
+    "indian": 0.82
+   }
+  },
+  "ordersPerWeek": 1.2,
+  "favorites": [
+   "0x8834f20011b3bf63:0xbcefd93286afbd9e",
+   "0x8834f229952e1931:0xeb459d805bb47d15",
+   "0x8834f211af1bfba7:0xf0256f5bde7f87cb"
+  ],
+  "persona": "Ben, 22. Orders late after studio or problem sets, splits with roommates when it's cheap."
+ },
+ {
+  "id": "r00017",
+  "name": "Chloe",
+  "age": 21,
+  "segment": "undergrad",
+  "household": "roommates",
+  "incomeBand": "<25k",
+  "tractId": "42003040500",
+  "home": {
+   "lat": 40.43972,
+   "lon": -79.93235
+  },
+  "diet": [
+   "halal"
+  ],
+  "budgetPerMeal": 13,
+  "weights": {
+   "price": -0.37,
+   "time": -0.059,
+   "rating": 1.18,
+   "habit": 0.65,
+   "novelty": -0.22,
+   "cuisine": {
+    "american": 0.16,
+    "thai": 0.92,
+    "japanese": 1.48,
+    "mediterranean": 0.37,
+    "chinese": -0.22
+   }
+  },
+  "ordersPerWeek": 0.8,
+  "favorites": [
+   "0x8834f3003073fa6f:0x1d49fddcbba11adf",
+   "0x8834f1059d07cacb:0x7658f44799940dc5",
+   "0x8834f3e789295135:0x2a38e4df9ab1db4d"
+  ],
+  "persona": "Chloe, 21. Orders late after studio or problem sets, splits with roommates when it's cheap."
+ },
+ {
+  "id": "r00018",
+  "name": "Arjun",
+  "age": 40,
+  "segment": "family",
+  "household": "family_with_kids",
+  "incomeBand": "100k+",
+  "tractId": "42003040600",
+  "home": {
+   "lat": 40.44633,
+   "lon": -79.94303
+  },
+  "diet": [],
+  "budgetPerMeal": 45,
+  "weights": {
+   "price": -0.42,
+   "time": -0.071,
+   "rating": 0.55,
+   "habit": 0.67,
+   "novelty": -0.03,
+   "cuisine": {
+    "american": -0.99,
+    "sandwich": 0.23,
+    "mexican": 0.13,
+    "korean": -0.25,
+    "fried_chicken": -0.65
+   }
+  },
+  "ordersPerWeek": 1.7,
+  "favorites": [
+   "0x8834f229c05ca4c3:0x2f7f14f7c3abbe8",
+   "0x8834f201d8eff2b1:0x8300ae30e6f64a87",
+   "0x8834f229c08ed2db:0x10f61c9bebef4098"
+  ],
+  "persona": "Arjun, 40. Orders for four on Fridays, cares about portions and kids' options."
+ },
+ {
+  "id": "r00019",
+  "name": "Maya",
+  "age": 20,
+  "segment": "undergrad",
+  "household": "roommates",
+  "incomeBand": "<25k",
+  "tractId": "42003070800",
+  "home": {
+   "lat": 40.44804,
+   "lon": -79.9498
+  },
+  "diet": [
+   "vegan"
+  ],
+  "budgetPerMeal": 11,
+  "weights": {
+   "price": -0.33,
+   "time": -0.09,
+   "rating": 0.37,
+   "habit": 1.89,
+   "novelty": 0.48,
+   "cuisine": {
+    "korean": 0.65,
+    "thai": 0.59,
+    "fried_chicken": -0.63,
+    "sandwich": 1.43,
+    "mexican": 0.09
+   }
+  },
+  "ordersPerWeek": 1.6,
+  "favorites": [
+   "0x8834f211a8bd839f:0x3f7f1d0ae057d773",
+   "0x8834f31854c4d015:0xb54ba173e2297fcc",
+   "0x8834f39e74925be5:0x794635a23300a098"
+  ],
+  "persona": "Maya, 20. Orders late after studio or problem sets, splits with roommates when it's cheap."
+ },
+ {
+  "id": "r00020",
+  "name": "Tom",
+  "age": 34,
+  "segment": "family",
+  "household": "family_with_kids",
+  "incomeBand": "100k+",
+  "tractId": "42003040500",
+  "home": {
+   "lat": 40.43445,
+   "lon": -79.93992
+  },
+  "diet": [
+   "vegan"
+  ],
+  "budgetPerMeal": 48,
+  "weights": {
+   "price": -0.56,
+   "time": -0.064,
+   "rating": 0.45,
+   "habit": 1.12,
+   "novelty": -0.13,
+   "cuisine": {
+    "thai": 0.21,
+    "sandwich": 0.67,
+    "mexican": -0.7,
+    "chinese": 0.61,
+    "pizza": -0.81
+   }
+  },
+  "ordersPerWeek": 2.3,
+  "favorites": [
+   "0x8834f229952e1931:0xeb459d805bb47d15",
+   "0x8834f20008064247:0x3b4568c3d0f2e8bc",
+   "0x8834f210c4f9aaab:0x98ce43a75a59ca7b"
+  ],
+  "persona": "Tom, 34. Orders for four on Fridays, cares about portions and kids' options."
+ },
+ {
+  "id": "r00021",
+  "name": "Lena",
+  "age": 36,
+  "segment": "family",
+  "household": "family_with_kids",
+  "incomeBand": "100k+",
+  "tractId": "42003040600",
+  "home": {
+   "lat": 40.44862,
+   "lon": -79.94006
+  },
+  "diet": [],
+  "budgetPerMeal": 45,
+  "weights": {
+   "price": -0.32,
+   "time": -0.085,
+   "rating": 0.48,
+   "habit": 0.53,
+   "novelty": 0.63,
+   "cuisine": {
+    "mexican": -0.32,
+    "sandwich": 0.88,
+    "japanese": 0.25,
+    "chinese": 0.44,
+    "american": -0.1
+   }
+  },
+  "ordersPerWeek": 2.9,
+  "favorites": [
+   "0x8834f24714cafc2d:0x6743f418dd59bde8",
+   "0x8834f210d21b6b57:0xaa8f83a6511e4d50",
+   "0x8834f229ba22fc8d:0x85055234ab02e7b"
+  ],
+  "persona": "Lena, 36. Orders for four on Fridays, cares about portions and kids' options."
+ },
+ {
+  "id": "r00022",
+  "name": "Kevin",
+  "age": 30,
+  "segment": "young_professional",
+  "household": "partner",
+  "incomeBand": "50-100k",
+  "tractId": "42003040500",
+  "home": {
+   "lat": 40.4484,
+   "lon": -79.93745
+  },
+  "diet": [],
+  "budgetPerMeal": 19,
+  "weights": {
+   "price": -0.18,
+   "time": -0.094,
+   "rating": 1.14,
+   "habit": 1.29,
+   "novelty": 0.11,
+   "cuisine": {
+    "american": -0.62,
+    "chinese": 1.43,
+    "fried_chicken": -0.73,
+    "mediterranean": 1.06,
+    "japanese": 0.75
+   }
+  },
+  "ordersPerWeek": 3.5,
+  "favorites": [
+   "0x8834f20011b3bf63:0xbcefd93286afbd9e",
+   "0x8834f27351bdcf7f:0x56d5c1121206cad0",
+   "0x8834f20008064247:0x3b4568c3d0f2e8bc"
+  ],
+  "persona": "Kevin, 30. Works downtown, orders when it rains or after the gym."
+ },
+ {
+  "id": "r00023",
+  "name": "Rosa",
+  "age": 18,
+  "segment": "undergrad",
+  "household": "roommates",
+  "incomeBand": "<25k",
+  "tractId": "42003040500",
+  "home": {
+   "lat": 40.45219,
+   "lon": -79.94828
+  },
+  "diet": [
+   "vegan"
+  ],
+  "budgetPerMeal": 15,
+  "weights": {
+   "price": -0.18,
+   "time": -0.062,
+   "rating": 0.82,
+   "habit": 1.08,
+   "novelty": -0.21,
+   "cuisine": {
+    "mediterranean": -0.3,
+    "korean": -0.21,
+    "sandwich": 1.1,
+    "thai": -0.39,
+    "chinese": 0.32
+   }
+  },
+  "ordersPerWeek": 2.4,
+  "favorites": [
+   "0x8834f39e74925be5:0x794635a23300a098",
+   "0x8834f23acdb804cf:0x7a182d241191641a",
+   "0x8834f229c1916861:0x53f4274779962c46"
+  ],
+  "persona": "Rosa, 18. Orders late after studio or problem sets, splits with roommates when it's cheap."
+ }
+]

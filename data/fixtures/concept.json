@@ -1,0 +1,154 @@
+{
+ "id": "crunch-house",
+ "version": 3,
+ "name": "Crunch House",
+ "tagline": "Double-fried Korean chicken, open late on Forbes.",
+ "cuisine": [
+  "korean",
+  "fried_chicken"
+ ],
+ "location": {
+  "lat": 40.44415,
+  "lon": -79.94895,
+  "address": "Forbes Ave near S Craig St, Pittsburgh, PA 15213",
+  "neighborhood": "North Oakland"
+ },
+ "hours": {
+  "Sunday": {
+   "open": "11:00",
+   "close": "23:00"
+  },
+  "Monday": {
+   "open": "11:00",
+   "close": "23:00"
+  },
+  "Tuesday": {
+   "open": "11:00",
+   "close": "23:00"
+  },
+  "Wednesday": {
+   "open": "11:00",
+   "close": "23:00"
+  },
+  "Thursday": {
+   "open": "11:00",
+   "close": "02:00"
+  },
+  "Friday": {
+   "open": "11:00",
+   "close": "02:00"
+  },
+  "Saturday": {
+   "open": "11:00",
+   "close": "02:00"
+  }
+ },
+ "priceTier": 2,
+ "deliveryFee": 2.99,
+ "serviceFeePct": 12,
+ "menu": [
+  {
+   "id": "m1",
+   "name": "Soy Garlic Wings (10)",
+   "description": "Double-fried wings glazed in soy, garlic and a little brown sugar.",
+   "price": 13.5,
+   "category": "main",
+   "tags": [
+    "late_night"
+   ],
+   "imagePrompt": "glossy soy garlic Korean fried chicken wings in a kraft paper box, overhead, soft daylight",
+   "imageUrl": null
+  },
+  {
+   "id": "m2",
+   "name": "Yangnyeom Thighs",
+   "description": "Boneless thighs in sweet-spicy gochujang glaze, sesame on top.",
+   "price": 12.0,
+   "category": "main",
+   "tags": [
+    "spicy",
+    "late_night"
+   ],
+   "imagePrompt": "boneless Korean fried chicken thighs in red gochujang glaze with sesame seeds",
+   "imageUrl": null
+  },
+  {
+   "id": "m3",
+   "name": "Chicken Rice Bowl",
+   "description": "Crispy chicken over rice with pickled radish and scallion.",
+   "price": 11.0,
+   "category": "main",
+   "tags": [],
+   "imagePrompt": "Korean fried chicken rice bowl with pickled radish and scallions, takeout bowl",
+   "imageUrl": null
+  },
+  {
+   "id": "m4",
+   "name": "Crispy Tofu Bowl",
+   "description": "Fried tofu, gochujang glaze, rice and slaw.",
+   "price": 10.5,
+   "category": "main",
+   "tags": [
+    "vegetarian",
+    "vegan"
+   ],
+   "imagePrompt": "crispy gochujang tofu rice bowl with slaw, takeout bowl",
+   "imageUrl": null
+  },
+  {
+   "id": "m5",
+   "name": "Tteokbokki",
+   "description": "Chewy rice cakes in spicy sauce with fish cake.",
+   "price": 8.0,
+   "category": "side",
+   "tags": [
+    "spicy"
+   ],
+   "imagePrompt": "tteokbokki rice cakes in red sauce in a takeout container",
+   "imageUrl": null
+  },
+  {
+   "id": "m6",
+   "name": "Late Night Combo",
+   "description": "6 wings, fries and a soda. After 10 PM.",
+   "price": 11.0,
+   "category": "combo",
+   "tags": [
+    "late_night"
+   ],
+   "imagePrompt": "Korean fried chicken wings, fries and a soda can, takeout combo",
+   "imageUrl": null
+  }
+ ],
+ "brand": {
+  "logoUrl": null,
+  "logoPrompt": "flat two-color wordmark logo for a Korean fried chicken shop called Crunch House",
+  "colors": {
+   "primary": "#E4472B",
+   "background": "#FFF8F0",
+   "ink": "#1F1B18"
+  },
+  "voice": "Short, warm, a little loud. Talks like the guy at the counter at 1 AM."
+ },
+ "promos": [
+  {
+   "id": "p1",
+   "description": "$2 off any bowl at lunch on weekdays",
+   "appliesTo": [
+    "m3",
+    "m4"
+   ],
+   "days": [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday"
+   ],
+   "hours": [
+    "11:00",
+    "14:00"
+   ]
+  }
+ ]
+}
