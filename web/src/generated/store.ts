@@ -122,6 +122,8 @@ export const useGeneration = create<GenState>()((set, get) => {
     tasks: {},
 
     ensure: (concept, target) => {
+      // Real images (an imported restaurant's own logo or photos) are never regenerated.
+      if (target === 'logo' ? concept.brand.logoUrl : concept.menu.find((m) => m.id === target)?.imageUrl) return
       const task = get().tasks[taskKey(concept.id, target)]
       if (task && task.inputKey === inputKey(concept, target)) return
       void start(concept, target, false)

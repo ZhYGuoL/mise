@@ -56,71 +56,135 @@
   "serviceFeePct": 14,
   "menu": [
    {
-    "id": "m1",
-    "name": "Street Noodle 1",
-    "description": "Rice noodles with Thai fried chicken, Chinese broccoli, bean sprouts, cilantro, and a sweet and tangy lime juice sauce.",
-    "price": 15.75,
-    "category": "main",
-    "tags": [],
-    "imagePrompt": "A takeout container of rice noodles topped with crispy Thai fried chicken, Chinese broccoli, bean sprouts, and cilantro, in a clear plastic bowl with a lid and paper bag",
-    "imageUrl": null
-   },
-   {
-    "id": "m2",
-    "name": "Street Noodle 2",
-    "description": "Thin egg noodles with tempura shrimp, Chinese broccoli, bean sprouts, cilantro, and soy and lime sauce.",
-    "price": 15.75,
-    "category": "main",
-    "tags": [],
-    "imagePrompt": "A takeout container of thin egg noodles with golden tempura shrimp, Chinese broccoli, bean sprouts, and cilantro, in a clear plastic bowl with a lid and paper bag",
-    "imageUrl": null
-   },
-   {
-    "id": "m3",
-    "name": "Pad Thai",
-    "description": "Rice noodles with your choice of chicken, shrimp, tofu, or vegetables, egg, bean sprouts, peanuts, scallions, and tamarind sauce.",
-    "price": 15.75,
-    "category": "main",
-    "tags": [],
-    "imagePrompt": "A takeout container of pad thai rice noodles with egg, bean sprouts, crushed peanuts, and scallions, in a foil tray with a lid and paper bag",
-    "imageUrl": null
-   },
-   {
-    "id": "m4",
-    "name": "Green Curry",
-    "description": "A rich and creamy green curry with sweet peppers, eggplant, broccoli, and green beans, served with white rice.",
-    "price": 15.75,
-    "category": "main",
-    "tags": [],
-    "imagePrompt": "A takeout container of creamy green curry with eggplant, peppers, broccoli, and green beans beside a mound of white rice, in a sealed plastic container with a paper bag",
-    "imageUrl": null
-   },
-   {
-    "id": "m5",
-    "name": "Kapow Basil",
-    "description": "Thai basil stir-fry with garlic, peppers, chilies, and a fried egg, served with white rice.",
-    "price": 15.75,
-    "category": "main",
+    "id": "n1",
+    "name": "Veggie Spring Rolls (2)",
+    "description": "Crispy vegetable spring rolls.",
+    "price": 5.5,
+    "category": "side",
     "tags": [
-     "spicy"
+     "vegetarian"
     ],
-    "imagePrompt": "A takeout container of Thai basil stir-fry with peppers, chilies, and a fried egg over white rice, in a foil tray with a lid and paper bag",
+    "imagePrompt": "Veggie Spring Rolls (2): Crispy vegetable spring rolls.. Overhead photo, takeout container on a light wood table, soft daylight",
     "imageUrl": null
    },
    {
-    "id": "m6",
-    "name": "Khao Mun Fried Chicken",
-    "description": "Fried chicken in a light, flavorful chicken broth with sweet and sour sauce, served with white rice.",
-    "price": 15.75,
+    "id": "n2",
+    "name": "Vegetable Curry Puffs (2)",
+    "description": "Flaky pastry filled with curried vegetables.",
+    "price": 7,
+    "category": "side",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "Vegetable Curry Puffs (2): Flaky pastry filled with curried vegetables.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n3",
+    "name": "Fresh Rolls",
+    "description": "Fresh rice paper rolls.",
+    "price": 7,
+    "category": "side",
+    "tags": [],
+    "imagePrompt": "Fresh Rolls: Fresh rice paper rolls.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n4",
+    "name": "Crab Rangoon (5)",
+    "description": "Fried wontons with crab and cream cheese.",
+    "price": 7.4,
+    "category": "side",
+    "tags": [],
+    "imagePrompt": "Crab Rangoon (5): Fried wontons with crab and cream cheese.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n5",
+    "name": "Shrimp in a Blanket (5)",
+    "description": "Shrimp wrapped in crispy pastry.",
+    "price": 7.5,
+    "category": "side",
+    "tags": [],
+    "imagePrompt": "Shrimp in a Blanket (5): Shrimp wrapped in crispy pastry.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n6",
+    "name": "Pork Dumplings (4)",
+    "description": "Steamed pork dumplings.",
+    "price": 7.5,
+    "category": "side",
+    "tags": [],
+    "imagePrompt": "Pork Dumplings (4): Steamed pork dumplings.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n7",
+    "name": "Chive Cakes (6)",
+    "description": "Pan-fried chive cakes.",
+    "price": 7.5,
+    "category": "side",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "Chive Cakes (6): Pan-fried chive cakes.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n8",
+    "name": "Steamed Noodle Roll",
+    "description": "Soft steamed rice noodle roll.",
+    "price": 8,
+    "category": "side",
+    "tags": [],
+    "imagePrompt": "Steamed Noodle Roll: Soft steamed rice noodle roll.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n9",
+    "name": "Pulled Pork Belly Steam Buns (2)",
+    "description": "Steamed buns with pulled pork belly.",
+    "price": 8.4,
+    "category": "side",
+    "tags": [],
+    "imagePrompt": "Pulled Pork Belly Steam Buns (2): Steamed buns with pulled pork belly.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n10",
+    "name": "Thai Fried Chicken",
+    "description": "Crispy Thai-style fried chicken.",
+    "price": 9,
+    "category": "side",
+    "tags": [],
+    "imagePrompt": "Thai Fried Chicken: Crispy Thai-style fried chicken.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n11",
+    "name": "Love Boat",
+    "description": "Thin rice noodles, thinly sliced beef, bean sprouts, cilantro, Chinese broccoli, basil and galangal; authentic Thai style or original Noodlehead style.",
+    "price": 14.75,
     "category": "main",
     "tags": [],
-    "imagePrompt": "A takeout container of fried chicken in light broth beside white rice, with a small cup of sweet and sour sauce, in a sealed container with a paper bag",
+    "imagePrompt": "Love Boat: Thin rice noodles, thinly sliced beef, bean sprouts, cilantro, Chinese broccoli, basil and galangal; authentic Thai style or original Noodlehead style.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n12",
+    "name": "Sukothai",
+    "description": "Rice noodles, honey-roasted pork, meatballs, cilantro, peanuts, green beans, bean sprouts, hard-boiled egg.",
+    "price": 14.75,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "Sukothai: Rice noodles, honey-roasted pork, meatballs, cilantro, peanuts, green beans, bean sprouts, hard-boiled egg.. Overhead photo, takeout container on a light wood table, soft daylight",
     "imageUrl": null
    },
    {
     "id": "m7",
     "name": "Duck Noodle Soup",
-    "description": "Rice noodles with tender duck in a herbal broth, Chinese broccoli, bean sprouts, and a hint of spice.",
+    "description": "Rice noodles, tender duck in a flavorful herbal broth, Chinese broccoli, bean sprouts, cilantro, with a hint of spice.",
     "price": 15.75,
     "category": "main",
     "tags": [
@@ -130,18 +194,258 @@
     "imageUrl": null
    },
    {
+    "id": "n14",
+    "name": "Beef Soup",
+    "description": "Thin rice noodles, tender beef, bean sprouts and Chinese broccoli, infused with Thai herbs and spices.",
+    "price": 16.25,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "Beef Soup: Thin rice noodles, tender beef, bean sprouts and Chinese broccoli, infused with Thai herbs and spices.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "m1",
+    "name": "Street Noodle 1",
+    "description": "Rice noodles, Thai fried chicken, Chinese broccoli, bean sprouts, cilantro, sweet and tangy lime juice sauce.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A takeout container of rice noodles topped with crispy Thai fried chicken, Chinese broccoli, bean sprouts, and cilantro, in a clear plastic bowl with a lid and paper bag",
+    "imageUrl": null
+   },
+   {
+    "id": "m2",
+    "name": "Street Noodle 2",
+    "description": "Thin egg noodles, tempura shrimp, Chinese broccoli, bean sprouts, cilantro, soy sauce, sweet and tangy lime juice sauce.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A takeout container of thin egg noodles with golden tempura shrimp, Chinese broccoli, bean sprouts, and cilantro, in a clear plastic bowl with a lid and paper bag",
+    "imageUrl": null
+   },
+   {
+    "id": "m3",
+    "name": "Pad Thai",
+    "description": "Chicken, shrimp, tofu or vegetables, rice noodles, egg, bean sprouts, peanuts, scallions, tamarind sauce.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "A takeout container of pad thai rice noodles with egg, bean sprouts, crushed peanuts, and scallions, in a foil tray with a lid and paper bag",
+    "imageUrl": null
+   },
+   {
+    "id": "n18",
+    "name": "See Yew",
+    "description": "Chicken, shrimp, tofu or vegetables, big flat rice noodles, egg, broccoli, Chinese broccoli, sweet black soy sauce.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "See Yew: Chicken, shrimp, tofu or vegetables, big flat rice noodles, egg, broccoli, Chinese broccoli, sweet black soy sauce.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n19",
+    "name": "Kee Mao",
+    "description": "Chicken, shrimp, tofu or vegetables, big flat rice noodles, napa cabbage, basil, Chinese broccoli, chili garlic sauce.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [
+     "vegetarian",
+     "spicy"
+    ],
+    "imagePrompt": "Kee Mao: Chicken, shrimp, tofu or vegetables, big flat rice noodles, napa cabbage, basil, Chinese broccoli, chili garlic sauce.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n20",
+    "name": "Chu Chee Curry Fried Chicken",
+    "description": "A Panang-like dry red curry over vegetables with fried chicken, coconut milk, served with white rice.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "Chu Chee Curry Fried Chicken: A Panang-like dry red curry over vegetables with fried chicken, coconut milk, served with white rice.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n21",
+    "name": "Pumpkin Curry",
+    "description": "Chicken breast, shrimp or tofu with Asian pumpkin, hot peppers, basil, red curry and coconut milk, served with white rice.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [
+     "vegetarian",
+     "spicy"
+    ],
+    "imagePrompt": "Pumpkin Curry: Chicken breast, shrimp or tofu with Asian pumpkin, hot peppers, basil, red curry and coconut milk, served with white rice.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "m4",
+    "name": "Green Curry",
+    "description": "Chicken breast, shrimp or tofu in a rich, creamy green curry with sweet peppers, eggplant, broccoli, green beans, coconut milk, served with white rice.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "A takeout container of creamy green curry with eggplant, peppers, broccoli, and green beans beside a mound of white rice, in a sealed plastic container with a paper bag",
+    "imageUrl": null
+   },
+   {
+    "id": "n23",
+    "name": "Khao Soi (Chiang Mai Curry)",
+    "description": "Egg noodles, Thai fried chicken, chicken, shrimp or tofu, pickled mustard greens, crispy shallots, bean sprouts, yellow curry coconut milk sauce.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "Khao Soi (Chiang Mai Curry): Egg noodles, Thai fried chicken, chicken, shrimp or tofu, pickled mustard greens, crispy shallots, bean sprouts, yellow curry coconut milk sauce.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n24",
+    "name": "Kapow Basil Fried Rice",
+    "description": "Chicken, shrimp or tofu with fried egg, Thai basil, garlic, peppers and chilies.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [
+     "spicy"
+    ],
+    "imagePrompt": "Kapow Basil Fried Rice: Chicken, shrimp or tofu with fried egg, Thai basil, garlic, peppers and chilies.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n25",
+    "name": "Thai Style Fried Rice",
+    "description": "Chicken, shrimp, tofu or Thai fried chicken with egg, Chinese broccoli, white onion, scallions, cherry tomatoes, house sauce.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "Thai Style Fried Rice: Chicken, shrimp, tofu or Thai fried chicken with egg, Chinese broccoli, white onion, scallions, cherry tomatoes, house sauce.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n26",
+    "name": "Pineapple Fried Rice",
+    "description": "Chicken, shrimp, tofu or Thai fried chicken with egg, Chinese broccoli, white onion, scallions, cherry tomatoes, house sauce.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "Pineapple Fried Rice: Chicken, shrimp, tofu or Thai fried chicken with egg, Chinese broccoli, white onion, scallions, cherry tomatoes, house sauce.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "m6",
+    "name": "Khao Mun Fried Chicken",
+    "description": "Fried chicken with a light, flavorful chicken broth and sweet and sour sauce, served with white rice.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "A takeout container of fried chicken in light broth beside white rice, with a small cup of sweet and sour sauce, in a sealed container with a paper bag",
+    "imageUrl": null
+   },
+   {
+    "id": "m5",
+    "name": "Kapow Basil",
+    "description": "Thai basil stir-fry with chicken, shrimp or tofu, garlic, peppers, chilies and a fried egg, served with white rice.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [
+     "spicy"
+    ],
+    "imagePrompt": "A takeout container of Thai basil stir-fry with peppers, chilies, and a fried egg over white rice, in a foil tray with a lid and paper bag",
+    "imageUrl": null
+   },
+   {
+    "id": "n29",
+    "name": "Laab",
+    "description": "Chicken, fried chicken or tofu tossed with lime juice, chilis, mint, herbs and roasted rice powder.",
+    "price": 15.75,
+    "category": "main",
+    "tags": [
+     "spicy"
+    ],
+    "imagePrompt": "Laab: Chicken, fried chicken or tofu tossed with lime juice, chilis, mint, herbs and roasted rice powder.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n30",
+    "name": "Khao Ka Moo",
+    "description": "Stewed pork hock and pork belly, hard-boiled egg, steamed Chinese broccoli in 3-flavor sauce, served with steamed rice.",
+    "price": 19,
+    "category": "main",
+    "tags": [],
+    "imagePrompt": "Khao Ka Moo: Stewed pork hock and pork belly, hard-boiled egg, steamed Chinese broccoli in 3-flavor sauce, served with steamed rice.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
     "id": "m8",
     "name": "Thai Iced Tea",
-    "description": "",
+    "description": "Sweet Thai iced tea.",
     "price": 5,
     "category": "drink",
     "tags": [],
     "imagePrompt": "A tall plastic cup of orange Thai iced tea with a straw and lid, in a takeout drink carrier",
     "imageUrl": null
+   },
+   {
+    "id": "n32",
+    "name": "Thai Iced Tea with Boba",
+    "description": "Thai iced tea with boba.",
+    "price": 5.5,
+    "category": "drink",
+    "tags": [],
+    "imagePrompt": "Thai Iced Tea with Boba: Thai iced tea with boba.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n33",
+    "name": "Lemongrass Honey Iced Tea",
+    "description": "Lemongrass honey iced tea, one free refill.",
+    "price": 4,
+    "category": "drink",
+    "tags": [],
+    "imagePrompt": "Lemongrass Honey Iced Tea: Lemongrass honey iced tea, one free refill.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n34",
+    "name": "Mango Juice",
+    "description": "Mango juice.",
+    "price": 4.5,
+    "category": "drink",
+    "tags": [],
+    "imagePrompt": "Mango Juice: Mango juice.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n35",
+    "name": "Mexican Coke",
+    "description": "Mexican Coca-Cola.",
+    "price": 4,
+    "category": "drink",
+    "tags": [],
+    "imagePrompt": "Mexican Coke: Mexican Coca-Cola.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
+   },
+   {
+    "id": "n36",
+    "name": "Sticky Rice Thai Custard",
+    "description": "Sticky rice with Thai custard and homemade pandan coconut cream.",
+    "price": 6.5,
+    "category": "dessert",
+    "tags": [
+     "vegetarian"
+    ],
+    "imagePrompt": "Sticky Rice Thai Custard: Sticky rice with Thai custard and homemade pandan coconut cream.. Overhead photo, takeout container on a light wood table, soft daylight",
+    "imageUrl": null
    }
   ],
   "brand": {
-   "logoUrl": null,
+   "logoUrl": "/generated/noodlehead-1cfd6e/logo-real.webp",
    "logoPrompt": "A flat two-color mark of a steaming noodle bowl with chopsticks forming a simple head silhouette, in red and dark brown on cream.",
    "colors": {
     "primary": "#D9482B",
