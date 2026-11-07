@@ -84,6 +84,8 @@ export function applyEdits(base: Concept, edits: ConceptEdit[]): ApplyResult {
         const old = previous as MenuItem;
         value = { tags: [], ...(value as object), id: old.id, imageUrl: old.imageUrl };
       }
+      // A replace that keeps the same value is not a change. It must not make a version.
+      if (op === "replace" && JSON.stringify(previous) === JSON.stringify(value)) continue;
       applyOperation(doc, { op, path, value } as never, true, true);
       filled.push({ op, path, value, previous, reason });
     } catch (err) {
@@ -91,6 +93,7 @@ export function applyEdits(base: Concept, edits: ConceptEdit[]): ApplyResult {
     }
   }
 
+  if (filled.length === 0) return { ok: false, error: "the edits change nothing: every value is already set" };
   doc.version = base.version + 1;
   const parsed = Concept.safeParse(doc);
   if (!parsed.success) {

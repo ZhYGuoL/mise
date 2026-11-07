@@ -113,6 +113,16 @@ export function handleEvent(e: AgentEvent, ctx: Ctx) {
     }
     case 'text': {
       const b = last(turnId)
+      // The reply that explains a proposal reads above its approval card, so the card is the last thing to act on.
+      if (b?.kind === 'edits' && b.status === 'pending') {
+        updateTurn(turnId, (blocks) => {
+          const card = blocks.at(-1)!
+          const before = blocks.at(-2)
+          if (before?.kind === 'text') return [...blocks.slice(0, -2), { ...before, text: before.text + e.delta }, card]
+          return [...closeSteps(blocks.slice(0, -1)), { kind: 'text', id: uid('b'), text: e.delta.trimStart() }, card]
+        })
+        return
+      }
       if (b?.kind === 'text') updateBlock<'text'>(turnId, b.id, (x) => ({ ...x, text: x.text + e.delta }))
       else updateTurn(turnId, (blocks) => [...closeSteps(blocks), { kind: 'text', id: uid('b'), text: e.delta.trimStart() }])
       return

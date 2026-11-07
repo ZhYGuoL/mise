@@ -33,9 +33,11 @@ export async function complete(opts: {
   const cfg = modelConfig();
   if (!cfg) throw new Error("OPENROUTER_API_KEY or MODEL_CHAT is not set");
 
-  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+  const base = process.env.OPENROUTER_BASE_URL ?? "https://openrouter.ai/api/v1";
+  const res = await fetch(`${base}/chat/completions`, {
     method: "POST",
-    signal: opts.signal,
+    // A stalled model must not freeze the demo. 60 s covers the longest create_concept call.
+    signal: opts.signal ? AbortSignal.any([opts.signal, AbortSignal.timeout(60_000)]) : AbortSignal.timeout(60_000),
     headers: {
       authorization: `Bearer ${cfg.key}`,
       "content-type": "application/json",
