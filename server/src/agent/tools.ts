@@ -128,6 +128,27 @@ export const simulateTool: ToolDef = {
   },
 };
 
+export const runOptimizeTool: ToolDef = {
+  type: "function",
+  function: {
+    name: "run_optimize",
+    description:
+      "Start the optimize loop: it tries edit sets against the simulated city, round by round, until the number reaches the target, then shows the owner one set to approve. Use it when the owner asks to reach or raise orders or revenue.",
+    parameters: {
+      type: "object",
+      properties: {
+        metric: { type: "string", enum: ["orders", "revenue"] },
+        target: {
+          type: "number",
+          description: "Daily p50 to reach: orders per day, or revenue in USD. If the owner names no number, use about 1.3 times the current p50.",
+        },
+        day: { type: "string", enum: Day.options, description: "The day the owner named. Leave it out to use the day the owner is looking at." },
+      },
+      required: ["metric", "target"],
+    },
+  },
+};
+
 const slug = (s: string) =>
   s
     .toLowerCase()

@@ -290,6 +290,11 @@ export const AgentEvent = z.discriminatedUnion("type", [
   z.object({ type: z.literal("prediction"), prediction: Prediction, optimize: OptimizeStep.optional() }),
   z.object({ type: z.literal("done") }),
   z.object({ type: z.literal("error"), message: z.string() }),
+  /**
+   * Wave 2 (optional): the chat agent asked for an optimize run. The client starts the same run as
+   * `/optimize` inside this turn, after the chat stream ends. OptimizeGoal is declared below, hence lazy.
+   */
+  z.object({ type: z.literal("optimize"), goal: z.lazy(() => OptimizeGoal) }),
 ]);
 export type AgentEvent = z.infer<typeof AgentEvent>;
 
