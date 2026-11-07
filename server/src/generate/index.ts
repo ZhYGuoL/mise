@@ -99,6 +99,9 @@ async function run(job: Job): Promise<GenerateResult> {
   if (!job.model) return { url: null, status: "off", ms: ms() };
 
   const dir = path.join(GENERATED_DIR, safe(job.conceptId));
+  // data/generated is gitignored, so a fresh checkout has no folder. Make it before any cache read:
+  // the cross-concept lookup scans data/generated and throws ENOENT if it is missing.
+  await mkdir(dir, { recursive: true });
   const target = safe(job.target);
   const baseHash = sha([job.model, job.aspectRatio, job.prompt].join("\n"));
   const hashFor = (take: number) => (take === 0 ? baseHash : sha(`${baseHash}#${take}`));
@@ -132,7 +135,6 @@ async function run(job: Job): Promise<GenerateResult> {
           return await attempt();
         }
       });
-      await mkdir(dir, { recursive: true });
       const file = path.join(dir, `${stem}.${EXTENSIONS[image.mime] ?? "png"}`);
       await Bun.write(file, image.bytes);
       await writeTake(dir, baseHash, take);
