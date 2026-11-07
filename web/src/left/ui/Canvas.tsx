@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom'
 import { Button } from '@/components/atoms/Button'
 import { DishCard } from '@/generated/DishCard'
 import { Logo } from '@/generated/Logo'
+import { inputKey, useGenTask, useGeneration } from '@/generated/store'
 import { useMise } from '@/state/store'
 import { manualEdit, viewVersion } from '../client'
 import { cuisineLabel, diffConcepts, editLabel, formatValue, time12 } from '../format'
@@ -215,7 +216,8 @@ export function Canvas({ concept }: { concept: Concept }) {
   return (
     <>
       <div ref={root} className="flex flex-col gap-3 px-5 pb-4">
-        <div className="sticky top-0 z-10 -mx-5 flex flex-col gap-3 border-b border-line bg-page px-5 pt-4 pb-3">
+        {/* z-20: above the z-10 chips and buttons inside DishCards that scroll under it */}
+        <div className="sticky top-0 z-20 -mx-5 flex flex-col gap-3 border-b border-line bg-page px-5 pt-4 pb-3">
         <div className="flex items-center gap-3">
           <div className="relative" style={flash(changed.includes('/name'))}>
             <Logo concept={concept} size={44} />
@@ -241,27 +243,7 @@ export function Canvas({ concept }: { concept: Concept }) {
         </div>
         </div>
         {diffOpen && <VersionDiff concept={concept} />}
-        <div className="grid grid-cols-4 gap-2">
-          {concept.menu.map((item, i) => (
-            <div
-              key={item.id}
-              data-item={item.id}
-              role="button"
-              tabIndex={0}
-              aria-label={`Edit ${item.name}`}
-              onClick={(e) => {
-                if ((e.target as HTMLElement).closest('button')) return
-                setEditing(i)
-              }}
-              onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), setEditing(i))}
-              className="relative cursor-pointer rounded-card transition-transform duration-150 outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.98]"
-              style={flash(changed.includes(item.id))}
-            >
-              <DishCard item={item} concept={concept} />
-              {generating.includes(item.id) && <GeneratingDot />}
-            </div>
-          ))}
-        </div>
+        <Menu concept={concept} changed={changed} generating={generating} onEdit={setEditing} />
       </div>
       <AnimatePresence>
         {editing !== null && concept.menu[editing] && (
@@ -269,6 +251,165 @@ export function Canvas({ concept }: { concept: Concept }) {
         )}
       </AnimatePresence>
     </>
+  )
+}
+
+/**
+ * The menu. Open: the full grid of DishCards. Folded: one row of thumbnails and the dish count.
+ * It folds once the chat has messages, so the thread gets the room. A thumbnail or the count opens it.
+ */
+function Menu({
+  concept,
+  changed,
+  generating,
+  onEdit,
+}: {
+  concept: Concept
+  changed: string[]
+  generating: string[]
+  onEdit: (index: number) => void
+}) {
+  const talking = useSession((s) => s.turns.length > 0)
+  const [open, setOpen] = useState(!talking)
+  const wasTalking = useRef(talking)
+  const root = useRef<HTMLElement>(null)
+  // The dish whose thumbnail opened the menu. It scrolls into view once the grid is on screen.
+  const reveal = useRef<string | null>(null)
+
+  useEffect(() => {
+    if (talking && !wasTalking.current) setOpen(false)
+    wasTalking.current = talking
+  }, [talking])
+
+  useEffect(() => {
+    if (!open || !reveal.current) return
+    root.current?.querySelector(`[data-item="${reveal.current}"]`)?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+    reveal.current = null
+  }, [open])
+
+  const count = concept.menu.length
+  const toggle = (
+    <button
+      type="button"
+      aria-expanded={open}
+      onClick={() => setOpen((o) => !o)}
+      className="ml-auto inline-flex h-6 shrink-0 items-center gap-1 rounded-full pr-1.5 pl-2 text-[12px] tabular-nums text-ink-2 transition-colors duration-100 hover:bg-hover-2 hover:text-ink"
+    >
+      {count === 1 ? '1 dish' : `${count} dishes`}
+      <svg
+        width="13"
+        height="13"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden
+        className="shrink-0 text-ink-3 transition-transform duration-200"
+        style={{ transform: open ? 'rotate(180deg)' : 'none' }}
+      >
+        <path d="M6 9l6 6 6-6" />
+      </svg>
+    </button>
+  )
+
+  if (!open) {
+    return (
+      <section ref={root} className="flex h-10 items-center gap-3">
+        {/* p-1 leaves room for the edit-flash outline, which sits 4px outside a thumbnail */}
+        <div className="-m-1 flex min-w-0 flex-1 gap-1.5 overflow-hidden p-1">
+          {concept.menu.map((item) => (
+            <DishThumb
+              key={item.id}
+              item={item}
+              concept={concept}
+              busy={generating.includes(item.id)}
+              hit={changed.includes(item.id)}
+              onOpen={() => {
+                reveal.current = item.id
+                setOpen(true)
+              }}
+            />
+          ))}
+        </div>
+        {toggle}
+      </section>
+    )
+  }
+
+  return (
+    <section ref={root} className="flex flex-col gap-2">
+      <div className="flex">{toggle}</div>
+      <div className="grid grid-cols-4 gap-2">
+        {concept.menu.map((item, i) => (
+          <div
+            key={item.id}
+            data-item={item.id}
+            role="button"
+            tabIndex={0}
+            aria-label={`Edit ${item.name}`}
+            onClick={(e) => {
+              if ((e.target as HTMLElement).closest('button')) return
+              onEdit(i)
+            }}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), onEdit(i))}
+            className="relative cursor-pointer rounded-card transition-transform duration-150 outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.98]"
+            style={flash(changed.includes(item.id))}
+          >
+            <DishCard item={item} concept={concept} />
+            {generating.includes(item.id) && <GeneratingDot />}
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+/** One dish as a small square: its photo, or the brand primary until a photo exists. */
+function DishThumb({
+  item,
+  concept,
+  busy,
+  hit,
+  onOpen,
+}: {
+  item: MenuItem
+  concept: Concept
+  busy: boolean
+  hit: boolean
+  onOpen: () => void
+}) {
+  const task = useGenTask(concept.id, item.id)
+  const ensure = useGeneration((s) => s.ensure)
+  const key = inputKey(concept, item.id)
+
+  // Same as DishCard: a dish on screen asks for its own photo, so the folded menu still fills in.
+  useEffect(() => {
+    ensure(concept, item.id)
+    // The key holds every prompt input, so the concept object itself is not a dependency.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key, concept.id, item.id, ensure])
+
+  const url = task?.url ?? item.imageUrl
+  const working = busy || task?.status === 'generating'
+  return (
+    <button
+      type="button"
+      data-item={item.id}
+      aria-label={item.name}
+      title={item.name}
+      onClick={onOpen}
+      className="relative size-10 shrink-0 overflow-hidden rounded-control outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      style={{ background: concept.brand.colors.primary, ...flash(hit) }}
+    >
+      {url && <img src={url} alt="" draggable={false} className="absolute inset-0 size-full object-cover" />}
+      {working && (
+        <span className="absolute inset-0 grid place-items-center bg-surface/55">
+          <span className="size-3 rounded-full border-[1.5px] border-line-strong border-t-ink-2" style={{ animation: 'spin 700ms linear infinite' }} />
+        </span>
+      )}
+    </button>
   )
 }
 
