@@ -82,7 +82,7 @@ export function parseGoal(args: string, scenario: Scenario, current: Prediction 
     const now = current ? (metric === 'orders' ? current.orders.p50 : current.revenue.p50) : metric === 'orders' ? 80 : 1200
     target = Math.round((now * 1.5) / (metric === 'orders' ? 10 : 100)) * (metric === 'orders' ? 10 : 100)
   }
-  return { metric, target, scenario: { day, weather, event, runs: 20 } }
+  return { metric, target, scenario: { day, weather, event, runs: 100 } }
 }
 
 /* ───────────── run ───────────── */

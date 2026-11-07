@@ -26,7 +26,7 @@ import {
 
 export type Send = (e: AgentEvent) => Promise<void>;
 
-const DEFAULT_SCENARIO: Scenario = { day: "Friday", weather: "clear", event: "none", runs: 20 };
+const DEFAULT_SCENARIO: Scenario = { day: "Friday", weather: "clear", event: "none", runs: 100 };
 const MAX_STEPS = 6;
 const MAX_REJECTS = 3;
 

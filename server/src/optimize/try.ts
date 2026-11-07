@@ -5,7 +5,7 @@ const concept = Concept.parse(await Bun.file(new URL("../../../data/fixtures/con
 const metric = (process.argv[2] ?? "orders") as "orders";
 const target = Number(process.argv[3] ?? 120);
 const t0 = performance.now();
-await runOptimize({ concept, goal: { metric, target, scenario: { day: "Friday", weather: "clear", event: "none", runs: 20 } } }, async (e) => {
+await runOptimize({ concept, goal: { metric, target, scenario: { day: "Friday", weather: "clear", event: "none", runs: 100 } } }, async (e) => {
   AgentEvent.parse(e);
   const t = ((performance.now() - t0) / 1000).toFixed(1).padStart(5);
   const o = "optimize" in e && e.optimize ? `r${e.optimize.round}${e.optimize.candidate !== undefined ? "c" + e.optimize.candidate : ""}${e.optimize.final ? " FINAL" : ""}` : "";

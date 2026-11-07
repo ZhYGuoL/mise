@@ -32,7 +32,7 @@ export const useMise = create<MiseState>()((set, get) => ({
   concept: Concept.parse(seed),
   versions: [{ concept: Concept.parse(seed), prediction: null }],
   prediction: null,
-  scenario: { day: 'Friday', weather: 'clear', event: 'none', runs: 20 },
+  scenario: { day: 'Friday', weather: 'clear', event: 'none', runs: 100 },
   selectedResidentId: null,
   simulating: false,
 

@@ -1,7 +1,9 @@
 /**
  * POST /api/agent/optimize core. Like a coding agent running tests:
- * read the latest prediction -> propose 2-3 edit sets -> simulate each (runs=8) -> keep the best -> repeat.
+ * read the latest prediction -> propose 2-3 edit sets -> simulate each (runs=20) -> keep the best -> repeat.
  * Stops at the target, after MAX_ROUNDS, or after two rounds with no gain. The final set waits for the owner.
+ * The search picks the best of several sets on one set of simulated days, so its own score runs high (winner's curse).
+ * The number the owner sees is a fresh check: 100 runs on a different seed, the owner's concept and the edited one on the same days.
  */
 import type { AgentEvent, AgentOptimizeRequest, Concept, ConceptEdit, OptimizeGoal, Prediction, Scenario } from "@mise/shared";
 import { applyEdits } from "../agent/patch";
@@ -10,8 +12,11 @@ import { collapse, guardProposal, signature, type Candidate } from "./guard";
 import { propose, type Tried } from "./propose";
 
 const MAX_ROUNDS = 5;
-const FAST_RUNS = 8;
-const FINAL_RUNS = 20;
+const FAST_RUNS = 20;
+const FINAL_RUNS = 100;
+const DEFAULT_SEED = 20261107;
+/** Offset for the check seed, so the final check never reuses the days the search scored on. */
+const CHECK_SEED_OFFSET = 7919;
 const MAX_STALE = 2;
 
 type Send = (e: AgentEvent) => Promise<void>;
@@ -115,8 +120,12 @@ export async function runOptimize(req: AgentOptimizeRequest, send: Send, signal?
   const applied = applyEdits(original, finalEdits);
   if (!applied.ok) throw new Error(`the final edit set does not apply: ${applied.error}`);
 
-  const full: Scenario = { ...goal.scenario, runs: Math.max(goal.scenario.runs, FINAL_RUNS) };
-  await send({ type: "thinking", label: "Checking", detail: `${full.runs} runs`, optimize: { round, final: true } });
+  const full: Scenario = {
+    ...goal.scenario,
+    runs: Math.max(goal.scenario.runs, FINAL_RUNS),
+    seed: (goal.scenario.seed ?? DEFAULT_SEED) + CHECK_SEED_OFFSET,
+  };
+  await send({ type: "thinking", label: "Checking", detail: `${full.runs} fresh runs`, optimize: { round, final: true } });
   await send({ type: "simulating", scenario: full, optimize: { round, final: true } });
   const check = await simulate(applied.concept, full);
   await send({ type: "prediction", prediction: check, optimize: { round, final: true } });

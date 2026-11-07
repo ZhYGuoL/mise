@@ -114,7 +114,7 @@ export const Scenario = z.object({
   day: Day,
   weather: z.enum(["clear", "rain", "snow"]).default("clear"),
   event: z.enum(["none", "exam_week", "home_game", "move_in"]).default("none"),
-  runs: z.number().int().min(1).max(100).default(20),
+  runs: z.number().int().min(1).max(100).default(100),
   seed: z.number().int().optional(),
 });
 export type Scenario = z.infer<typeof Scenario>;
