@@ -332,7 +332,7 @@ function TurnView({ t }: { t: Turn }) {
   if (t.role === 'user') {
     return (
       <div className="flex justify-end pl-14" style={ENTER}>
-        <div className="rounded-xl bg-field px-3 py-1.5 text-[13px] leading-[1.45] text-ink">{t.text}</div>
+        <div className="rounded-xl bg-field px-3 py-1.5 text-[13px] leading-[1.45] text-ink wrap-anywhere">{t.text}</div>
       </div>
     )
   }
