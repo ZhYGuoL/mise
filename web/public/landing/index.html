@@ -38,6 +38,12 @@ section{position:relative}
 @keyframes rise{to{transform:none}}
 .sub{margin-top:26px;font-size:clamp(16px,1.5vw,20px);color:var(--muted);opacity:0;animation:fade 1s .6s forwards}
 @keyframes fade{to{opacity:1}}
+#dishes{position:absolute;left:50%;top:50%;width:0;height:0;z-index:3}
+.dish{position:absolute;left:0;top:0;will-change:transform}
+.plate{width:100%;overflow:hidden;position:relative;border:1px solid transparent}
+.plate img{width:100%;height:100%;object-fit:cover;display:block;mix-blend-mode:multiply;will-change:transform}
+.cap{display:flex;justify-content:space-between;gap:10px;margin-top:10px;font-size:15px;font-weight:500;opacity:0}
+.cap .num{color:var(--muted);font-weight:400}
 </style>
 </head>
 <body>
@@ -49,6 +55,7 @@ section{position:relative}
    <h1 class="h1"><span class="line"><span>Open a restaurant</span></span><span class="line"><span class="serif it">before you open one.</span></span></h1>
    <p class="sub">Describe it. Mise plates it, prices it, and runs a Friday in Pittsburgh.</p>
   </div>
+  <div id="dishes"></div>
  </div>
 </section>
 
@@ -68,6 +75,38 @@ addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY;nmx=mx/innerWidth-.
 
 const loops=[],resizers=[];let DPR=Math.min(devicePixelRatio||1,2);
 const onView=(el,fn)=>{const o=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){o.disconnect();fn()}},{threshold:.35});o.observe(el)};
+
+/* ---------- hero dishes ---------- */
+const hero=$('#hero'),dEl=$('#dishes');
+const heroDishes=M.menu.slice(0,6).map((m,i)=>{const d=document.createElement('div');d.className='dish';d.dataset.cur='Taste';
+ d.innerHTML=`<div class="plate"><img src="d${i+1}.jpg" alt="${m.n}"></div><div class="cap"><span>${m.n}</span><span class="num">$${m.p.toFixed(2)}</span></div>`;dEl.appendChild(d);
+ return{d,plate:d.firstChild,img:d.querySelector('img'),cap:d.querySelector('.cap'),hx:0,hy:0}});
+let hp=0;
+function heroFrame(t){const target=prog(hero);hp=RM?target:lerp(hp,target,.09);
+ const e=ease(seg(hp,.1,.62)),vw=innerWidth,vh=innerHeight,mob=vw<760;
+ const cols=mob?2:3,gap=mob?12:26,cw=mob?Math.min(vw*.42,200):Math.min(vw*.2,(vh*.62-2*56-gap)/2/.75,260),ch=cw*.75;
+ const rows=Math.ceil(6/cols),gw=cols*cw+(cols-1)*gap,gh=rows*(ch+40)+(rows-1)*gap;
+ const rx=mob?vw*.36:Math.min(vw*.43,780),ry=vh*(mob?.38:.37),osz=mob?100:Math.min(200,vw*.12);
+ heroDishes.forEach((o,i)=>{
+  const a=i/6*Math.PI*2-Math.PI/2+Math.PI/6+(RM?0:t*.00005)+hp*1.2;
+  const depth=i%2?1:-.7;
+  const ox=Math.cos(a)*rx+nmx*60*depth,oy=Math.sin(a)*ry+nmy*40*depth+Math.sin(t*.0012+i)*6;
+  const c=i%cols,r=Math.floor(i/cols);
+  const gx=-gw/2+c*(cw+gap)+cw/2,gy=-gh/2+r*(ch+40+gap)+ch/2+(mob?70:55);
+  const w=lerp(osz,cw,e),h=lerp(osz,ch,e);
+  const x=lerp(ox,gx,e),y=lerp(oy,gy,e);
+  o.d.style.width=w+'px';o.d.style.transform=`translate(${x-w/2}px,${y-h/2}px)`;
+  o.plate.style.height=h+'px';o.plate.style.borderRadius=lerp(w/2,16,e)+'px';
+  o.plate.style.borderColor=`rgba(226,216,199,${e})`;o.plate.style.background=`rgba(239,230,214,${e})`;
+  o.img.style.transform=`rotate(${lerp((RM?0:t*.012)+i*55,0,e)}deg) scale(${lerp(1.4,1,e)})`;
+  o.cap.style.opacity=seg(hp,.58,.7);
+ });
+ const ht=$('#heroText');const f=seg(hp,.03,.3);ht.style.opacity=1-f;ht.style.transform=`translateY(${-f*60}px) scale(${1-f*.08})`;
+ const mt=$('#menuTitle'),g=seg(hp,.55,.68);if(mt){mt.style.opacity=g;mt.style.transform=`translateY(${(1-g)*24}px)`}
+ const cu=$('#cue');if(cu)cu.style.opacity=1-seg(hp,0,.06);
+}
+
+loops.push(heroFrame);
 
 function resize(){DPR=Math.min(devicePixelRatio||1,2);resizers.forEach(f=>f())}
 addEventListener('resize',resize);resize();
