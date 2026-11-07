@@ -352,6 +352,11 @@ function simFrame(t){const r=sim.getBoundingClientRect();if(r.bottom<0||r.top>in
 
 resizers.push(sizeMap);loops.push(simFrame);
 
+/* ---------- objections ---------- */
+$('#obj').innerHTML=M.objections.slice().sort((a,b)=>b.pct-a.pct).map(o=>`<div><div class="o-top"><div><b>${o.label[0].toUpperCase()+o.label.slice(1)}</b>${o.segment?`<div class="o-seg">${o.segment.replace('_',' ')}s</div>`:''}</div><span class="pct num" data-v="${o.pct}">0%</span></div><div class="track"><i data-w="${o.pct}"></i></div></div>`).join('');
+onView($('#obj'),()=>{const e={target:$('#obj')};e.target.querySelectorAll('.track i').forEach((i,k)=>setTimeout(()=>i.style.width=i.dataset.w/31*100+'%',k*140));
+  e.target.querySelectorAll('.pct').forEach((s,k)=>{const v=+s.dataset.v,t0=performance.now()+k*140;const tick=now=>{const a=clamp((now-t0)/1400);s.textContent=Math.round(out(a)*v)+'%';if(a<1)requestAnimationFrame(tick)};requestAnimationFrame(tick)})});
+
 function resize(){DPR=Math.min(devicePixelRatio||1,2);resizers.forEach(f=>f())}
 addEventListener('resize',resize);resize();
 function frame(t){loops.forEach(f=>f(t));requestAnimationFrame(frame)}
