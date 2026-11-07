@@ -48,6 +48,11 @@ section{position:relative}
 .menu-title h2{font-size:clamp(34px,4.6vw,68px);letter-spacing:-.035em;font-weight:600;line-height:1}
 .menu-title h2 .serif{color:var(--rust)}
 .menu-title p{margin-top:10px;color:var(--muted)}
+.scrollcue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:10px;z-index:4}
+.scrollcue b{width:1px;height:40px;background:var(--line);position:relative;overflow:hidden}
+.scrollcue b:after{content:"";position:absolute;left:0;top:-40px;width:1px;height:40px;background:var(--ink);animation:drip 1.6s cubic-bezier(.6,0,.2,1) infinite}
+@keyframes drip{to{top:40px}}
+
 </style>
 </head>
 <body>
@@ -61,6 +66,7 @@ section{position:relative}
   </div>
   <div class="menu-title" id="menuTitle"><h2>An idea becomes <span class="serif it">a menu.</span></h2><p>Crunch House · 6 dishes · v3</p></div>
   <div id="dishes"></div>
+  <div class="scrollcue" id="cue">Scroll<b></b></div>
  </div>
 </section>
 
