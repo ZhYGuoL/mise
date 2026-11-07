@@ -114,6 +114,16 @@ section{position:relative}
 .stolen span.on{opacity:1;transform:none}
 .stolen em{font-style:normal;color:var(--rust);font-weight:500}
 
+/* WHY */
+#why{padding:22vh 7vw 18vh;display:grid;grid-template-columns:1fr 1.3fr;gap:6vw;align-items:start}
+.obj{display:flex;flex-direction:column;gap:26px}
+.o-top{display:flex;justify-content:space-between;align-items:baseline;gap:20px}
+.o-top b{font-size:clamp(20px,1.9vw,26px);font-weight:500;letter-spacing:-.02em}
+.o-top .pct{font-size:clamp(28px,2.6vw,38px);font-weight:600;letter-spacing:-.03em}
+.o-seg{font-size:13px;color:var(--muted);margin-top:2px}
+.track{height:10px;border-radius:99px;background:#E9E0D0;margin-top:12px;overflow:hidden}
+.track i{display:block;height:100%;width:0;background:var(--rust);border-radius:99px;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+
 @media (pointer:fine){body{cursor:none}a,button{cursor:none}}
 /* cursor */
 #cur{position:fixed;left:0;top:0;width:12px;height:12px;border-radius:50%;background:var(--rust);z-index:100;pointer-events:none;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:500;transition:width .35s cubic-bezier(.2,.8,.2,1),height .35s cubic-bezier(.2,.8,.2,1),background .3s}
@@ -178,6 +188,11 @@ section{position:relative}
    <div><div class="eyebrow" style="margin-bottom:10px">Customers taken</div><div class="stolen" id="stolen"></div></div>
   </div>
  </div>
+</section>
+
+<section id="why">
+ <div><div class="eyebrow">03 · Ask why</div><h2 class="big">And why people <span class="serif it">said no.</span></h2></div>
+ <div class="obj" id="obj"></div>
 </section>
 
 <footer><span>Mise · Built at NOVA 2026, ScottyLabs</span><span>Pittsburgh</span></footer>
