@@ -73,6 +73,13 @@ async function findFile(dir: string, stem: string): Promise<string | null> {
   return null;
 }
 
+/** The hash covers the whole prompt, so a file with the same hash in another concept's folder is the same image. */
+async function findAnywhere(hash: string): Promise<string | null> {
+  const glob = new Bun.Glob(`*/*-${hash}.{${Object.values(EXTENSIONS).join(",")}}`);
+  for await (const rel of glob.scan({ cwd: GENERATED_DIR, onlyFiles: true })) return path.join(GENERATED_DIR, rel);
+  return null;
+}
+
 const urlFor = (file: string) => `/generated/${path.relative(GENERATED_DIR, file).split(path.sep).join("/")}`;
 
 const inflight = new Map<string, Promise<GenerateResult>>();
@@ -94,10 +101,11 @@ async function run(job: Job): Promise<GenerateResult> {
   const dir = path.join(GENERATED_DIR, safe(job.conceptId));
   const target = safe(job.target);
   const baseHash = sha([job.model, job.aspectRatio, job.prompt].join("\n"));
-  const stemFor = (take: number) => `${target}-${take === 0 ? baseHash : sha(`${baseHash}#${take}`)}`;
+  const hashFor = (take: number) => (take === 0 ? baseHash : sha(`${baseHash}#${take}`));
+  const stemFor = (take: number) => `${target}-${hashFor(take)}`;
 
   const current = (await readTakes(dir))[baseHash] ?? 0;
-  const currentFile = await findFile(dir, stemFor(current));
+  const currentFile = (await findFile(dir, stemFor(current))) ?? (current === 0 ? await findAnywhere(baseHash) : null);
   if (currentFile && !job.regenerate) return { url: urlFor(currentFile), status: "cached", ms: ms() };
 
   const off = isMock() || !process.env.OPENROUTER_API_KEY;

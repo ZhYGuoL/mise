@@ -4,7 +4,8 @@ export type AspectRatio = "1:1" | "4:3";
 
 export type ImageResult = { bytes: Uint8Array; mime: string; costUsd: number | null };
 
-const ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
+/** OPENROUTER_BASE_URL exists so a local stand-in can test the pipeline without spending credits. */
+const endpoint = () => `${process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1"}/chat/completions`;
 
 export class ImageError extends Error {
   /** HTTP status from OpenRouter, if the call got that far. */
@@ -26,7 +27,7 @@ export async function generateImage(opts: {
   const key = process.env.OPENROUTER_API_KEY;
   if (!key) throw new ImageError("OPENROUTER_API_KEY is not set");
 
-  const res = await fetch(ENDPOINT, {
+  const res = await fetch(endpoint(), {
     method: "POST",
     headers: {
       authorization: `Bearer ${key}`,
