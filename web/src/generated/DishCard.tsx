@@ -70,7 +70,7 @@ export function DishCard({
 
   return (
     <article
-      className={`group relative overflow-hidden rounded-card border bg-surface ${
+      className={`group relative h-full overflow-hidden rounded-card border bg-surface ${
         selected ? 'border-ink' : 'border-line'
       }`}
     >
@@ -133,21 +133,25 @@ export function DishCard({
       </div>
 
       <div className="flex flex-col gap-1 p-3">
-        <div className="flex items-baseline justify-between gap-2">
-          {/* The fallback face already shows the name, so it only repeats here under a photo. */}
-          <h3 className={`line-clamp-2 min-w-0 font-medium ${showsPhoto ? 'text-ink' : 'text-ink-2'}`}>
-            {onSelect ? (
-              <button type="button" onClick={onSelect} className="text-left after:absolute after:inset-0">
-                {showsPhoto ? item.name : categoryLabel[item.category]}
-              </button>
-            ) : showsPhoto ? (
-              item.name
-            ) : (
-              categoryLabel[item.category]
-            )}
-          </h3>
-          <span className="shrink-0 tabular-nums text-ink">${item.price.toFixed(2)}</span>
-        </div>
+        {/* The name has the full width and two lines. Two lines are always reserved, so prices line up
+            across a row and the card keeps its height when the photo replaces the fallback face.
+            The fallback face already shows the name, so it only repeats here under a photo. */}
+        <h3
+          className={`line-clamp-2 min-h-[2lh] leading-snug font-medium break-words ${
+            showsPhoto ? 'text-ink' : 'text-ink-2'
+          }`}
+        >
+          {onSelect ? (
+            <button type="button" onClick={onSelect} className="text-left after:absolute after:inset-0">
+              {showsPhoto ? item.name : categoryLabel[item.category]}
+            </button>
+          ) : showsPhoto ? (
+            item.name
+          ) : (
+            categoryLabel[item.category]
+          )}
+        </h3>
+        <span className="tabular-nums text-ink">${item.price.toFixed(2)}</span>
         {item.tags.length > 0 && (
           <div className="flex flex-wrap gap-1">
             {item.tags.map((t) => (

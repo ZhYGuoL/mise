@@ -1,0 +1,9 @@
+/* Wave 2: the kept path draws from the last kept point to the new one. */
+@keyframes opt-draw {
+  from {
+    stroke-dashoffset: var(--len);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
