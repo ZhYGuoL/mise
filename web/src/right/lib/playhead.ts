@@ -7,12 +7,14 @@ type Playhead = {
   /** minutes since 06:00 */
   t: number
   playing: boolean
+  /** Where Play starts a replay of the day: the hour before the first order. */
+  start: number
   play: () => void
   pause: () => void
   toggle: () => void
   seek: (t: number) => void
-  /** Jump to t and play. Used when a new prediction lands. */
-  playFrom: (t: number) => void
+  /** Rest on the end-of-day frame, with every order drawn. Used when a new prediction lands. */
+  rest: (start: number) => void
 }
 
 const clamp = (t: number) => Math.min(Math.max(t, 0), DAY_MINUTES)
@@ -20,11 +22,12 @@ const clamp = (t: number) => Math.min(Math.max(t, 0), DAY_MINUTES)
 export const usePlayhead = create<Playhead>()((set, get) => ({
   t: 0,
   playing: false,
-  play: () => set((s) => ({ playing: true, t: s.t >= DAY_MINUTES ? 0 : s.t })),
+  start: 0,
+  play: () => set((s) => ({ playing: true, t: s.t >= DAY_MINUTES ? s.start : s.t })),
   pause: () => set({ playing: false }),
   toggle: () => (get().playing ? get().pause() : get().play()),
   seek: (t) => set({ t: clamp(t) }),
-  playFrom: (t) => set({ t: clamp(t), playing: true }),
+  rest: (start) => set({ t: DAY_MINUTES, playing: false, start: clamp(start) }),
 }))
 
 /** Mount once. Advances the clock while playing and stops at the end of the day. */

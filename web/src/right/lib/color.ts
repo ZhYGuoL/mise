@@ -1,7 +1,7 @@
 export type RGB = [number, number, number]
 
 /** Fallback when the brand color is not a parseable hex. Matches the Beautiful UI accent. */
-const FALLBACK: RGB = [61, 154, 255]
+const FALLBACK: RGB = [2, 133, 255]
 
 function hexToRgb(hex: string): RGB | null {
   const m = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(hex.trim())
@@ -38,25 +38,30 @@ function hslToRgb([h, s, l]: [number, number, number]): RGB {
 }
 
 /**
- * The concept's color on the dark map: its brand primary, lifted until it reads on a near-black
- * basemap and kept saturated enough to stand apart from the grey competitors.
+ * The concept's color on the light pane: its brand primary, kept dark enough to read on white and
+ * on the grey map, and saturated enough to stand apart from the grey competitors.
  */
 export function conceptColor(brandPrimary: string): RGB {
   const rgb = hexToRgb(brandPrimary)
   if (!rgb) return FALLBACK
   const [h, s, l] = rgbToHsl(rgb)
   if (s < 0.25) return FALLBACK
-  return hslToRgb([h, Math.max(s, 0.6), Math.min(Math.max(l, 0.56), 0.7)])
+  return hslToRgb([h, Math.max(s, 0.6), Math.min(Math.max(l, 0.4), 0.55)])
 }
 
 export const css = ([r, g, b]: RGB, alpha = 1) => `rgb(${r} ${g} ${b} / ${alpha})`
 
-/** Map palette. Flat colors only. */
+/** Map palette, from the Beautiful UI tokens so the map reads as part of the page. Flat colors only. */
 export const MAP = {
-  background: 'rgb(12 12 12)',
-  other: [148, 163, 184] as RGB,
-  resident: [203, 213, 225] as RGB,
-  restaurant: [148, 163, 184] as RGB,
-  lost: [248, 113, 113] as RGB,
-  white: [250, 250, 250] as RGB,
+  /** --canvas */
+  land: [241, 242, 243] as RGB,
+  /** a step darker than the land */
+  water: [222, 226, 230] as RGB,
+  /** --line-strong and a step lighter: roads are hairlines */
+  road: [221, 223, 227] as RGB,
+  roadMinor: [229, 231, 234] as RGB,
+  /** --ink. Residents, other orders and restaurants are ink at low opacity, so they read as neutral grey. */
+  ink: [31, 33, 36] as RGB,
+  /** --surface */
+  surface: [255, 255, 255] as RGB,
 }

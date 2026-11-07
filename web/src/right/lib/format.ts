@@ -53,3 +53,6 @@ export function miles(a: { lat: number; lon: number }, b: { lat: number; lon: nu
   const h = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLon / 2) ** 2
   return 2 * R * Math.asin(Math.sqrt(h))
 }
+
+/** Drop a leading parenthetical, e.g. "(شاورما عمر) Omar's Halal Grill" -> "Omar's Halal Grill". */
+export const shortName = (name: string) => name.replace(/^\([^)]*\)\s*/, '')
