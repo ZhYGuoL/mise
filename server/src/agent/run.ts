@@ -3,6 +3,8 @@ import {
   type AgentEvent,
   type Concept,
   type ConceptEdit,
+  Day,
+  OptimizeGoal,
   type Prediction,
   Scenario,
 } from "@mise/shared";
@@ -10,7 +12,7 @@ import { complete, type Message, type ToolCall, type ToolChoice } from "./openro
 import { applyEdits, imageTargets, needsApproval } from "./patch";
 import { summarizePrediction, systemPrompt } from "./prompt";
 import { generate, simulate } from "./services";
-import { buildConcept, createConceptTool, editConceptTool, generateImagesTool, simulateTool } from "./tools";
+import { buildConcept, createConceptTool, editConceptTool, generateImagesTool, runOptimizeTool, simulateTool } from "./tools";
 
 export type Send = (e: AgentEvent) => Promise<void>;
 
@@ -22,7 +24,10 @@ const TOOL_LABEL: Record<string, string> = {
   create_concept: "Drafting the concept",
   edit_concept: "Writing edits",
   generate_images: "Queueing photos",
+  run_optimize: "Setting the goal",
 };
+
+type State = { created: boolean; edited: boolean; rejects: number; nudged: boolean; optimizing: boolean };
 
 /** One request to /api/agent/chat. Holds the working concept and prediction while the turn runs. */
 class Turn {
@@ -91,11 +96,11 @@ class Turn {
     const lastUser = [...history].reverse().find((m) => m.role === "user")?.content ?? "";
     await this.send({ type: "thinking", label: "Reading the request", detail: lastUser.slice(0, 140) });
 
-    const state = { created: false, edited: false, rejects: 0, nudged: false };
+    const state: State = { created: false, edited: false, rejects: 0, nudged: false, optimizing: false };
     let namesShown = 0;
     for (let step = 0; step < MAX_STEPS; step++) {
       const finished = state.created || state.edited;
-      const tools = this.concept ? [editConceptTool, generateImagesTool, simulateTool] : [createConceptTool];
+      const tools = this.concept ? [editConceptTool, generateImagesTool, simulateTool, runOptimizeTool] : [createConceptTool];
       // Some models (Claude Sonnet 5.5) reject a forced tool_choice. Offer only create_concept and nudge once instead.
       const toolChoice: ToolChoice = this.concept && finished ? "none" : "auto";
 
@@ -134,10 +139,12 @@ class Turn {
         const result = await this.handle(call, state).catch((err) => `Failed: ${err instanceof Error ? err.message : err}`);
         messages.push({ role: "tool", tool_call_id: call.id, content: result });
       }
+      // The optimize run takes over the turn in the client. No closing reply, so the rounds start at once.
+      if (state.optimizing) break;
     }
   }
 
-  private async handle(call: ToolCall, state: { created: boolean; edited: boolean; rejects: number; nudged: boolean }): Promise<string> {
+  private async handle(call: ToolCall, state: State): Promise<string> {
     let args: Record<string, unknown>;
     try {
       args = JSON.parse(call.function.arguments || "{}");
@@ -202,6 +209,24 @@ class Turn {
         if (!scenario.success) return `Rejected: ${scenario.error.issues.map((x) => x.message).join("; ")}`;
         const p = await this.simulate(scenario.data);
         return `Prediction:\n${summarizePrediction(p)}`;
+      }
+
+      case "run_optimize": {
+        if (!this.concept) return "There is no concept yet. Call create_concept.";
+        if (state.edited || state.optimizing) return "You already changed the concept this turn. Reply to the owner.";
+        const day = Day.safeParse(args.day);
+        const goal = OptimizeGoal.safeParse({
+          metric: args.metric,
+          target: Number(args.target),
+          scenario: { ...this.scenario, day: day.success ? day.data : this.scenario.day },
+        });
+        if (!goal.success || !(goal.data.target > 0)) {
+          state.rejects++;
+          return `Rejected: metric must be "orders" or "revenue" and target a positive number. ${goal.error?.issues.map((x) => x.message).join("; ") ?? ""}`;
+        }
+        state.optimizing = true;
+        await this.send({ type: "optimize", goal: goal.data });
+        return "The optimize run started.";
       }
 
       default:

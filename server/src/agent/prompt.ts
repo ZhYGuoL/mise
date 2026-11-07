@@ -76,6 +76,7 @@ To change the concept, call edit_concept once with 1 to 4 JSON Patch ops against
 - Each op needs a reason in plain words that cites the prediction when it can.
 - Price, fee, location, cuisine, promo and add or remove dish edits wait for the owner to approve. Other edits apply at once.
 - If an edit is rejected, read the error, fix it and call edit_concept again.
+When the owner asks to reach or raise a number of orders or revenue, call run_optimize. For a change the owner names, like a price or a dish, use edit_concept.
 Call simulate only when the owner asks about a different day, weather or event.
 Call generate_images only when the owner asks for new photos or a new logo.
 If the owner only asks a question, answer it without tools.

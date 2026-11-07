@@ -3,7 +3,6 @@ import { create } from 'zustand'
 import { api } from '@/api'
 import { runScenario } from '@/right/lib/data'
 import { useMise } from '@/state/store'
-import { startTurn } from '../client'
 import { uid, updateTurn, useSession } from '../session'
 
 /** Wave 2: `/optimize orders 120 friday`. Folds the optimize stream into one run, shown as one thread block. */
@@ -149,18 +148,20 @@ function fold(runId: string, turnId: string, e: AgentEvent) {
   }
 }
 
-export async function runOptimize(args: string) {
+/**
+ * Run the optimize loop inside an agent turn. `/optimize` and the chat agent's run_optimize tool
+ * both land here, so both show the same rounds and the same approval card.
+ */
+export async function startOptimize(turnId: string, goal: OptimizeGoal) {
   const mise = useMise.getState()
-  const text = `/optimize${args ? ` ${args}` : ''}`
-  const turnId = startTurn(text)
   const base = mise.concept
+  useSession.setState({ busy: true })
+  updateTurn(turnId, (b) => b, { done: false })
   if (!base) {
     updateTurn(turnId, (b) => [...b, { kind: 'error', id: uid('b'), message: 'No concept yet' }], { done: true })
     useSession.setState({ busy: false })
     return
   }
-  const current = mise.prediction && mise.prediction.conceptVersion === base.version ? mise.prediction : null
-  const goal = parseGoal(args, mise.scenario, current)
   // The right pane shows the goal's day, so the approved version is simulated on the same day.
   const s = mise.scenario
   if (s.day !== goal.scenario.day || s.weather !== goal.scenario.weather || s.event !== goal.scenario.event)
@@ -191,4 +192,11 @@ export async function runOptimize(args: string) {
     updateTurn(turnId, (b) => b, { done: true })
     useSession.setState({ busy: false })
   }
+}
+
+/** The goal for `/optimize <args>`, from the args and what the right pane shows now. */
+export function goalFromArgs(args: string): OptimizeGoal {
+  const { concept, prediction, scenario } = useMise.getState()
+  const current = prediction && concept && prediction.conceptVersion === concept.version ? prediction : null
+  return parseGoal(args, scenario, current)
 }
