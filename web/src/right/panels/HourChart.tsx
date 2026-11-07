@@ -7,6 +7,14 @@ import { DAY_MINUTES, DAY_START_HOUR, hourLabel, hourSlot, openWindow } from '..
 const HEIGHT = 150
 const PAD = { top: 18, bottom: 20 }
 const TICKS = [0, 3, 6, 9, 12, 15, 18, 21]
+/**
+ * The uncertainty band fades out from p50. A base layer marks the full p10 to p90 range, then thin
+ * layers narrowing toward p50 stack up density. Steps are too small to read as quantile edges.
+ */
+const BAND_LAYERS = [
+  { f: 1, opacity: 0.08 },
+  ...Array.from({ length: 12 }, (_, k) => ({ f: 1 - (k + 1) / 13, opacity: 0.025 })),
+]
 
 function useWidth<T extends HTMLElement>() {
   const ref = useRef<T>(null)
@@ -93,18 +101,20 @@ export function HourChart({
   const x = (slot: number) => ((slot * 60 + 30) / DAY_MINUTES) * width
   const y = (v: number) => PAD.top + plotH - (v / top) * plotH
 
-  // Extend the first and last points to the edges so the band spans the full day.
-  const pts = (key: 'p10' | 'p50' | 'p90') => [
-    [0, y(slots[0][key])],
-    ...slots.map((s) => [x(s.slot), y(s[key])]),
-    [width, y(slots[23][key])],
+  // Extend the first and last points to the edges so the lines span the full day.
+  const pts = (value: (s: (typeof slots)[number]) => number) => [
+    [0, y(value(slots[0]))],
+    ...slots.map((s) => [x(s.slot), y(value(s))]),
+    [width, y(value(slots[23]))],
   ]
   const line = (p: number[][]) => p.map(([px, py], i) => `${i ? 'L' : 'M'}${px.toFixed(1)},${py.toFixed(1)}`).join('')
-  const band = `${line(pts('p90'))}${pts('p10')
-    .reverse()
-    .map(([px, py]) => `L${px.toFixed(1)},${py.toFixed(1)}`)
-    .join('')}Z`
-  const p50 = line(pts('p50'))
+  /** The band from p50 out to fraction f of the way to p10 and p90. */
+  const band = (f: number) =>
+    `${line(pts((s) => s.p50 + f * (s.p90 - s.p50)))}${pts((s) => s.p50 - f * (s.p50 - s.p10))
+      .reverse()
+      .map(([px, py]) => `L${px.toFixed(1)},${py.toFixed(1)}`)
+      .join('')}Z`
+  const p50 = line(pts((s) => s.p50))
 
   const open = openWindow(concept, prediction.scenario.day)
   const closed: [number, number][] = open
@@ -129,7 +139,10 @@ export function HourChart({
             p50
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="h-2 w-3 rounded-[2px]" style={{ background: color, opacity: 0.2 }} />
+            <span
+              className="h-2.5 w-3 rounded-[2px]"
+              style={{ background: `linear-gradient(to bottom, transparent, ${color}, transparent)`, opacity: 0.4 }}
+            />
             p10 to p90
           </span>
         </span>
@@ -179,7 +192,9 @@ export function HourChart({
                   </text>
                 </g>
               ))}
-              <path d={band} fill={color} opacity={0.18} />
+              {BAND_LAYERS.map(({ f, opacity }) => (
+                <path key={f} d={band(f)} fill={color} opacity={opacity} />
+              ))}
               <path d={p50} fill="none" stroke={color} strokeOpacity={0.35} strokeWidth={1.75} strokeLinejoin="round" />
               <Playhead width={width} clipId={clipId} height={HEIGHT} />
               <path

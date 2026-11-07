@@ -19,3 +19,11 @@
 .mise-map .maplibregl-ctrl-bottom-right .maplibregl-ctrl {
   margin: 0 6px 6px 0;
 }
+
+/* Lane E: CLAUDE.md bans decorative gradient text. Keep the Beautiful UI loader and its pixel grid,
+ * but draw its label in one flat color instead of the shimmering gradient. */
+.mise-loading .bg-clip-text {
+  background-image: none !important;
+  animation: none !important;
+  color: var(--ink-2);
+}

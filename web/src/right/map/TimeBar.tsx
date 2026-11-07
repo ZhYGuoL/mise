@@ -27,7 +27,8 @@ export function Clock({ scenario, concept, busy }: { scenario: Scenario; concept
       </div>
       {busy && (
         // .dark flips the Beautiful UI tokens so the loader reads on the dark map.
-        <div className="dark mt-2.5">
+        // .mise-loading flattens the label (see map.css).
+        <div className="dark mise-loading mt-2.5">
           <LoadingState label="Simulating" />
         </div>
       )}

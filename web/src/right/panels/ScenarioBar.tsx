@@ -61,7 +61,7 @@ function Segmented<V extends string>({
               <motion.span
                 layoutId={`scenario-${id}`}
                 transition={spring.moderate}
-                className="absolute inset-0 rounded-full bg-surface shadow-btn"
+                className="absolute inset-0 rounded-full bg-surface shadow-[0_0_0_1px_var(--line-strong)]"
               />
             )}
             <span className="relative">{o.label}</span>
