@@ -62,6 +62,10 @@ export const MAP = {
   roadMinor: [229, 231, 234] as RGB,
   /** --ink. Residents, other orders and restaurants are ink at low opacity, so they read as neutral grey. */
   ink: [31, 33, 36] as RGB,
+  /** Dots are grey, never black: residents lightest, restaurants a step darker, restaurants that lose customers darkest. Opaque greys so clusters never pile up into black. */
+  dot: [158, 164, 172] as RGB,
+  place: [124, 130, 139] as RGB,
+  placeStrong: [98, 104, 113] as RGB,
   /** --surface */
   surface: [255, 255, 255] as RGB,
 }
