@@ -53,9 +53,18 @@ section{position:relative}
 .scrollcue b:after{content:"";position:absolute;left:0;top:-40px;width:1px;height:40px;background:var(--ink);animation:drip 1.6s cubic-bezier(.6,0,.2,1) infinite}
 @keyframes drip{to{top:40px}}
 
+@media (pointer:fine){body{cursor:none}a,button{cursor:none}}
+/* cursor */
+#cur{position:fixed;left:0;top:0;width:12px;height:12px;border-radius:50%;background:var(--rust);z-index:100;pointer-events:none;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:500;transition:width .35s cubic-bezier(.2,.8,.2,1),height .35s cubic-bezier(.2,.8,.2,1),background .3s}
+#cur.big{width:74px;height:74px}
+#cur span{opacity:0;transition:opacity .2s}
+#cur.big span{opacity:1}
+@media (pointer:coarse){#cur{display:none}}
+
 </style>
 </head>
 <body>
+<div id="cur"><span>Taste</span></div>
 <nav><div class="brand"><i></i>Mise</div><a class="cta" href="/?seed=1" data-cur="Open">Open the kitchen <span class="arr">→</span></a></nav>
 
 <section id="hero">
@@ -86,6 +95,12 @@ addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY;nmx=mx/innerWidth-.
 
 const loops=[],resizers=[];let DPR=Math.min(devicePixelRatio||1,2);
 const onView=(el,fn)=>{const o=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){o.disconnect();fn()}},{threshold:.35});o.observe(el)};
+
+/* cursor */
+const cur=$('#cur');let cx=mx,cy=my;
+document.addEventListener('pointerover',e=>{const t=e.target.closest('[data-cur]');cur.classList.toggle('big',!!t);if(t)cur.querySelector('span').textContent=t.dataset.cur});
+
+loops.push(()=>{cx=lerp(cx,mx,.22);cy=lerp(cy,my,.22);cur.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`});
 
 /* ---------- hero dishes ---------- */
 const hero=$('#hero'),dEl=$('#dishes');
